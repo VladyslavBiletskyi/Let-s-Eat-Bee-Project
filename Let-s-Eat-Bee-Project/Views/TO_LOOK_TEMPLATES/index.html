@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+    <!--БАШКА САЙТА-->
+    <head>
+        <!--Import Google Icon Font-->
+        <!--пути - изменить, если потребуется-->
+        <link href="../../Content/materialize.css" rel="stylesheet" media="screen,projection">
+        <link href="../../Content/icon.css" rel="stylesheet">
+        <link href="../../Content/Site.css" rel="stylesheet">
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!--Import jQuery before materialize.js-->
+        <!--пути - изменить, если потребуется-->
+        <script type="text/javascript" src="../../Scripts/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="../../Scripts/materialize.js"></script>
+        <script type="text/javascript" src="../../Scripts/main.js"></script>
+        <title>Welcome</title>
+    </head>
+    <!--КОНЕЦ БАШКИ САЙТА-->
+
+    <body>
+
+        <!-- КУСОК С НАВИГАЦИЕЙ-->
+        <!--НИЖЕ ДВА УЛА - ВЫПАДАЮЩИЕ СПИСКИ ДЛЯ ОСНОВНОЙ И МОБИЛЬНОЙ ВЕРСИЙ, ОТЛИЧАЕТСЯ ТОЛЬКО АЙДИ-->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="signin.html">Sign in</a></li>
+            <li><a href="signup.html">Sign up</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Create an order</a></li>
+        </ul>
+        <ul id="dropdown2" class="dropdown-content">
+            <li><a href="signin.html">Sign in</a></li>
+            <li><a href="signup.html">Sign up</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Create an order</a></li>
+        </ul>
+
+        <div class="navbar-fixed">
+            <!--СОБСТВЕННО, НАВБАР-->
+            <nav class="#4a148c purple darken-3">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="brand-logo">Let`s Eat Bee</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <!--ССЫЛОЧКИ ДЛЯ ОСНОВНОЙ ВЕРСИИ-->
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="about.html">About</a></li>
+                        <li>
+                            <a class="dropdown-button" href="#" data-activates="dropdown1">
+                                User
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+                        <li><a href="#">Contacts</a></li>
+                    </ul>
+                    <!--ССЫЛОЧКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ-->
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="about.html">About</a></li>
+                        <li>
+                            <a class="dropdown-button" href="#" data-activates="dropdown2">
+                                User<i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                        </li>
+                        <li><a href="#">Contacts</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!--КОНЕЦ КУСКА С НАВИГАЦИЕЙ-->
+
+        <!--ЦЕНТРАЛЬНЫЙ БЛОК С ПРИВЕТСТВИЕМ-->
+        <div class="block-content">
+            <div id="welcome-block">
+                <h3>Welcome to Let`s Eat Bee!</h3>
+                <h5>Make a group to order meals or sign up first.</h5>
+                <br />
+                <a class="waves-effect waves-light btn #4a148c purple darken-3" href="about.html">Learn more</a>
+                <a class="waves-effect waves-light btn #4a148c purple darken-3" href="signup.html">Join us</a>
+                <a class="waves-effect waves-light btn #4a148c purple darken-3" href="signin.html">Sign in</a>
+            </div>
+        </div>
+        <!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА С ПРИВЕТСТВИЕМ-->
+
+        <!--НАЧАЛО ФУТЕРА-->
+        <footer class="page-footer #4a148c purple darken-3">
+            <div class="container">
+                  <h5 class="white-text">Our Developers</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Vladislav Biletskyi</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Ihor Biletskyi</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Alexandra Mirontseva</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Tatiana Chursina</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Oleh Strona</a></li>
+                    </ul>
+                <!--надо че-то еще добавить, потом придумаем-->
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Bees Workgroup
+                    <a class="grey-text text-lighten-4 right" href="#">More Links</a>
+                </div>
+            </div>
+        </footer>
+        <!--КОНЕЦ ФУТЕРА-->
+
+    </body>
+</html>
+
