@@ -9,19 +9,69 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Let_s_Eat_Bee_Project.Models;
+using System.Collections.Generic;
 
 namespace Let_s_Eat_Bee_Project.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
+        LEBDatabaseModelContainer db = new LEBDatabaseModelContainer();
+
+        public class ReportViewModel
+        {
+            public string Email { set; get; }
+            public string Pass { set; get; }
+
+        }
+
         public ActionResult SignIn()
         {
-            return View();
+            if (Session["email"] != null)
+                return RedirectToAction("Index", "Home");
+            return View(new ReportViewModel());
+        }
+        [HttpPost]
+        public ActionResult SignIn(ReportViewModel report)
+        {
+            var users = db.Set<User>();
+            var user_id = from u in users
+                         where report.Email == u.Email & report.Pass == u.Password
+                        select u.Id;
+            User user; 
+            if (user_id.Count() != 0)
+                user = db.UserSet.Find(user_id.First());
+            else
+            {
+                return View();
+            }
+
+            Session["email"] = user.Email;
+            Session["pass"] = user.Password;
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult SignUp()
         {
+            if (Session["email"] != null)
+                return RedirectToAction("Index", "Home");
             return View();
+        }
+        [HttpPost]
+        public ActionResult SignUp(User user)
+        {
+            db.UserSet.Add(user);
+            db.SaveChanges();
+
+            Session["email"] = user.Email;
+            Session["pass"] = user.Password;
+               
+
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult SignOut()
+        {
+            Session["email"] = null;
+            Session["pass"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

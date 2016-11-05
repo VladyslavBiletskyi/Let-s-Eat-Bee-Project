@@ -1,4 +1,4 @@
-﻿
+﻿@model Let_s_Eat_Bee_Project.Controllers.AccountController.ReportViewModel
 @{
     ViewBag.Title = "SignIn";
 }
@@ -9,21 +9,35 @@
         <div id="signin-block">
             <h3>Sign in</h3>
             <div class="row">
+@using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { id = "report_request" }))
+{
+
                 <form class="col s12" method="post">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate" required>
-                            <label for="email">Email</label>
+                            <div class="form-group">
+                                <p>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="password" type="password" class="validate" required>
-                            <label for="password">Password</label>
+                            <div class="form-group">
+                                <p>@Html.LabelFor(model => model.Pass, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password" } })
+                                    @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Sign in</button>
                 </form>
+}
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿
+﻿@model Let_s_Eat_Bee_Project.User
 @{
     ViewBag.Title = "SignUp";
 }
@@ -8,31 +8,57 @@
         <div id="signup-block">
             <h3>Join us</h3>
             <div class="row">
-                <form class="col s12">
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="input-field col s6">
+            <div class="form-group">
+                <p>@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="input-field col s6">
+            <div class="form-group">
+                <p>@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="first_name" type="text" class="validate" required>
-                            <label for="first_name">First Name</label>
+                            <div class="form-group">
+                                <p>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                         <div class="input-field col s6">
-                            <input id="last_name" type="text" class="validate" required>
-                            <label for="last_name">Last Name</label>
+                            <div class="form-group">
+                                <p>@Html.LabelFor(model => model.Organization, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Organization, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" required>
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="organization" type="text" class="validate" required>
-                            <label for="organization">Organization</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="password" type="password" class="validate" required>
-                            <label for="password">Password</label>
+                            <div class="form-group">
+                                <p>@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })</p>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                         <div class="input-field col s6">
                             <input id="password2" type="password" class="validate" required>
@@ -40,7 +66,7 @@
                         </div>
                     </div>
                     <center><button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Sign up</button></center>
-                </form>
+}
             </div>
         </div>
     </div>
