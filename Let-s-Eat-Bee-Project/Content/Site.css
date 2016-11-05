@@ -3,8 +3,8 @@
     min-height: 435px;
 }
 .block-content{
-    background: url("/Views/img/main_bg.jpg") fixed center;
-    min-height: 520px;
+    background: url("main_bg.jpg") fixed center;
+    min-height: 530px;
     background-size: 100%;
 }
 
