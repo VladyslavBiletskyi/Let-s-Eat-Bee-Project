@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/05/2016 16:51:23
+-- Date Created: 11/05/2016 21:49:00
 -- Generated from EDMX file: d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\LEBDatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,38 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_OrderUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrderSet] DROP CONSTRAINT [FK_OrderUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JoiningUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JoiningSet] DROP CONSTRAINT [FK_JoiningUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JoiningOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[JoiningSet] DROP CONSTRAINT [FK_JoiningOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ChatMessageUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ChatMessageSet] DROP CONSTRAINT [FK_ChatMessageUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ChatMessageOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ChatMessageSet] DROP CONSTRAINT [FK_ChatMessageOrder];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserSet];
+GO
+IF OBJECT_ID(N'[dbo].[OrderSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrderSet];
+GO
+IF OBJECT_ID(N'[dbo].[JoiningSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[JoiningSet];
+GO
+IF OBJECT_ID(N'[dbo].[ChatMessageSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ChatMessageSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -43,7 +70,8 @@ CREATE TABLE [dbo].[OrderSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UserId] int  NOT NULL,
     [Address] nvarchar(max)  NOT NULL,
-    [CompleteDateTime] datetime  NOT NULL
+    [CompleteDateTime] datetime  NOT NULL,
+    [Creator_Id] int  NULL
 );
 GO
 
@@ -98,28 +126,13 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [UserId] in table 'OrderSet'
-ALTER TABLE [dbo].[OrderSet]
-ADD CONSTRAINT [FK_OrderUser]
-    FOREIGN KEY ([UserId])
-    REFERENCES [dbo].[UserSet]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE CASCADE;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_OrderUser'
-CREATE INDEX [IX_FK_OrderUser]
-ON [dbo].[OrderSet]
-    ([UserId]);
-GO
-
 -- Creating foreign key on [UserId] in table 'JoiningSet'
 ALTER TABLE [dbo].[JoiningSet]
 ADD CONSTRAINT [FK_JoiningUser]
     FOREIGN KEY ([UserId])
     REFERENCES [dbo].[UserSet]
         ([Id])
-    ON DELETE CASCADE ON UPDATE CASCADE;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_JoiningUser'
@@ -171,6 +184,21 @@ GO
 CREATE INDEX [IX_FK_ChatMessageOrder]
 ON [dbo].[ChatMessageSet]
     ([OrderId]);
+GO
+
+-- Creating foreign key on [Creator_Id] in table 'OrderSet'
+ALTER TABLE [dbo].[OrderSet]
+ADD CONSTRAINT [FK_OrderUser]
+    FOREIGN KEY ([Creator_Id])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_OrderUser'
+CREATE INDEX [IX_FK_OrderUser]
+ON [dbo].[OrderSet]
+    ([Creator_Id]);
 GO
 
 -- --------------------------------------------------

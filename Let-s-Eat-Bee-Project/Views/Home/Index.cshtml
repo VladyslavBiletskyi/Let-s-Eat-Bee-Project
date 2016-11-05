@@ -7,9 +7,9 @@
         <h3>Welcome to Let`s Eat Bee!</h3>
         <h5>Make a group to order meals or sign up first.</h5>
         <br />
-        <a class="waves-effect waves-light btn #4a148c purple darken-3" href="about.html">Learn more</a>
-        <a class="waves-effect waves-light btn #4a148c purple darken-3" href="signup.html">Join us</a>
-        <a class="waves-effect waves-light btn #4a148c purple darken-3" href="signin.html">Sign in</a>
+        @Html.ActionLink("Learn More", "About", "Home", new { }, new {@class= "waves-effect waves-light btn #4a148c purple darken-3" })
+        @Html.ActionLink("Join us", "SignUp", "Account", new { }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
+        @Html.ActionLink("Sign In", "SignIn", "Account", new { }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
     </div>
 </div>
 <!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА С ПРИВЕТСТВИЕМ-->

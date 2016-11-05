@@ -44,5 +44,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="OrderUser" TypeName="LEBDatabaseModel.OrderUser" StoreEntitySet="OrderSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Creator_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Creator_Id" IsNull="false" />
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -26,10 +26,10 @@ namespace Let_s_Eat_Bee_Project
         public string Address { get; set; }
         public System.DateTime CompleteDateTime { get; set; }
     
-        public virtual User Master { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Joining> Joining { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatMessage> ChatMessages { get; set; }
+        public virtual User Creator { get; set; }
     }
 }

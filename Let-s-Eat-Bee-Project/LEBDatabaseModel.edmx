@@ -10,10 +10,6 @@
     <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Store.JoiningSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ChatMessageSet" EntityType="LEBDatabaseModel.Store.ChatMessageSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="OrderUser" Association="LEBDatabaseModel.Store.OrderUser">
-      <End Role="Order" EntitySet="OrderSet" />
-      <End Role="User" EntitySet="UserSet" />
-    </AssociationSet>
     <AssociationSet Name="JoiningUser" Association="LEBDatabaseModel.Store.JoiningUser">
       <End Role="Joining" EntitySet="JoiningSet" />
       <End Role="User" EntitySet="UserSet" />
@@ -29,6 +25,10 @@
     <AssociationSet Name="ChatMessageOrder" Association="LEBDatabaseModel.Store.ChatMessageOrder">
       <End Role="ChatMessage" EntitySet="ChatMessageSet" />
       <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderUser" Association="LEBDatabaseModel.Store.OrderUser">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="User" EntitySet="UserSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
@@ -50,6 +50,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CompleteDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Creator_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="JoiningSet">
     <Key>
@@ -70,20 +71,6 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="OrderId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="OrderUser">
-    <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="*" />
-    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="JoiningUser">
     <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
     <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
@@ -140,6 +127,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="OrderUser">
+    <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="*" />
+    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Creator_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -147,10 +146,6 @@
         <EntityContainer Name="LEBDatabaseModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserSet" EntityType="LEBDatabaseModel.User" />
           <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Order" />
-          <AssociationSet Name="OrderUser" Association="LEBDatabaseModel.OrderUser">
-            <End Role="Order" EntitySet="OrderSet" />
-            <End Role="User" EntitySet="UserSet" />
-          </AssociationSet>
           <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Joining" />
           <AssociationSet Name="JoiningUser" Association="LEBDatabaseModel.JoiningUser">
             <End Role="Joining" EntitySet="JoiningSet" />
@@ -169,6 +164,10 @@
             <End Role="ChatMessage" EntitySet="ChatMessageSet" />
             <End Role="Order" EntitySet="OrderSet" />
           </AssociationSet>
+          <AssociationSet Name="OrderUser" Association="LEBDatabaseModel.OrderUser">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -180,36 +179,22 @@
           <Property Name="Email" Type="String" Nullable="false" />
           <Property Name="Organization" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="LEBDatabaseModel.OrderUser" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Joinings" Relationship="LEBDatabaseModel.JoiningUser" FromRole="User" ToRole="Joining" />
           <NavigationProperty Name="ChatMessages" Relationship="LEBDatabaseModel.ChatMessageUser" FromRole="User" ToRole="ChatMessage" />
+          <NavigationProperty Name="Orders" Relationship="LEBDatabaseModel.OrderUser" FromRole="User" ToRole="Order" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Master" Relationship="LEBDatabaseModel.OrderUser" FromRole="Order" ToRole="User" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Address" Type="String" Nullable="false" />
           <Property Name="CompleteDateTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Joining" Relationship="LEBDatabaseModel.JoiningOrder" FromRole="Order" ToRole="Joining" />
           <NavigationProperty Name="ChatMessages" Relationship="LEBDatabaseModel.ChatMessageOrder" FromRole="Order" ToRole="ChatMessage" />
+          <NavigationProperty Name="Creator" Relationship="LEBDatabaseModel.OrderUser" FromRole="Order" ToRole="User" />
         </EntityType>
-        <Association Name="OrderUser">
-          <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="*" />
-          <End Type="LEBDatabaseModel.User" Role="User" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Joining">
           <Key>
             <PropertyRef Name="Id" />
@@ -289,6 +274,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="OrderUser">
+          <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="*" />
+          <End Type="LEBDatabaseModel.User" Role="User" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -338,6 +327,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="OrderUser" TypeName="LEBDatabaseModel.OrderUser" StoreEntitySet="OrderSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Creator_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Creator_Id" IsNull="false" />
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
