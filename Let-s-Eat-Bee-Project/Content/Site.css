@@ -4,7 +4,9 @@
 }
 .block-content{
     background: url("main_bg.jpg") fixed center;
-    min-height: 530px;
+    /*/min-height: 530px;*/
+    min-height: 90vh;
+    height: auto;
     background-size: 100%;
 }
 
@@ -18,20 +20,20 @@ footer{
     text-align: center;
     color: whitesmoke;
     text-shadow: 0 0 4px purple;
-    padding-top: 130px;
+    padding-top: 15%;
 }
 #about-block{
     color: whitesmoke;
     text-shadow: 0 0 4px purple;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 10%;
     
 }
 #signin-block{
     color: whitesmoke;
     text-shadow: 0 0 2px purple;
     text-align: center;
-    padding-top: 55px;
+    padding-top: 15%;
 }
 label{
     font-size: 14px !important;
@@ -42,5 +44,11 @@ label{
     color: whitesmoke;
     text-shadow: 0 0 2px purple;
     text-align: center;
-    padding-top: 35px;
+    padding-top: 10%;
+}
+.dev-list{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-shadow: 0 0 4px purple;
 }
