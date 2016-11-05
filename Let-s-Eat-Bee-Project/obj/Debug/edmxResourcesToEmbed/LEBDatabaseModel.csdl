@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LEBDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="LEBDatabaseModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserSet" EntityType="LEBDatabaseModel.User" />
+    <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Order" />
+    <AssociationSet Name="OrderUser" Association="LEBDatabaseModel.OrderUser">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Joining" />
+    <AssociationSet Name="JoiningUser" Association="LEBDatabaseModel.JoiningUser">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="JoiningOrder" Association="LEBDatabaseModel.JoiningOrder">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <EntitySet Name="ChatMessageSet" EntityType="LEBDatabaseModel.ChatMessage" />
+    <AssociationSet Name="ChatMessageUser" Association="LEBDatabaseModel.ChatMessageUser">
+      <End Role="ChatMessage" EntitySet="ChatMessageSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="ChatMessageOrder" Association="LEBDatabaseModel.ChatMessageOrder">
+      <End Role="ChatMessage" EntitySet="ChatMessageSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Organization" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="LEBDatabaseModel.OrderUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Joinings" Relationship="LEBDatabaseModel.JoiningUser" FromRole="User" ToRole="Joining" />
+    <NavigationProperty Name="ChatMessages" Relationship="LEBDatabaseModel.ChatMessageUser" FromRole="User" ToRole="ChatMessage" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Master" Relationship="LEBDatabaseModel.OrderUser" FromRole="Order" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="CompleteDateTime" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Joining" Relationship="LEBDatabaseModel.JoiningOrder" FromRole="Order" ToRole="Joining" />
+    <NavigationProperty Name="ChatMessages" Relationship="LEBDatabaseModel.ChatMessageOrder" FromRole="Order" ToRole="ChatMessage" />
+  </EntityType>
+  <Association Name="OrderUser">
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Joining">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TextOfOrder" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="LEBDatabaseModel.JoiningUser" FromRole="Joining" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="LEBDatabaseModel.JoiningOrder" FromRole="Joining" ToRole="Order" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="JoiningUser">
+    <End Type="LEBDatabaseModel.Joining" Role="Joining" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JoiningOrder">
+    <End Type="LEBDatabaseModel.Joining" Role="Joining" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ChatMessage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
+    <Property Name="Message" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="LEBDatabaseModel.ChatMessageUser" FromRole="ChatMessage" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="LEBDatabaseModel.ChatMessageOrder" FromRole="ChatMessage" ToRole="Order" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ChatMessageUser">
+    <End Type="LEBDatabaseModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ChatMessageOrder">
+    <End Type="LEBDatabaseModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
