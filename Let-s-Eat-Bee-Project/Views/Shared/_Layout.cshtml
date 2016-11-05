@@ -13,9 +13,9 @@
 
     <!--Import jQuery before materialize.js-->
     <!--пути - изменить, если потребуется-->
-    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/materialize.js"></script>
-    <script type="text/javascript" src="~/Scripts/materialize.js"></script>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
     <title>Welcome</title>
 </head>
 <body>
@@ -65,20 +65,17 @@
         </nav>
     </div>
     <!--КОНЕЦ КУСКА С НАВИГАЦИЕЙ-->
-    <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer style="background-color:purple; width:100%;">
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2016 Bees Workgroup
-                    <a class="grey-text text-lighten-4 right" href="#">More Links</a>
-                </div>
+    <footer class="page-footer #4a148c purple darken-3">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2016 Bees Workgroup
+                <a class="grey-text text-lighten-4 right" href="#">More Links</a>
             </div>
-        </footer>
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        </div>
+    </footer>
+   <!--Scripts.Render("~/bundles/jquery")
+    Scripts.Render("~/bundles/materialize")
+    RenderSection("scripts", required: false)-->
 </body>
 </html>
