@@ -47,6 +47,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
             Session["email"] = user.Email;
             Session["pass"] = user.Password;
+            Session["userID"] = user.Id;
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignUp()
@@ -63,7 +64,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
             Session["email"] = user.Email;
             Session["pass"] = user.Password;
-               
+            Session["userID"] = user.Id;
+
 
             return RedirectToAction("Index", "Home");
         }
@@ -71,6 +73,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
             Session["email"] = null;
             Session["pass"] = null;
+            Session["userID"] = null;
             return RedirectToAction("Index", "Home");
         }
     }

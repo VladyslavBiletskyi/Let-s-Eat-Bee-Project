@@ -11,6 +11,16 @@ namespace Let_s_Eat_Bee_Project.Controllers
 {
     public class OrderController : Controller
     {
+        public class NewOrder
+        {
+            public int UserID { set; get; }
+            public string FirstName { set; get; }
+            public string LastName { set; get; }
+            public string Address { set; get; }
+            public string Date { set; get; }
+            public string Time { set; get; }
+        }
+
         LEBDatabaseModelContainer db = new LEBDatabaseModelContainer();
         // GET: Order
         public ActionResult Index()
@@ -20,13 +30,30 @@ namespace Let_s_Eat_Bee_Project.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            NewOrder order = new NewOrder();
+            if (Session["UserId"] != null)
+            {
+
+                var usersSet = db.Set<User>();
+                User user = usersSet.Find((int)Session["UserID"]);
+
+                order.UserID = user.Id;
+                order.LastName = user.LastName;
+                order.FirstName = user.FirstName;
+
+            }
+            return View(order);
         }
         [HttpPost]
-        public ActionResult Create(Order order)
+        public ActionResult Create(NewOrder _order)
         {
+            Order order = new Order();
+            order.UserId = _order.UserID;
+            order.Address = _order.Address;
+            order.CompleteDateTime = DateTime.Parse(_order.Date + " " + _order.Time);
+            User creator = db.Set<User>().Find(_order.UserID);
 
-            db.OrderSet.Add(order);
+            db.Set<Order>().Add(order);
             db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
