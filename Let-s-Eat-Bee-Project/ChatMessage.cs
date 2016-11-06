@@ -17,10 +17,9 @@ namespace Let_s_Eat_Bee_Project
         public int Id { get; set; }
         public System.DateTime CreationDateTime { get; set; }
         public string Message { get; set; }
-        public int UserId { get; set; }
         public int OrderId { get; set; }
     
-        public virtual User User { get; set; }
         public virtual Order Order { get; set; }
+        public virtual User User { get; set; }
     }
 }

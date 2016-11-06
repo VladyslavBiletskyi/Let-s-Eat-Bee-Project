@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bcba69d7fe204c84b0f485cb881cdca9" Name="Diagram1" ZoomLevel="92" >
-        <EntityTypeShape EntityType="LEBDatabaseModel.User" Width="1.5" PointX="0.5" PointY="0.875" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.User" Width="1.5" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="LEBDatabaseModel.Order" Width="1.5" PointX="2.75" PointY="0.875" />
-        <EntityTypeShape EntityType="LEBDatabaseModel.Joining" Width="1.5" PointX="3.125" PointY="4" />
-        <AssociationConnector Association="LEBDatabaseModel.JoiningUser" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.Joining" Width="1.5" PointX="4.875" PointY="2.875" />
         <AssociationConnector Association="LEBDatabaseModel.JoiningOrder" />
         <EntityTypeShape EntityType="LEBDatabaseModel.ChatMessage" Width="1.5" PointX="5" PointY="0.5" />
-        <AssociationConnector Association="LEBDatabaseModel.ChatMessageUser" />
         <AssociationConnector Association="LEBDatabaseModel.ChatMessageOrder" />
         <AssociationConnector Association="LEBDatabaseModel.OrderUser" />
+        <AssociationConnector Association="LEBDatabaseModel.JoiningUser" />
+        <AssociationConnector Association="LEBDatabaseModel.ChatMessageUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
