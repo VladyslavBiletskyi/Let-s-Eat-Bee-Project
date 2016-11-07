@@ -9,6 +9,14 @@
     height: auto;
     background-size: 100%;
 }
+.block-order{
+    background: url("order_bg.jpg") fixed center;
+    /*/min-height: 530px;*/
+    min-height: 90vh;
+    height: auto;
+    background-size: 100%;
+    color: purple !important;
+}
 
 h3, h5{
     margin-top: 0;
@@ -45,6 +53,16 @@ label{
     text-shadow: 0 0 2px purple;
     text-align: center;
     padding-top: 10%;
+}
+#create-block{
+    color: purple !important;
+    text-shadow: 0 0 2px whitesmoke;
+    text-align: center;
+    padding-top: 3%;
+}
+#create-block label{
+    color: purple !important;
+
 }
 .dev-list{
     font-size: 20px;
