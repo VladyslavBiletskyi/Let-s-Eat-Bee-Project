@@ -17,11 +17,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
     {
         LEBDatabaseModelContainer db = new LEBDatabaseModelContainer();
 
-        public class ReportViewModel
-        {
-            public string Email { set; get; }
-            public string Pass { set; get; }
-        }
+        
 
         public ActionResult SignIn()
         {
@@ -32,13 +28,17 @@ namespace Let_s_Eat_Bee_Project.Controllers
         [HttpPost]
         public ActionResult SignIn(ReportViewModel report)
         {
-            User user = db.Set<User>().Find(report.Email);
-            if (user == null)
+            User user = db.UserSet.Where(x => x.Email == report.Email).First();
+            if (user == null||user.Password!=report.Pass)
+            {
                 return View();
-
-            Session["email"] = user.Email;
-            Session["pass"] = user.Password;
-            return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                Session["email"] = user.Email;
+                Session["UserId"] = user.Id;
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult SignUp()
         {
@@ -53,15 +53,11 @@ namespace Let_s_Eat_Bee_Project.Controllers
             db.SaveChanges();
 
             Session["email"] = user.Email;
-            Session["pass"] = user.Password;
-
-
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignOut()
         {
-            Session["email"] = null;
-            Session["pass"] = null;
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
     }

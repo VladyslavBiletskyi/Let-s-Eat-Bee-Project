@@ -1,5 +1,4 @@
-﻿@model Let_s_Eat_Bee_Project.Controllers.OrderController.NewOrder
-
+﻿@model Let_s_Eat_Bee_Project.Models.NewOrder
 @{
     ViewBag.Title = "Create";
 }
@@ -11,7 +10,7 @@
             <div class="row">
                 @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "hide" } })
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "hide" } })
                     <div class="row">
                         <div class="input-field col s12">
                             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "first_name" })

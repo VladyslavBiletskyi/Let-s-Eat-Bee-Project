@@ -12,23 +12,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
 {
     public class OrderController : Controller
     {
-        public class NewOrder
-        {
-            public string Email { set; get; }
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Input First Name")]
-            public string FirstName { set; get; }
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Input Last Name")]
-            public string LastName { set; get; }
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Input Address")]
-            public string Address { set; get; }
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Input Date in format dd:MM:yyyy")]
-            public string Date { set; get; }
-            [Required(AllowEmptyStrings = false, ErrorMessage = "Input Time in format hh:mm")]
-            public string Time { set; get; }
-            public string TextOfOrder { set; get; }
-        }
-
-
+        
         LEBDatabaseModelContainer db = new LEBDatabaseModelContainer();
         // GET: Order
         public ActionResult Index()
@@ -38,16 +22,14 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult Create()
         {
             NewOrder order = new NewOrder();
-            if (Session["email"] != null)
+            
+            if (Session["UserId"] != null )
             {
-
-                var usersSet = db.Set<User>();
-                User user = usersSet.Find(Session["email"]);
-
-                order.Email = user.Email;
+                int id = (int)Session["UserId"];
+                User user = db.UserSet.Find(id);
+                order.UserId = user.Id;
                 order.LastName = user.LastName;
                 order.FirstName = user.FirstName;
-
             }
             return View(order);
         }
@@ -56,16 +38,14 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
             Order order = new Order();
             User user = null;
-            if (_order.Email != null)
+            if (_order.UserId != 0)
             {
-                user = db.Set<User>().Find(_order.Email);
+                user = db.Set<User>().Find(_order.UserId);
             }
-            order.Creator = user;
-            
+            order.Creator = user;           
             order.Address = _order.Address;
             order.CompleteDateTime = DateTime.Parse(_order.Date + " " + _order.Time);
-            
-
+           
             db.Set<Order>().Add(order);
             db.SaveChanges();
 
