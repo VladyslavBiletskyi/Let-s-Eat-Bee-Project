@@ -8,6 +8,7 @@
     min-height: 90vh;
     height: auto;
     background-size: 100%;
+    padding-bottom: 30px;
 }
 .block-order{
     background: url("order_bg.jpg") fixed center;
@@ -16,6 +17,7 @@
     height: auto;
     background-size: 100%;
     color: purple !important;
+    padding-bottom: 30px;
 }
 
 h3, h5{

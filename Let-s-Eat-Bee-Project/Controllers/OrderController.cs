@@ -23,7 +23,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
             NewOrder order = new NewOrder();
             
-            if (Session["UserId"] != null )
+            if ((int)Session["UserId"] != 0 ) //fixed by Tatiana, винить ее
             {
                 int id = (int)Session["UserId"];
                 User user = db.UserSet.Find(id);

@@ -210,6 +210,7 @@
     </Content>
     <Content Include="Content\icon.css" />
     <Content Include="Content\materialize.css" />
+    <Content Include="Content\order_bg.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -261,6 +262,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\materialize.clockpicker.js" />
     <Content Include="Scripts\materialize.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />

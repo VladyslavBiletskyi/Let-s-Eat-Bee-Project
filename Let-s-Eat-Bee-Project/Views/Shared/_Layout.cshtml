@@ -15,6 +15,7 @@
     <!--пути - изменить, если потребуется-->
     <script type="text/javascript" src="~/Scripts/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/materialize.js"></script>
+    <script type="text/javascript" src="~/Scripts/materialize.clockpicker.js"></script>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
     <title>Welcome</title>
 </head>
@@ -31,11 +32,11 @@
         {
             <li>@Html.ActionLink("Sign out", "SignOut", "Account")</li>
         }
-            <li class="divider"></li>
+        <li class="divider"></li>
         <li>@Html.ActionLink("Create an order", "Create", "Order")</li>
     </ul>
     <ul id="dropdown2" class="dropdown-content">
-        <li>@Html.ActionLink("Sign in","SignIn","Account")</li>
+        <li>@Html.ActionLink("Sign in", "SignIn", "Account")</li>
         <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
         <li class="divider"></li>
         <li>@Html.ActionLink("Create an order", "Create", "Order")</li>
@@ -45,7 +46,7 @@
         <!--СОБСТВЕННО, НАВБАР-->
         <nav class="#4a148c purple darken-3">
             <div class="nav-wrapper">
-                @Html.ActionLink("Let`s Eat Bee", "Index", "Home",new { @class = "brand-logo" })
+                @Html.ActionLink("Let`s Eat Bee", "Index", "Home", new { @class = "brand-logo", @href = "/" })
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <!--ССЫЛОЧКИ ДЛЯ ОСНОВНОЙ ВЕРСИИ-->
                 <ul class="right hide-on-med-and-down">
@@ -72,7 +73,7 @@
         </nav>
     </div>
     <!--КОНЕЦ КУСКА С НАВИГАЦИЕЙ-->
-        @RenderBody()
+    @RenderBody()
     <footer class="page-footer #4a148c purple darken-3">
         <div class="footer-copyright">
             <div class="container">
@@ -81,8 +82,8 @@
             </div>
         </div>
     </footer>
-   <!--Scripts.Render("~/bundles/jquery")
-    Scripts.Render("~/bundles/materialize")
-    RenderSection("scripts", required: false)-->
+    <!--Scripts.Render("~/bundles/jquery")
+     Scripts.Render("~/bundles/materialize")
+     RenderSection("scripts", required: false)-->
 </body>
 </html>

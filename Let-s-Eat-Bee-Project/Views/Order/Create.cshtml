@@ -1,4 +1,5 @@
-﻿@model Let_s_Eat_Bee_Project.Models.NewOrder
+﻿@model Let_s_Eat_Bee_Project.Controllers.OrderController.NewOrder
+
 @{
     ViewBag.Title = "Create";
 }
@@ -10,7 +11,7 @@
             <div class="row">
                 @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "hide" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "hide" } })
                     <div class="row">
                         <div class="input-field col s12">
                             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "first_name" })
@@ -42,8 +43,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            @Html.LabelFor(model => model.Time, htmlAttributes: new { @for = "time" })
-                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "time", @placeholder = "HH:MM" } })
+                            @Html.LabelFor(model => model.Time, htmlAttributes: new { @for = "timepicker" })
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "time" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
                     </div>

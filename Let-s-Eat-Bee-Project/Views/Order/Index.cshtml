@@ -3,14 +3,104 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-@foreach (var item in Model)
-{
-    <br />
-    @item.Id
-    <br />
-    @item.Address
-    <br />
-    @item.CompleteDateTime
-    <br />
-}
+@*<h2>Index</h2>
+    @foreach (var item in Model)
+    {
+        <br />
+        @item.Id
+        <br />
+        @item.Address
+        <br />
+        @item.CompleteDateTime
+        <br />
+    }*@
+
+<div class="block-order">
+    <div class="container">
+        <div id="create-block">
+            <h3>View Orders</h3>
+            <br />
+
+            <!--карточки - в рядах. в каждом ряду максимум 3 карточки-->
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card #4a148c purple darken-3">
+                        <div class="card-content white-text">
+                            <span class="card-title">Order Date &amp; Time</span>
+                            <p>Address:</p>
+                            <p>Description:</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">Join</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
