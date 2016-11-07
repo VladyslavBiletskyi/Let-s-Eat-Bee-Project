@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/07/2016 12:27:48
--- Generated from EDMX file: D:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\LEBDatabaseModel.edmx
+-- Date Created: 11/07/2016 15:16:18
+-- Generated from EDMX file: d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\LEBDatabaseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -23,23 +23,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ChatMessageOrder]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ChatMessageSet] DROP CONSTRAINT [FK_ChatMessageOrder];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserOrder]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[OrderSet] DROP CONSTRAINT [FK_UserOrder];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserJoining]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[JoiningSet] DROP CONSTRAINT [FK_UserJoining];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ChatMessageUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ChatMessageSet] DROP CONSTRAINT [FK_ChatMessageUser];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserSet];
-GO
 IF OBJECT_ID(N'[dbo].[OrderSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[OrderSet];
 GO
@@ -53,17 +41,6 @@ GO
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
-
--- Creating table 'UserSet'
-CREATE TABLE [dbo].[UserSet] (
-    [FirstName] nvarchar(max)  NOT NULL,
-    [LastName] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(50)  NOT NULL,
-    [Organization] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL,
-    [Id] int IDENTITY(1,1) NOT NULL
-);
-GO
 
 -- Creating table 'OrderSet'
 CREATE TABLE [dbo].[OrderSet] (
@@ -95,15 +72,20 @@ CREATE TABLE [dbo].[ChatMessageSet] (
 );
 GO
 
+-- Creating table 'UserSet'
+CREATE TABLE [dbo].[UserSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FirstName] nvarchar(max)  NOT NULL,
+    [LastName] nvarchar(max)  NOT NULL,
+    [Email] nvarchar(max)  NOT NULL,
+    [Organization] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
-
--- Creating primary key on [Id] in table 'UserSet'
-ALTER TABLE [dbo].[UserSet]
-ADD CONSTRAINT [PK_UserSet]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
 
 -- Creating primary key on [Id] in table 'OrderSet'
 ALTER TABLE [dbo].[OrderSet]
@@ -120,6 +102,12 @@ GO
 -- Creating primary key on [Id] in table 'ChatMessageSet'
 ALTER TABLE [dbo].[ChatMessageSet]
 ADD CONSTRAINT [PK_ChatMessageSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'UserSet'
+ALTER TABLE [dbo].[UserSet]
+ADD CONSTRAINT [PK_UserSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -189,15 +177,15 @@ GO
 
 -- Creating foreign key on [User_Id] in table 'ChatMessageSet'
 ALTER TABLE [dbo].[ChatMessageSet]
-ADD CONSTRAINT [FK_ChatMessageUser]
+ADD CONSTRAINT [FK_UserChatMessage]
     FOREIGN KEY ([User_Id])
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ChatMessageUser'
-CREATE INDEX [IX_FK_ChatMessageUser]
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserChatMessage'
+CREATE INDEX [IX_FK_UserChatMessage]
 ON [dbo].[ChatMessageSet]
     ([User_Id]);
 GO

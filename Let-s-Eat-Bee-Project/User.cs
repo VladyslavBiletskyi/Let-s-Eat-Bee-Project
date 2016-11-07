@@ -22,12 +22,12 @@ namespace Let_s_Eat_Bee_Project
             this.ChatMessages = new HashSet<ChatMessage>();
         }
     
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Organization { get; set; }
         public string Password { get; set; }
-        public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

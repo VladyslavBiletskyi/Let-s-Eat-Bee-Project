@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="LEBDatabaseModelStoreContainer" CdmEntityContainer="LEBDatabaseModelContainer">
-    <EntitySetMapping Name="UserSet">
-      <EntityTypeMapping TypeName="IsTypeOf(LEBDatabaseModel.User)">
-        <MappingFragment StoreEntitySet="UserSet">
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Organization" ColumnName="Organization" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="OrderSet">
       <EntityTypeMapping TypeName="IsTypeOf(LEBDatabaseModel.Order)">
         <MappingFragment StoreEntitySet="OrderSet">
@@ -42,32 +31,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="OrderUser" TypeName="LEBDatabaseModel.OrderUser" StoreEntitySet="OrderSet">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LEBDatabaseModel.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserOrder" TypeName="LEBDatabaseModel.UserOrder" StoreEntitySet="OrderSet">
       <EndProperty Name="User">
-        <ScalarProperty Name="Email" ColumnName="Creator_Email" />
+        <ScalarProperty Name="Id" ColumnName="Creator_Id" />
       </EndProperty>
       <EndProperty Name="Order">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-      <Condition ColumnName="Creator_Email" IsNull="false" />
+      <Condition ColumnName="Creator_Id" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="JoiningUser" TypeName="LEBDatabaseModel.JoiningUser" StoreEntitySet="JoiningSet">
+    <AssociationSetMapping Name="UserJoining" TypeName="LEBDatabaseModel.UserJoining" StoreEntitySet="JoiningSet">
       <EndProperty Name="User">
-        <ScalarProperty Name="Email" ColumnName="User_Email" />
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="Joining">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-      <Condition ColumnName="User_Email" IsNull="false" />
+      <Condition ColumnName="User_Id" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ChatMessageUser" TypeName="LEBDatabaseModel.ChatMessageUser" StoreEntitySet="ChatMessageSet">
+    <AssociationSetMapping Name="UserChatMessage" TypeName="LEBDatabaseModel.UserChatMessage" StoreEntitySet="ChatMessageSet">
       <EndProperty Name="User">
-        <ScalarProperty Name="Email" ColumnName="User_Email" />
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="ChatMessage">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
-      <Condition ColumnName="User_Email" IsNull="false" />
+      <Condition ColumnName="User_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

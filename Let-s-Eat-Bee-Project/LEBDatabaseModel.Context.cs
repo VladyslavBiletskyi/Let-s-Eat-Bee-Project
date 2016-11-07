@@ -25,9 +25,9 @@ namespace Let_s_Eat_Bee_Project
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Order> OrderSet { get; set; }
         public virtual DbSet<Joining> JoiningSet { get; set; }
         public virtual DbSet<ChatMessage> ChatMessageSet { get; set; }
+        public virtual DbSet<User> UserSet { get; set; }
     }
 }
