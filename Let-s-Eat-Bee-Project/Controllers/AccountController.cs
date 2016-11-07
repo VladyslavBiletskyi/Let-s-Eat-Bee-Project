@@ -21,7 +21,6 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
             public string Email { set; get; }
             public string Pass { set; get; }
-
         }
 
         public ActionResult SignIn()
@@ -33,21 +32,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
         [HttpPost]
         public ActionResult SignIn(ReportViewModel report)
         {
-            var users = db.Set<User>();
-            var user_id = from u in users
-                         where report.Email == u.Email & report.Pass == u.Password
-                        select u.Id;
-            User user; 
-            if (user_id.Count() != 0)
-                user = db.UserSet.Find(user_id.First());
-            else
-            {
+            User user = db.Set<User>().Find(report.Email);
+            if (user == null)
                 return View();
-            }
 
             Session["email"] = user.Email;
             Session["pass"] = user.Password;
-            Session["userID"] = user.Id;
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignUp()
@@ -64,7 +54,6 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
             Session["email"] = user.Email;
             Session["pass"] = user.Password;
-            Session["userID"] = user.Id;
 
 
             return RedirectToAction("Index", "Home");
@@ -73,7 +62,6 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
             Session["email"] = null;
             Session["pass"] = null;
-            Session["userID"] = null;
             return RedirectToAction("Index", "Home");
         }
     }

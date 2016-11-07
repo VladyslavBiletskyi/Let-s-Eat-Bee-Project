@@ -5,17 +5,9 @@
     <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Store.JoiningSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ChatMessageSet" EntityType="LEBDatabaseModel.Store.ChatMessageSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="JoiningUser" Association="LEBDatabaseModel.Store.JoiningUser">
-      <End Role="Joining" EntitySet="JoiningSet" />
-      <End Role="User" EntitySet="UserSet" />
-    </AssociationSet>
     <AssociationSet Name="JoiningOrder" Association="LEBDatabaseModel.Store.JoiningOrder">
       <End Role="Joining" EntitySet="JoiningSet" />
       <End Role="Order" EntitySet="OrderSet" />
-    </AssociationSet>
-    <AssociationSet Name="ChatMessageUser" Association="LEBDatabaseModel.Store.ChatMessageUser">
-      <End Role="ChatMessage" EntitySet="ChatMessageSet" />
-      <End Role="User" EntitySet="UserSet" />
     </AssociationSet>
     <AssociationSet Name="ChatMessageOrder" Association="LEBDatabaseModel.Store.ChatMessageOrder">
       <End Role="ChatMessage" EntitySet="ChatMessageSet" />
@@ -25,15 +17,22 @@
       <End Role="Order" EntitySet="OrderSet" />
       <End Role="User" EntitySet="UserSet" />
     </AssociationSet>
+    <AssociationSet Name="JoiningUser" Association="LEBDatabaseModel.Store.JoiningUser">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="ChatMessageUser" Association="LEBDatabaseModel.Store.ChatMessageUser">
+      <End Role="ChatMessage" EntitySet="ChatMessageSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="Email" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Organization" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -42,10 +41,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CompleteDateTime" Type="datetime" Nullable="false" />
-    <Property Name="Creator_Id" Type="int" Nullable="true" />
+    <Property Name="Creator_Email" Type="nvarchar" MaxLength="50" Nullable="true" />
   </EntityType>
   <EntityType Name="JoiningSet">
     <Key>
@@ -53,8 +51,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TextOfOrder" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="UserFirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Email" Type="nvarchar" MaxLength="50" Nullable="true" />
   </EntityType>
   <EntityType Name="ChatMessageSet">
     <Key>
@@ -63,23 +63,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
     <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="User_Email" Type="nvarchar" MaxLength="50" Nullable="true" />
   </EntityType>
-  <Association Name="JoiningUser">
-    <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
-    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Joining">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="JoiningOrder">
     <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
     <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="1">
@@ -91,20 +77,6 @@
       </Principal>
       <Dependent Role="Joining">
         <PropertyRef Name="OrderId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ChatMessageUser">
-    <End Role="ChatMessage" Type="LEBDatabaseModel.Store.ChatMessageSet" Multiplicity="*" />
-    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ChatMessage">
-        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -127,10 +99,34 @@
     <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="Id" />
+        <PropertyRef Name="Email" />
       </Principal>
       <Dependent Role="Order">
-        <PropertyRef Name="Creator_Id" />
+        <PropertyRef Name="Creator_Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JoiningUser">
+    <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
+    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="User_Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ChatMessageUser">
+    <End Role="ChatMessage" Type="LEBDatabaseModel.Store.ChatMessageSet" Multiplicity="*" />
+    <End Role="User" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="User_Email" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
