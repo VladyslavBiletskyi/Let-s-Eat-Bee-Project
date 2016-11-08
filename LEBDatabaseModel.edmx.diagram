@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dd6811a91fda4156a46731e236916687" Name="Diagram1" >
+        <EntityTypeShape EntityType="LEBDatabaseModel.IUser" Width="1.5" PointX="2.375" PointY="0.625" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.UnauthorizedUser" Width="1.5" PointX="0.5" PointY="0.5" />
+        <InheritanceConnector EntityType="LEBDatabaseModel.UnauthorizedUser" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.AuthorizedUser" Width="1.5" PointX="0.5" PointY="2.25" />
+        <InheritanceConnector EntityType="LEBDatabaseModel.AuthorizedUser" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.Order" Width="1.5" PointX="4.25" PointY="1.875" />
+        <AssociationConnector Association="LEBDatabaseModel.OrderIUser" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.Joining" Width="1.5" PointX="6.25" PointY="0.5" />
+        <AssociationConnector Association="LEBDatabaseModel.JoiningIUser" />
+        <AssociationConnector Association="LEBDatabaseModel.JoiningOrder" />
+        <EntityTypeShape EntityType="LEBDatabaseModel.Message" Width="1.5" PointX="7.125" PointY="2.875" />
+        <AssociationConnector Association="LEBDatabaseModel.MessageOrder" />
+        <AssociationConnector Association="LEBDatabaseModel.MessageIUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
