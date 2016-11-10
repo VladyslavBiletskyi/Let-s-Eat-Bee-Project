@@ -102,14 +102,13 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
                     AuthorizedUser aUser = new AuthorizedUser();
-                    aUser.AppUser = user;
+                    aUser.AppUser = db.Users.Find(user.Id);
                     aUser.AppUserId = user.Id;
                     aUser.LastName = model.LastName;
                     aUser.Organization = model.Organization;
                     aUser.FirstName = model.FirstName;
-                    db.AuthUser.Add(aUser);
+                    db.AllUsers.Add(aUser);
                     try
                     {
                         db.SaveChanges();

@@ -14,7 +14,7 @@ namespace Let_s_Eat_Bee_Project
     {
         protected void Application_Start()
         {
-           // Database.SetInitializer(new DBIntializator());
+            Database.SetInitializer(new DBIntializator());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

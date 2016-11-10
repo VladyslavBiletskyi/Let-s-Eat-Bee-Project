@@ -27,11 +27,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
             if (User.Identity.IsAuthenticated) 
             {
                 string id = User.Identity.GetUserId();
-                ApplicationUser user = db.Users.FirstOrDefault(x => x.Id == id);
-                AuthorizedUser u = db.AuthUser.FirstOrDefault(x => x.AppUserId == id);
-                order.UserId = u.Id;
-                order.LastName = u.LastName;
-                order.FirstName = u.FirstName;
+                IEnumerable<AuthorizedUser> u = db.AllUsers.OfType<AuthorizedUser>();
+                AuthorizedUser user = u.FirstOrDefault<AuthorizedUser>(x => x.AppUserId == id);
+
+                order.UserId = user.Id;
+                order.LastName = user.LastName;
+                order.FirstName = user.FirstName;
             }
             return View(order);
         }
@@ -39,11 +40,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult Create(NewOrder model)
         {
             Order order = new Order();
-            Models.AbstractUser user = null;
+            AbstractUser user = null;
             if (User.Identity.IsAuthenticated)
             {
                 string id = User.Identity.GetUserId();
-                user = db.AuthUser.FirstOrDefault( x=> x.AppUserId == id);
+                IEnumerable<AuthorizedUser> u = db.AllUsers.OfType<AuthorizedUser>();
+                user = u.FirstOrDefault(x => x.AppUserId == id);
             }
             else
             {
@@ -54,8 +56,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 db.SaveChanges();
             }
             order.Creator = user;
-            order.CreatorId
-                = user.Id;     
+            order.CreatorId = user.Id;     
             order.Address = model.Address;
             order.CreationDateTime = DateTime.Parse(model.Date + " " + model.Time);
            

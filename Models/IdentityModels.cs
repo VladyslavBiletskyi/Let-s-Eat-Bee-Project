@@ -53,12 +53,10 @@ namespace Let_s_Eat_Bee_Project.Models
     public class Order
     {
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
             this.Joinings = new HashSet<Joining>();
             this.Messages = new HashSet<Message>();
-
         }
 
         public int Id { get; set; }
@@ -67,9 +65,7 @@ namespace Let_s_Eat_Bee_Project.Models
         public int CreatorId { get; set; }
 
         public virtual AbstractUser Creator { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Joining> Joinings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
     }
     public class Message
@@ -96,7 +92,7 @@ namespace Let_s_Eat_Bee_Project.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<AuthorizedUser> AuthUser { get; set; }
+        //public DbSet<AuthorizedUser> AuthUser { get; set; }
         public DbSet<AbstractUser> AllUsers { get; set; }
         public DbSet<Joining> Joinings { get; set; }
         public DbSet<Message> Messages { get; set; }
