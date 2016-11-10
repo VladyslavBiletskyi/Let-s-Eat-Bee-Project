@@ -163,57 +163,20 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AuthorizedUser.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IUser.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Joining.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LEBDatabaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LEBDatabaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LEBDatabaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LEBDatabaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LEBDatabaseModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Message.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderModels.cs" />
-    <Compile Include="Order.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UnauthorizedUser.cs">
-      <DependentUpon>LEBDatabaseModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\LEBDatabase.mdf" />
-    <Content Include="App_Data\LEBDatabase_log.ldf">
-      <DependentUpon>LEBDatabase.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\icon.css" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\order_bg.jpg" />
@@ -240,25 +203,7 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
-    <EntityDeploy Include="LEBDatabaseModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LEBDatabaseModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="LEBDatabaseModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LEBDatabaseModel.Context.cs</LastGenOutput>
-      <DependentUpon>LEBDatabaseModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="LEBDatabaseModel.edmx.diagram">
-      <DependentUpon>LEBDatabaseModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="LEBDatabaseModel.edmx.sql" />
-    <Content Include="LEBDatabaseModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LEBDatabaseModel.cs</LastGenOutput>
-      <DependentUpon>LEBDatabaseModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -303,6 +248,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\img\" />
   </ItemGroup>
   <PropertyGroup>

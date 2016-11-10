@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using Let_s_Eat_Bee_Project.Models;
 
 namespace Let_s_Eat_Bee_Project
 {
@@ -12,6 +14,8 @@ namespace Let_s_Eat_Bee_Project
     {
         protected void Application_Start()
         {
+           // Database.SetInitializer(new DBIntializator());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

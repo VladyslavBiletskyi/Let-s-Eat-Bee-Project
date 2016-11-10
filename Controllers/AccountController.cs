@@ -15,50 +15,136 @@ namespace Let_s_Eat_Bee_Project.Controllers
 {
     public class AccountController : Controller
     {
-        LEBDatabaseModelContainer db = new LEBDatabaseModelContainer();
+        ApplicationDbContext db = new ApplicationDbContext();
 
-        
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
 
-        public ActionResult SignIn()
+        public AccountController()
         {
-            if (Session["email"] != null)
+        }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
+        public ActionResult SignIn(string returnUrl)
+        {
+            if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
+            ViewBag.ReturnUrl = returnUrl;
             return View(new ReportViewModel());
         }
         [HttpPost]
-        public ActionResult SignIn(ReportViewModel report)
+        public async Task<ActionResult> SignIn(ReportViewModel report, string returnUrl)
         {
-            User user = db.UserSet.Where(x => x.Email == report.Email).First();
-            if (user == null||user.Password!=report.Pass)
+            if (!User.Identity.IsAuthenticated)
             {
-                return View();
+                if (!ModelState.IsValid)
+                {
+                    return View(report);
+                }
+
+                // Сбои при входе не приводят к блокированию учетной записи
+                // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(report.Email, report.Pass, true, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    default:
+                        ModelState.AddModelError("", "Неудачная попытка входа.");
+                        return View(report);
+                }
             }
-            else
-            {
-                Session["email"] = user.Email;
-                Session["UserId"] = user.Id;
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult SignUp()
         {
-            if (Session["email"] != null)
+            if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(User user)
+        public async Task<ActionResult> SignUp(RegisterViewModel model)
         {
-            db.UserSet.Add(user);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-            Session["email"] = user.Email;
+                    AuthorizedUser aUser = new AuthorizedUser();
+                    aUser.AppUser = user;
+                    aUser.AppUserId = user.Id;
+                    aUser.LastName = model.LastName;
+                    aUser.Organization = model.Organization;
+                    aUser.FirstName = model.FirstName;
+                    db.AuthUser.Add(aUser);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Неудачная попытка входа!");
+            }
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignOut()
         {
-            Session.Clear();
+            if (User.Identity.IsAuthenticated)
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
     }
 }

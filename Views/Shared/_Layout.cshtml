@@ -23,7 +23,7 @@
     <!-- КУСОК С НАВИГАЦИЕЙ-->
     <!--НИЖЕ ДВА УЛА - ВЫПАДАЮЩИЕ СПИСКИ ДЛЯ ОСНОВНОЙ И МОБИЛЬНОЙ ВЕРСИЙ, ОТЛИЧАЕТСЯ ТОЛЬКО АЙДИ-->
     <ul id="dropdown1" class="dropdown-content">
-        @if (Session["email"] == null)
+        @if (!User.Identity.IsAuthenticated)
         {
             <li>@Html.ActionLink("Sign in", "SignIn", "Account")</li>
             <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
@@ -53,7 +53,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>
                         <a class="dropdown-button" href="#" data-activates="dropdown1">
-                            User
+                            Hello @User.Identity.Name
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>

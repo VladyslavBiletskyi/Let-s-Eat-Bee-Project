@@ -1,4 +1,4 @@
-﻿@model Let_s_Eat_Bee_Project.User
+﻿@model Let_s_Eat_Bee_Project.Models.RegisterViewModel
 @{
     ViewBag.Title = "SignUp";
 }
@@ -10,34 +10,35 @@
             <div class="row">
                 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    
                     <div class="row">
                         <div class="input-field col s6">
-                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "first_name" })
-                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "validate", @id = "first_name", @required = "true" } })
+                            @Html.Label("First name")
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "first_name" } })
                         </div>
                         <div class="input-field col s6">
-                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "last_name" })
+                            @Html.Label("Last name")
                             @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "validate", @id = "last_name", @required = "true" } })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @for = "email" })
+                            @Html.Label("E-mail")
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "validate", @id = "email", @required = "true" } })
                         </div>
                         <div class="input-field col s6">
-                            @Html.LabelFor(model => model.Organization, htmlAttributes: new { @for = "organization" })
+                            @Html.Label("Organization")
                             @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "validate", @id = "organization", @required = "true" } })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @for = "password" })
+                            @Html.Label("Password")
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @class = "validate", @required = "true" } })
                         </div>
                         <div class="input-field col s6">
-                            <input id="password2" type="password" class="validate" required>
-                            <label for="password2">Confirm password</label>
+                            @Html.Label("Confirm password")
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "password", @class = "validate", @required = "true" } })
                         </div>
                     </div>
                     <center><button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Sign up</button></center>
