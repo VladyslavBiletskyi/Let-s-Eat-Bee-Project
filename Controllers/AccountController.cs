@@ -24,6 +24,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -57,8 +61,6 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
         public ActionResult SignIn(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Account");
             ViewBag.ReturnUrl = returnUrl;
             return View(new ReportViewModel());
         }

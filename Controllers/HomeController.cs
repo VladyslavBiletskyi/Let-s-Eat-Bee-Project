@@ -10,7 +10,13 @@ namespace Let_s_Eat_Bee_Project.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Account");
+            }else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
