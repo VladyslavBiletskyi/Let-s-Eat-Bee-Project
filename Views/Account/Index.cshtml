@@ -1,4 +1,4 @@
-﻿<!--тут модель...-->
+﻿@model List<Let_s_Eat_Bee_Project.Models.Order>
 
 <div class="block-order">
     <div class="container">
@@ -8,40 +8,21 @@
 
         <div class="row">
 
+          @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)
+          {
             <div class="col s12 m4">
                 <div class="card #4a148c purple darken-3">
                     <div class="card-content white-text">
-                        <span class="card-title">Date</span>
-                        <p>Address </p>
+                        <span class="card-title">@Model[i].CreationDateTime</span>
+                        <p>Address: @Model[i].Address </p>
+                        <p>Description: @Model[i].Joinings.First().Text</p>
                     </div>
                     <div class="card-action">
-                        <a href="#">View more...</a>
+                        <a href="#">Join</a>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m4">
-                <div class="card #4a148c purple darken-3">
-                    <div class="card-content white-text">
-                        <span class="card-title">Date</span>
-                        <p>Address </p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">View more...</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card #4a148c purple darken-3">
-                    <div class="card-content white-text">
-                        <span class="card-title">Date</span>
-                        <p>Address </p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">View more...</a>
-                    </div>
-                </div>
-            </div>
-
+          }
 
         </div>
 
@@ -76,6 +57,6 @@
             </tbody>
         </table>
         <hr />
-        <h5><a href="#">Create an order...</a></h5>
+        <h5>@Html.ActionLink("Create an order", "Create", "Order")</h5>
     </div>
 </div>

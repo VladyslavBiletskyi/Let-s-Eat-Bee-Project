@@ -77,7 +77,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
             db.Joinings.Add(join);
             db.SaveChanges();
-
+            user.Orders.Add(order);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

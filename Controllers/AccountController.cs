@@ -24,9 +24,22 @@ namespace Let_s_Eat_Bee_Project.Controllers
         {
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                string myId = User.Identity.GetUserId();
+                AuthorizedUser myUser = (from user in db.AllUsers.OfType<AuthorizedUser>()
+                          where
+ user.AppUserId == myId
+                          select user).FirstOrDefault();                
+                ViewBag.Page = page;
+                return View(myUser.Orders.OrderBy(x=>x.CreationDateTime).ToList());
+            }
         }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
