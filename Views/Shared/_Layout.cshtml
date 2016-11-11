@@ -34,12 +34,21 @@
         }
         <li class="divider"></li>
         <li>@Html.ActionLink("Create an order", "Create", "Order")</li>
+        <li>@Html.ActionLink("Orders", "Index", "Order")</li>
     </ul>
     <ul id="dropdown2" class="dropdown-content">
-        <li>@Html.ActionLink("Sign in", "SignIn", "Account")</li>
-        <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <li>@Html.ActionLink("Sign in", "SignIn", "Account")</li>
+            <li>@Html.ActionLink("Sign up", "SignUp", "Account")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("Sign out", "SignOut", "Account")</li>
+        }
         <li class="divider"></li>
         <li>@Html.ActionLink("Create an order", "Create", "Order")</li>
+        <li>@Html.ActionLink("Orders", "Index", "Order")</li>
     </ul>
 
     <div class="navbar-fixed">

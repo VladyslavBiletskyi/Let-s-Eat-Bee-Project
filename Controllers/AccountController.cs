@@ -109,14 +109,9 @@ namespace Let_s_Eat_Bee_Project.Controllers
                     aUser.Organization = model.Organization;
                     aUser.FirstName = model.FirstName;
                     db.AllUsers.Add(aUser);
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
 
-                    }
+                    db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Неудачная попытка входа!");

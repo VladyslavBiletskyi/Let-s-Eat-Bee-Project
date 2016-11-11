@@ -16,9 +16,11 @@ namespace Let_s_Eat_Bee_Project.Controllers
         
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Order
-        public ActionResult Index()
-        {         
-            return View(db.Set<Order>());
+        public ActionResult Index(int page = 1)
+        {
+            List<Order> orders = db.Orders.Where(x => x.CreationDateTime >= DateTime.Now).ToList();
+            ViewBag.Page = page;
+            return View(orders);
         }
         public ActionResult Create()
         {
@@ -72,7 +74,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
             db.Joinings.Add(join);
             db.SaveChanges();
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
     }
 }

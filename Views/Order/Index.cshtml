@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Let_s_Eat_Bee_Project.Models.Order>
 @{
     ViewBag.Title = "Index";
 }
@@ -23,83 +23,47 @@
 
             <!--карточки - в рядах. в каждом ряду максимум 3 карточки-->
             <div class="row">
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
+                @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)
+                {
+                    <div class="col s12 m4">
+                        <div class="card #4a148c purple darken-3">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Model[i].CreationDateTime</span>
+                                <p>Address: @Model[i].Address </p>
+                                <p>Description: @Model[i].Joinings.First().Text</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Join</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
-
             <div class="row">
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
+                @for (int i = ((ViewBag.Page - 1) * 6) + 3; i < Model.Count && i < (ViewBag.Page * 6); i++)
+                {
+                    <div class="col s12 m4">
+                        <div class="card #4a148c purple darken-3">
+                            <div class="card-content white-text">
+                                <span class="card-title">@Model[i].CreationDateTime</span>
+                                <p>Address: @Model[i].Address </p>
+                                <p>Description: @Model[i].Joinings.First().Text</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Join</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s12 m4">
-                    <div class="card #4a148c purple darken-3">
-                        <div class="card-content white-text">
-                            <span class="card-title">Order Date &amp; Time</span>
-                            <p>Address:</p>
-                            <p>Description:</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">Join</a>
-                        </div>
-                    </div>
-                </div>
+                }
+                @if (ViewBag.Page > 1)
+                {
+                    @Html.ActionLink("Previous page", "Index", "Order", new { page = ViewBag.Page -1 }, null)
+                }
+                @if ((ViewBag.Page * 6) < Model.Count)
+                {
+                    @Html.ActionLink("Next page", "Index", "Order", new { page = ViewBag.Page+1 }, null)
+                }
             </div>
-
 
         </div>
     </div>
