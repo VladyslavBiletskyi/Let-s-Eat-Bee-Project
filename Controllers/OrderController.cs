@@ -18,9 +18,13 @@ namespace Let_s_Eat_Bee_Project.Controllers
         // GET: Order
         public ActionResult Index(int page = 1)
         {
-            List<Order> orders = db.Orders.Where(x => x.CreationDateTime >= DateTime.Now).ToList();
+            IEnumerable<Order> orders = from u in db.Orders
+                                 where u.CreationDateTime >= DateTime.Now
+                                 orderby u.CreationDateTime
+                                 select u;
+
             ViewBag.Page = page;
-            return View(orders);
+            return View(orders.ToList<Order>());
         }
         public ActionResult Create()
         {
