@@ -58,7 +58,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult SignIn(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             ViewBag.ReturnUrl = returnUrl;
             return View(new ReportViewModel());
         }
@@ -84,12 +84,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
                         return View(report);
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Account");
         }
         public ActionResult SignUp()
         {
             if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             return View();
         }
         [HttpPost]
@@ -112,7 +112,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");
                 }
                 ModelState.AddModelError("", "Неудачная попытка входа!");
             }

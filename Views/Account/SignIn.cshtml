@@ -14,13 +14,13 @@
                 <form class="col s12" method="post">
                     <div class="row">
                         <div class="input-field col s12">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @for = "email" })
+                            <label for="email">E-Mail</label>
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "validate", @id = "email", @required = "true" } })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            @Html.LabelFor(model => model.Pass, htmlAttributes: new { @for = "password" })
+                            <label for="password">Password</label>
                             @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password", @id = "password", @class = "validate", @required = "true" } })
                         </div>
                     </div>
