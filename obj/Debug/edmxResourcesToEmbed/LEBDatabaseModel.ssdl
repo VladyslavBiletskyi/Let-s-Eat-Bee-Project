@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LEBDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="LEBDatabaseModelStoreContainer">
+    <EntitySet Name="UserSet" EntityType="LEBDatabaseModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Store.JoiningSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MessageSet" EntityType="LEBDatabaseModel.Store.MessageSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet_UnauthorizedUser" EntityType="LEBDatabaseModel.Store.UserSet_UnauthorizedUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet_AuthorizedUser" EntityType="LEBDatabaseModel.Store.UserSet_AuthorizedUser" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OrderIUser" Association="LEBDatabaseModel.Store.OrderIUser">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="JoiningIUser" Association="LEBDatabaseModel.Store.JoiningIUser">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="JoiningOrder" Association="LEBDatabaseModel.Store.JoiningOrder">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="MessageOrder" Association="LEBDatabaseModel.Store.MessageOrder">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="MessageIUser" Association="LEBDatabaseModel.Store.MessageIUser">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UnauthorizedUser_inherits_IUser" Association="LEBDatabaseModel.Store.FK_UnauthorizedUser_inherits_IUser">
+      <End Role="IUser" EntitySet="UserSet" />
+      <End Role="UnauthorizedUser" EntitySet="UserSet_UnauthorizedUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuthorizedUser_inherits_IUser" Association="LEBDatabaseModel.Store.FK_AuthorizedUser_inherits_IUser">
+      <End Role="IUser" EntitySet="UserSet" />
+      <End Role="AuthorizedUser" EntitySet="UserSet_AuthorizedUser" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JoiningSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MessageSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserSet_UnauthorizedUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserSet_AuthorizedUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="OrderIUser">
+    <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="*" />
+    <End Role="IUser" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CreatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JoiningIUser">
+    <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
+    <End Role="IUser" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JoiningOrder">
+    <End Role="Joining" Type="LEBDatabaseModel.Store.JoiningSet" Multiplicity="*" />
+    <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MessageOrder">
+    <End Role="Message" Type="LEBDatabaseModel.Store.MessageSet" Multiplicity="*" />
+    <End Role="Order" Type="LEBDatabaseModel.Store.OrderSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MessageIUser">
+    <End Role="Message" Type="LEBDatabaseModel.Store.MessageSet" Multiplicity="*" />
+    <End Role="IUser" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UnauthorizedUser_inherits_IUser">
+    <End Role="IUser" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UnauthorizedUser" Type="LEBDatabaseModel.Store.UserSet_UnauthorizedUser" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UnauthorizedUser">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuthorizedUser_inherits_IUser">
+    <End Role="IUser" Type="LEBDatabaseModel.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuthorizedUser" Type="LEBDatabaseModel.Store.UserSet_AuthorizedUser" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuthorizedUser">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,74 @@
+﻿body{
+    padding-top: 0 !important;
+    min-height: 435px;
+}
+.block-content{
+    background: url("main_bg.jpg") fixed center;
+    /*/min-height: 530px;*/
+    min-height: 90vh;
+    height: auto;
+    background-size: 100%;
+    padding-bottom: 30px;
+}
+.block-order{
+    background: url("order_bg.jpg") fixed center;
+    /*/min-height: 530px;*/
+    min-height: 90vh;
+    height: auto;
+    background-size: 100%;
+    color: purple !important;
+    padding-bottom: 30px;
+}
+
+h3, h5{
+    margin-top: 0;
+}
+footer{
+    margin-top: 0 !important;
+}
+#welcome-block{
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 0 0 4px purple;
+    padding-top: 15%;
+}
+#about-block{
+    color: whitesmoke;
+    text-shadow: 0 0 4px purple;
+    text-align: center;
+    padding-top: 10%;
+    
+}
+#signin-block{
+    color: whitesmoke;
+    text-shadow: 0 0 2px purple;
+    text-align: center;
+    padding-top: 15%;
+}
+label{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: white !important;
+}
+#signup-block{
+    color: whitesmoke;
+    text-shadow: 0 0 2px purple;
+    text-align: center;
+    padding-top: 10%;
+}
+#create-block{
+    color: purple !important;
+    text-shadow: 0 0 2px whitesmoke;
+    text-align: center;
+    padding-top: 3%;
+}
+#create-block label{
+    color: purple !important;
+
+}
+.dev-list{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-shadow: 0 0 4px purple;
+}

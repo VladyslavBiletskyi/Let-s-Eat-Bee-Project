@@ -1,0 +1,68 @@
+﻿@model Let_s_Eat_Bee_Project.Models.NewOrder
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="block-order">
+    <div class="container">
+        <div id="create-block">
+            <h3>Create an Order</h3>
+            <div class="row">
+                @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "hide" } })
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @for = "first_name" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "validate", @id = "first_name", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @for = "last_name" })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "validate", @id = "last_name", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @for = "address" })
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "validate", @id = "address", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @for = "date" })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "date", @id = "date", @class = "datepicker" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.Time, htmlAttributes: new { @for = "timepicker" })
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "time" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.TextOfOrder, htmlAttributes: new { @for = "text_of_order" })
+                            @Html.EditorFor(model => model.TextOfOrder, new { htmlAttributes = new { @class = "text", @id = "text_of_order" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="button">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LEBDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="LEBDatabaseModelContainer1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserSet" EntityType="LEBDatabaseModel.IUser" />
+    <EntitySet Name="OrderSet" EntityType="LEBDatabaseModel.Order" />
+    <AssociationSet Name="OrderIUser" Association="LEBDatabaseModel.OrderIUser">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+    <EntitySet Name="JoiningSet" EntityType="LEBDatabaseModel.Joining" />
+    <AssociationSet Name="JoiningIUser" Association="LEBDatabaseModel.JoiningIUser">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="JoiningOrder" Association="LEBDatabaseModel.JoiningOrder">
+      <End Role="Joining" EntitySet="JoiningSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <EntitySet Name="MessageSet" EntityType="LEBDatabaseModel.Message" />
+    <AssociationSet Name="MessageOrder" Association="LEBDatabaseModel.MessageOrder">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="MessageIUser" Association="LEBDatabaseModel.MessageIUser">
+      <End Role="Message" EntitySet="MessageSet" />
+      <End Role="IUser" EntitySet="UserSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="IUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="LEBDatabaseModel.OrderIUser" FromRole="IUser" ToRole="Order" />
+    <NavigationProperty Name="Joinings" Relationship="LEBDatabaseModel.JoiningIUser" FromRole="IUser" ToRole="Joining" />
+    <NavigationProperty Name="Messages" Relationship="LEBDatabaseModel.MessageIUser" FromRole="IUser" ToRole="Message" />
+  </EntityType>
+  <EntityType Name="UnauthorizedUser" BaseType="LEBDatabaseModel.IUser" />
+  <EntityType Name="AuthorizedUser" BaseType="LEBDatabaseModel.IUser">
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <NavigationProperty Name="Creator" Relationship="LEBDatabaseModel.OrderIUser" FromRole="Order" ToRole="IUser" />
+    <Property Name="CreatorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Joinings" Relationship="LEBDatabaseModel.JoiningOrder" FromRole="Order" ToRole="Joining" />
+    <NavigationProperty Name="Messages" Relationship="LEBDatabaseModel.MessageOrder" FromRole="Order" ToRole="Message" />
+  </EntityType>
+  <Association Name="OrderIUser">
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.IUser" Role="IUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CreatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Joining">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="LEBDatabaseModel.JoiningIUser" FromRole="Joining" ToRole="IUser" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="LEBDatabaseModel.JoiningOrder" FromRole="Joining" ToRole="Order" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="JoiningIUser">
+    <End Type="LEBDatabaseModel.Joining" Role="Joining" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.IUser" Role="IUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JoiningOrder">
+    <End Type="LEBDatabaseModel.Joining" Role="Joining" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Joining">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" />
+    <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="LEBDatabaseModel.MessageOrder" FromRole="Message" ToRole="Order" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="LEBDatabaseModel.MessageIUser" FromRole="Message" ToRole="IUser" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="MessageOrder">
+    <End Type="LEBDatabaseModel.Message" Role="Message" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.Order" Role="Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MessageIUser">
+    <End Type="LEBDatabaseModel.Message" Role="Message" Multiplicity="*" />
+    <End Type="LEBDatabaseModel.IUser" Role="IUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="IUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
