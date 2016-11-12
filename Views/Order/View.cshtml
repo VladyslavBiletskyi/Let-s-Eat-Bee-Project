@@ -1,0 +1,73 @@
+﻿<div class="block-order">
+    <br>
+    <div class="container order-view">
+        <div class="row">
+            <div class="col s10 offset-s1 ">
+                <!--тут выводится инфа о заказе-->
+                <h3>Order name 1</h3>
+                <!--ссылка на создателя-->
+                <p>created by <a href="!#">Person1</a> on 11.11.11 11:11</p>
+                <h5> Order address</h5>
+                <br>
+                <div class="col m4 s12">
+                    <ul class="collection with-header">
+                        <li class="collection-header order-view-link">
+                            <h6>People who joined this order:</h6>
+                        </li>
+                        <!--ссылки на присоединенных-->
+                        <a href="#!" class="collection-item order-view-link">Person1</a>
+                        <a href="#!" class="collection-item order-view-link">Person2</a>
+                        <a href="#!" class="collection-item order-view-link">Person3</a>
+                        <a href="#!" class="collection-item order-view-link">Person4</a>
+                    </ul>
+                </div>
+                <div class="col m8 s12">
+                    <div class="chat-panel">
+                        <div class="chat-heading">Chat</div>
+                        <div class="chat-body">
+                            <!--список сообщений в чатике заказа-->
+                            <ul class="msg-list collection">
+                                <!--в каждом сообщении имя автора, время, текст-->
+                                <li class="collection-item msg-list ">
+                                    <span class="msg-name">User2</span>
+                                    <span class="msg-time">14:00</span>
+                                    <span class="msg-txt">test1 </span>
+                                </li>
+                                <li class="collection-item msg-list">
+                                    <span class="msg-name">User1</span>
+                                    <span class="msg-time">14:00</span>
+                                    <span class="msg-txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo deleniti ad rem, aut ex cum ab fuga excepturi accusantium expedita porro debitis, odio aliquid unde nisi voluptatibus. Eum, veniam, deserunt! </span>
+                                </li>
+                                <li class="collection-item msg-list">
+                                    <span class="msg-name">User3</span>
+                                    <span class="msg-time">16:03</span>
+                                    <span class="msg-txt">Want to go drink a beer after work ? </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="chat-footer">
+                            <!--форма для отправки-->
+                            <form action="!#" id="message_request" method="post">
+                                <div class="row">
+                                    <div class="input-field col s12 ">
+                                        <textarea placeholder="Enter your message here" id="message" type="text" class=" materialize-textarea msg-box"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">
+                                            Send
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -72,3 +72,60 @@ label{
     line-height: 1.5;
     text-shadow: 0 0 4px purple;
 }
+.order-view {
+    height: auto;
+    background-size: 100%;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.order-view-link {
+    color: purple !important;
+}
+
+.chat-heading {
+    background-color: whitesmoke;
+    border-color: purple;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-sizing: border-box;
+}
+
+
+
+.chat-body {
+    overflow-y:auto;
+    min-height: 250px;
+    max-height: 300px;
+    padding: 15px;
+}
+.chat-panel {
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    margin: 0.5rem 0 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+}
+.msg-list {
+    border: 0px !important;
+}
+.chat-footer {
+    margin: 20px;
+    margin-top: 0px;
+}
+
+.msg-name {
+    font-weight: bold;
+    color: purple;
+}
+.msg-time{
+    color: hsla(220,8%,51%,.6);
+    font-size: 12px;
+    margin-left: 4px;
+    line-height: 1.4;
+}
+.msg-txt {
+     display: block;
+}
