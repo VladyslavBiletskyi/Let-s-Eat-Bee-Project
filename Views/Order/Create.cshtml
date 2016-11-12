@@ -11,18 +11,23 @@
             <div class="row">
                 @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "hide" } })
                     <div class="row">
                         <div class="input-field col s12">
-                           <label for="first_name">First Name</label>
-                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "validate", @id = "first_name", @required = "true" } })
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                 @Html.Label("First Name")
+                            }
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = (User.Identity.IsAuthenticated) ? "hide" : "validate", @id = "first_name", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="last_name">Last name</label>
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "validate", @id = "last_name", @required = "true" } })
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                @Html.Label("Last Name")
+                            }
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = (User.Identity.IsAuthenticated) ? "hide" : "validate", @id = "last_name", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
                     </div>

@@ -35,10 +35,13 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 string myId = User.Identity.GetUserId();
                 AuthorizedUser myUser = (from user in db.AllUsers.OfType<AuthorizedUser>()
                           where
- user.AppUserId == myId
+                          user.AppUserId == myId
                           select user).FirstOrDefault();                
                 ViewBag.Page = page;
-                return View(myUser.Orders.OrderBy(x=>x.CreationDateTime).ToList());
+                return View((from order in myUser.Orders
+                             where order.CreationDateTime >= DateTime.Now
+                             orderby order.CreationDateTime
+                             select order).ToList<Order>());
             }
         }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

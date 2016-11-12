@@ -5,7 +5,6 @@ namespace Let_s_Eat_Bee_Project.Models
 {
     public class NewOrder
     {
-        public int UserId { set; get; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Input First Name")]
         public string FirstName { set; get; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Input Last Name")]
@@ -17,5 +16,17 @@ namespace Let_s_Eat_Bee_Project.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Input Time in format hh:mm")]
         public string Time { set; get; }
         public string TextOfOrder { set; get; }
+    }
+
+    public class EditOrder
+    {
+        public int OrderID { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Address")]
+        public string Address { set; get; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Date in format dd:MM:yyyy")]
+        public string Date { set; get; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Time in format hh:mm")]
+        public string Time { set; get; }
+        public string Text { set; get; }
     }
 }
