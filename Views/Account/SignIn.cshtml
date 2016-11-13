@@ -11,20 +11,20 @@
             <div class="row">
             @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { id = "report_request" }))
             {
-                <form class="col s12" method="post">
+                <form class="col s12" method="post" id="signin-form">
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="email">E-Mail</label>
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "validate", @id = "email", @required = "true" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "validate", @id = "email", @required = "true", @pattern = @"^[a-zA-Z]+([a-z]|\.|_|[0-9])+@[a-z]+\.[a-z]+$" } })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="password">Password</label>
-                            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password", @id = "password", @class = "validate", @required = "true" } })
+                            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password", @id = "password",  @value = "6-25 symbols", @class = "validate", @required = "true" } })
                         </div>
                     </div>
-                    <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Sign in</button>
+                    <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="signin">Sign in</button>
                 </form>
                 }
             </div>
