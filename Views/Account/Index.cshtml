@@ -18,6 +18,9 @@
                         <p>Description: @Model[i].Joinings.First().Text</p>
                     </div>
                     <div class="card-action">
+                        @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
+                    </div>
+                    <div class="card-action">
                         @Html.ActionLink("Edit order", "Edit", "Order", new { id = Model[i].Id }, null)
                     </div>
                     <div class="card-action">

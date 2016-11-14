@@ -133,9 +133,9 @@ namespace Let_s_Eat_Bee_Project.Controllers
             }
             return RedirectToAction("Index", "Account");
         }
-        public ActionResult Detail()
+        public ActionResult Detail(int id)
         {
-            return View();
+            return View(db.Orders.Where(x=>x.Id==id).FirstOrDefault());
         }
     }
 }

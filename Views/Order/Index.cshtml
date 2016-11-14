@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Index";
 }
-
 @*<h2>Index</h2>
     @foreach (var item in Model)
     {
@@ -34,6 +33,7 @@
                             </div>
                             <div class="card-action">
                                 <a href="#">Join</a>
+                                @Html.ActionLink("View details","Detail","Order",new { @Model[i].Id },null)
                             </div>
                         </div>
                     </div>

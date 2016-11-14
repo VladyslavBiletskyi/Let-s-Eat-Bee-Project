@@ -1,13 +1,18 @@
-﻿<div class="block-order">
+﻿@model Let_s_Eat_Bee_Project.Models.Order
+<div class="block-order">
     <br>
     <div class="container order-view">
         <div class="row">
             <div class="col s10 offset-s1 ">
                 <!--тут выводится инфа о заказе-->
-                <h3>Order name 1</h3>
+                <h4>
+                    @Html.NameFor(model=>model.Address):@Html.DisplayFor(model => model.Address)<br />
+                    Creation date and time:@Html.DisplayFor(model=>model.CreationDateTime)
+                </h4>
                 <!--ссылка на создателя-->
-                <p>created by <a href="!#">Person1</a> on 11.11.11 11:11</p>
-                <h5> Order address</h5>
+                <p>Author:@Html.DisplayFor(model=>model.Creator.FirstName)
+                  @Html.DisplayFor(model => model.Creator.LastName)
+                </p>
                 <br>
                 <div class="col m4 s12">
                     <ul class="collection with-header">
@@ -15,10 +20,11 @@
                             <h6>People who joined this order:</h6>
                         </li>
                         <!--ссылки на присоединенных-->
-                        <a href="#!" class="collection-item order-view-link">Person1</a>
-                        <a href="#!" class="collection-item order-view-link">Person2</a>
-                        <a href="#!" class="collection-item order-view-link">Person3</a>
-                        <a href="#!" class="collection-item order-view-link">Person4</a>
+                        @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
+                        {
+                            @Html.DisplayFor(model=>joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
+                        }
+
                     </ul>
                 </div>
                 <div class="col m8 s12">
