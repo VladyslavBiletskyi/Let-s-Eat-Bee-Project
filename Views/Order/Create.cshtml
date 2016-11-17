@@ -41,15 +41,15 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="dates">Date</label>
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "date", @id = "date", @class = "datepicker" } })
+                           <label for="datepicker">Date</label>
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", placeholder = "Date" } })
                             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="timepicker">Time</label>
-                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "time" } })
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "text" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="button">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <button type="submit" id="create" value="Create" class="waves-effect waves-light btn #4a148c purple darken-3">Create</button>
                         </div>
                     </div>
                 }

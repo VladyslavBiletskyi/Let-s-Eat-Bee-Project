@@ -158,5 +158,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+        public ActionResult Profile()
+        {
+            return View();
+        }
     }
 }

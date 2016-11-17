@@ -14,17 +14,17 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="first_name">First Name</label>
-                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "first_name", @pattern = "^([a-zA-Z]){4,20}$" } })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "first_name"} })
                         </div>
                         <div class="input-field col s6">
                             <label for="last_name">Last Name</label>
-                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "validate", @id = "last_name", @required = "true", @pattern = "^([a-zA-Z]){4,20}$" } })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @id = "last_name", @required = "true"} })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="email">E-Mail</label>
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @class = "validate", @id = "email", @required = "true", @pattern = @"^[a-zA-Z]+([a-z]|\.|_|[0-9])+@[a-z]+\.[a-z]+$" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "email", @required = "true" } })
                         </div>
                         <div class="input-field col s6">
                             <label for="organization">Organization</label>
@@ -34,17 +34,18 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="password">Password</label>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @class = "validate", @required = "true",  @pattern = @"^([a - zA - Z] |[0 - 9]){ 8,25}$" } })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @required = "true"} })
                         </div>
                         <div class="input-field col s6">
                             <label for="conf_password">Confirm Password</label>
                             @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "conf_password", @class = "validate", @required = "true" } })
                         </div>
                     </div>
-                    <center><button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Sign up</button></center>
+                    <center><button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3" disabled>Sign up</button></center>
 }
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="~/Scripts/signupValidation.js"></script>
 <!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА-->

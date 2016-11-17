@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EE2B390D-A762-4923-8F7C-E118FC24FCDC}</ProjectGuid>
+    <ProjectGuid>{87D0FDDC-A270-49D3-A8CC-C4BEAE39DC92}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -218,6 +218,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\signinValidation.js" />
+    <Content Include="Scripts\signupValidation.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\main_bg.jpg" />
     <Content Include="Web.config" />
@@ -242,6 +244,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
