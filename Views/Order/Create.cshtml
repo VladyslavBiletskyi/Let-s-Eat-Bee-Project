@@ -12,7 +12,7 @@
                 @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             @if (!User.Identity.IsAuthenticated)
                             {
                                  @Html.Label("First Name")
@@ -20,9 +20,7 @@
                             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = (User.Identity.IsAuthenticated) ? "hide" : "validate", @id = "first_name", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             @if (!User.Identity.IsAuthenticated)
                             {
                                 @Html.Label("Last Name")
@@ -38,22 +36,20 @@
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
 
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                     </div>
+                     <div class="row">
+                        <div class="input-field col s6">
                            <label for="datepicker">Date</label>
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", placeholder = "Date" } })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker"} })
                             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             <label for="timepicker">Time</label>
                             @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "text" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="row">
+                      </div>
+                     <div class="row">
                         <div class="input-field col s12">
                             <label for="text_of_order">Text of Order</label>
                             @Html.EditorFor(model => model.TextOfOrder, new { htmlAttributes = new { @class = "text", @id = "text_of_order" } })
