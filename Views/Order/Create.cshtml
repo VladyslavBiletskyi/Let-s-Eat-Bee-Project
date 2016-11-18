@@ -30,6 +30,18 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="input-field col s6">
+                            <label for="datepicker">Date</label>
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="timepicker">Time</label>
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text", @placeholder = "HH:MM", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="input-field col s12">
                             <label for="address">Address</label>
                             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "validate", @id = "address", @required = "true" } })
@@ -37,18 +49,6 @@
 
                         </div>
                      </div>
-                     <div class="row">
-                        <div class="input-field col s6">
-                           <label for="datepicker">Date</label>
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } })
-                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="input-field col s6">
-                            <label for="timepicker">Time</label>
-                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker",  @type = "text", @placeholder = "HH:MM", @required = "true" } })
-                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
-                        </div>
-                      </div>
                      <div class="row">
                         <div class="input-field col s12">
                             <label for="text_of_order">Text of Order</label>

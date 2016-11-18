@@ -222,6 +222,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\signinValidation.js" />
     <Content Include="Scripts\signupValidation.js" />
+    <Content Include="Scripts\validateModal.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Content\main_bg.jpg" />
     <Content Include="Web.config" />

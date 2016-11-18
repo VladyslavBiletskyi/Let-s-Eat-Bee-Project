@@ -11,7 +11,7 @@
     padding-bottom: 30px;
 }
 .block-order{
-    background: url("order_bg.jpg") center;
+    background: url("order_bg.jpg") fixed center;
     /*/min-height: 530px;*/
     min-height: 90vh;
     height: auto;
@@ -23,6 +23,15 @@
 
 h3, h5{
     margin-top: 0;
+}
+.block-order h3{
+    padding-top: 30px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+.block-order h5{
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 footer{
     margin-top: 0 !important;
@@ -61,7 +70,7 @@ label{
     color: purple !important;
     text-shadow: 0 0 2px whitesmoke;
     text-align: center;
-    padding-top: 3%;
+    padding-top: 0.5%;
 }
 #create-block label{
     color: purple !important;
@@ -170,4 +179,12 @@ label{
 }
 tr{
     min-width: 100px;
+}
+
+button{
+    float: none !important;
+}
+
+.modal-content{
+    padding-bottom: 0 !important;
 }

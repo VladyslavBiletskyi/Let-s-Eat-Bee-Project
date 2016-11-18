@@ -20,7 +20,7 @@
                     <div class="card-action">
                         <div class="row no-margins">
                             <div class="col m4 s12">
-                                @Html.ActionLink("Вetails", "Detail", "Order", new { @Model[i].Id }, null)
+                                @Html.ActionLink("Details", "Detail", "Order", new { @Model[i].Id }, null)
                             </div>
                             <div class="col m4 s12">
                                 @Html.ActionLink("Edit", "Edit", "Order", new { id = Model[i].Id }, null)
@@ -37,7 +37,7 @@
 
         </div>
 
-        <hr /><br>
+        <hr />
         <h5>Your joinings</h5>
 
         <table class="responsive-table">
@@ -68,6 +68,6 @@
             </tbody>
         </table>
         <hr />
-        <h5>@Html.ActionLink("Create an order", "Create", "Order")</h5>
+        <h5>@Html.ActionLink("Create an order...", "Create", "Order")</h5>
     </div>
 </div>

@@ -23,6 +23,16 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
+                            <label for="password">Password</label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @required = "true" } })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="conf_password">Confirm Password</label>
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "conf_password", @class = "validate", @required = "true" } })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
                             <label for="email">E-Mail</label>
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "email", @required = "true" } })
                         </div>
@@ -31,16 +41,7 @@
                             @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "validate", @id = "organization", @required = "true" } })
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label for="password">Password</label>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @required = "true"} })
-                        </div>
-                        <div class="input-field col s6">
-                            <label for="conf_password">Confirm Password</label>
-                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "conf_password", @class = "validate", @required = "true" } })
-                        </div>
-                    </div>
+
                     <center><button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3" disabled>Sign up</button></center>
 }
             </div>
