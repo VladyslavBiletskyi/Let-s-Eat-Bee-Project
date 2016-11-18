@@ -159,9 +159,25 @@ namespace Let_s_Eat_Bee_Project.Controllers
             }
         }
 
-        public ActionResult Profile()
+        public ActionResult UserProfile()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string id = User.Identity.GetUserId();
+            return View(db.AllUsers.OfType<AuthorizedUser>().Where(x=>x.AppUserId==id).FirstOrDefault());
+        }
+        [HttpPost]
+        public ActionResult EditProfile(AuthorizedUser newUser)
+        {
+            string id = User.Identity.GetUserId();
+            AuthorizedUser oldUser = db.AllUsers.OfType<AuthorizedUser>().Where(x => x.AppUserId == id).FirstOrDefault();
+            oldUser.FirstName = newUser.FirstName??oldUser.FirstName;
+            oldUser.LastName = newUser.LastName??oldUser.LastName;
+            oldUser.Organization = newUser.Organization??oldUser.Organization;
+            db.SaveChanges();
+            return RedirectToAction("UserProfile", "Account");
         }
     }
 }
