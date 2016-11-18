@@ -40,19 +40,19 @@
                      <div class="row">
                         <div class="input-field col s6">
                            <label for="datepicker">Date</label>
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker"} })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
                         <div class="input-field col s6">
                             <label for="timepicker">Time</label>
-                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "text" } })
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker",  @type = "text", @placeholder = "HH:MM", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
                       </div>
                      <div class="row">
                         <div class="input-field col s12">
                             <label for="text_of_order">Text of Order</label>
-                            @Html.EditorFor(model => model.TextOfOrder, new { htmlAttributes = new { @class = "text", @id = "text_of_order" } })
+                            @Html.EditorFor(model => model.TextOfOrder, new { htmlAttributes = new { @class = "text", @id = "text_of_order", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -66,4 +66,11 @@
         </div>
     </div>
 </div>
-
+@if (User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/creatingValidationAuth.js"></script>
+}
+else
+{ 
+    <script type="text/javascript" src="~/Scripts/creatingValidation.js"></script>
+}

@@ -45,7 +45,7 @@ function validatePassword(password, toastFlag) {
 
     if (!res) {
         if (toastFlag) {
-            Materialize.toast('Invalid password format. Use letters & digits (8-25).', 3000);
+            Materialize.toast('Invalid password format. Use letters & digits (6-25).', 3000);
             Materialize.toast(toatContent, 3000);
         }
         return false;
@@ -66,9 +66,9 @@ function validateName(name, toastFlag) {
     return true;
 }
 
-function validateTime(time, toastFlad)
+function validateTime(time, toastFlag)
 {
-    var pattern = new RegExp("^(0[0-9]|1[0-9]|2(0|1|2|3):(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])$");
+    var pattern = new RegExp("^(0[0-9]|1[0-9]|2(0|1|2|3)):(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])$");
     var res = pattern.test(time);
     if (!res) {
         if (toastFlag) {

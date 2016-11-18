@@ -1,6 +1,6 @@
 ﻿body{
     padding-top: 0 !important;
-    min-height: 435px;
+    min-width: 435px;
 }
 .block-content{
     background: url("main_bg.jpg") fixed center;
@@ -11,13 +11,14 @@
     padding-bottom: 30px;
 }
 .block-order{
-    background: url("order_bg.jpg") fixed center;
+    background: url("order_bg.jpg") center;
     /*/min-height: 530px;*/
     min-height: 90vh;
     height: auto;
     background-size: 100%;
     color: purple !important;
     padding-bottom: 30px;
+    min-width: 435px;
 }
 
 h3, h5{
@@ -155,4 +156,18 @@ label{
 #change_pass label{
     color: purple !important;
 
+}
+.order-card:hover{
+    transition: 0.5s linear;
+    transform: scale(1.07);
+}
+.no-margins{
+    margin: 0 !important;
+}
+.card{
+    min-width: 236px;
+    max-width: 350px;
+}
+tr{
+    min-width: 100px;
 }

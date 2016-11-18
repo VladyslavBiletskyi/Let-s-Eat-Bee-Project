@@ -25,7 +25,7 @@
                 @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)
                 {
                     <div class="col s12 m4">
-                        <div class="card #4a148c purple darken-3">
+                        <div class="card #4a148c purple darken-3 order-card">
                             <div class="card-content white-text">
                                 <span class="card-title">@Model[i].CreationDateTime</span>
                                 <p>Address: @Model[i].Address </p>

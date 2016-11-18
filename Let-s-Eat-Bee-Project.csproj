@@ -204,6 +204,8 @@
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\creatingValidation.js" />
+    <Content Include="Scripts\creatingValidationAuth.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />

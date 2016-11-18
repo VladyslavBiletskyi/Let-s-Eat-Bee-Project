@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    $("#signin").attr("disabled", "true")
+    $("#signin").attr("disabled", "true");
+
     $("#email").blur(function () {
         var email = $("#email").val();
         var password = $("#password").val();
