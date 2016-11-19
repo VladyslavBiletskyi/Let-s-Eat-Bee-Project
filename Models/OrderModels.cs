@@ -29,4 +29,15 @@ namespace Let_s_Eat_Bee_Project.Models
         public string Time { set; get; }
         public string Text { set; get; }
     }
+    public class NewJoining
+    {
+        public int OrderID { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Your first name")]
+        public string UserFirstName { set; get; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Your last name")]
+        public string UserLastName { set; get; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input text of your order")]
+        public string Text { set; get; }
+    }
+
 }

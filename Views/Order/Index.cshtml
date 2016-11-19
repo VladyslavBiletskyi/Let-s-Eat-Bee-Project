@@ -49,7 +49,7 @@
                                 <p>Description: @Model[i].Joinings.First().Text</p>
                             </div>
                             <div class="card-action">
-                                <a href="#join-order">Join</a>
+                                <a href="#join-order?id=@Model[i].Id">Join</a>
                             </div>
                         </div>
                     </div>
@@ -66,38 +66,44 @@
 
             <!-- Modal Structure -->
             <div id="join-order" class="modal">
-                <div class="modal-content">
-                    <h4>Join Order</h4>
-                    @using (Html.BeginForm("Join", "Order"))
+                @using (Html.BeginForm("Join", "Order", new { id = Request.QueryString["id"] }))
                     {
+                 <div class="modal-content">
+                    <h4>Join Order</h4>
+                    @if (!User.Identity.IsAuthenticated)
+                    {                        
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="first_name">First Name</label>
-                                <input type="text" id="first_name" required />
+                                <input type="text" id="first_name" name="UserFirstName" required />                            
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" id="last_name" required />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <label for="text_of_join">Text</label>
-                                <input type="text" id="text_of_join" required />
+                                <input type="text" id="last_name" name="UserLastName" required />
                             </div>
                         </div>
                     }
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="text_of_join">Text</label>
+                                <input type="text" id="text_of_join" name="Text" required />
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <center>
                         <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
                     </center>
                 </div>
+                    }
             </div>
 
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+@if (!User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+}

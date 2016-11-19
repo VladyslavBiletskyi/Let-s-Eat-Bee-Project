@@ -73,7 +73,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
             join.OrderId = order.Id;
             join.Text = model.TextOfOrder;
             join.User = user;
-
+            join.UserId = user.Id;
             db.Joinings.Add(join);
             db.SaveChanges();
             user.Orders.Add(order);
@@ -136,6 +136,34 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult Detail(int id)
         {
             return View(db.Orders.Where(x=>x.Id==id).FirstOrDefault());
+        }
+        [HttpPost]
+        public ActionResult Join (NewJoining newJoining)
+        {
+            if (newJoining.OrderID != 0)
+            {
+                string id = User.Identity.GetUserId();
+                AuthorizedUser user = db.AllUsers.OfType<AuthorizedUser>().Where(x => x.AppUser.Id == id).FirstOrDefault();
+                if (newJoining.UserFirstName == null || newJoining.UserLastName == null)
+                {
+                    newJoining.UserFirstName = user.FirstName;
+                    newJoining.UserLastName = user.LastName;
+                }
+                Order order = db.Orders.Where(x => x.Id == newJoining.OrderID).FirstOrDefault();
+                Joining joining = new Joining();
+                joining.Order = order;
+                joining.OrderId = order.Id;
+                joining.User = user;
+                joining.UserId = user.Id;
+                joining.Text = newJoining.Text;
+                db.Joinings.Add(joining);
+                db.SaveChanges();
+                order.Joinings.Add(joining);
+                db.SaveChanges();
+                user.Joinings.Add(joining);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index","Order");   
         }
     }
 }

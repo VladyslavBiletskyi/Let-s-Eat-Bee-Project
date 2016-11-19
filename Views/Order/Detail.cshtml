@@ -22,7 +22,12 @@
                         <!--ссылки на присоединенных-->
                         @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
                         {
+                            <li class="order-view-link">
                             @Html.DisplayFor(model=>joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
+                            <br />
+                            @Html.DisplayFor(model => joining.Text)
+                            <br />
+                            </li>
                         }
 
                     </ul>
@@ -79,33 +84,42 @@
     </div>
     <!-- Modal Structure -->
     <div id="join-order" class="modal">
-        <div class="modal-content">
-            <h4>Join Order</h4>
-            <form>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" required />
+        @using (Html.BeginForm("Join", "Order"))
+        {
+            <div class="modal-content">
+                <h4>Join Order</h4>
+                <input type="text" id="orderId" name="OrderId" value="@Model.Id" class="hide" />
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="first_name">First Name</label>
+                            <input type="text" id="first_name" name="UserFirstName" required />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" required />
-                    </div>
-                </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="UserLastName" required />
+                            </div>
+                        </div>
+                }
                 <div class="row">
                     <div class="input-field col s12">
                         <label for="text_of_join">Text</label>
-                        <input type="text" id="text_of_join" required />
+                        <input type="text" id="text_of_join" name="Text" required />
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <center>
-                <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
-            </center>
-        </div>
+            </div>
+                <div class="modal-footer">
+                    <center>
+                        <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
+                    </center>
+                </div>
+        }
     </div>
 </div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+}
