@@ -721,3 +721,7 @@ d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-ProjectSource\Let-s-Eat-Bee-Project\bin\ru
 d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-ProjectSource\Let-s-Eat-Bee-Project\bin\ru\Microsoft.Owin.Security.Google.resources.dll
 d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-ProjectSource\Let-s-Eat-Bee-Project\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 d:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-ProjectSource\Let-s-Eat-Bee-Project\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.dll
+d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.xml
+d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

@@ -17,6 +17,8 @@ namespace Let_s_Eat_Bee_Project
             Database.SetInitializer(new DBIntializator());
 
             AreaRegistration.RegisterAllAreas();
+
+            AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

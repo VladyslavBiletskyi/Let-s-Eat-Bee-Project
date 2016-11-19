@@ -9,6 +9,7 @@ namespace Let_s_Eat_Bee_Project
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

@@ -38,43 +38,31 @@
                         <div class="chat-heading">Chat</div>
                         <div class="chat-body">
                             <!--список сообщений в чатике заказа-->
-                            <ul class="msg-list collection">
-                                <!--в каждом сообщении имя автора, время, текст-->
-                                <li class="collection-item msg-list ">
-                                    <span class="msg-name">User2</span>
-                                    <span class="msg-time">14:00</span>
-                                    <span class="msg-txt">test1 </span>
-                                </li>
-                                <li class="collection-item msg-list">
-                                    <span class="msg-name">User1</span>
-                                    <span class="msg-time">14:00</span>
-                                    <span class="msg-txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo deleniti ad rem, aut ex cum ab fuga excepturi accusantium expedita porro debitis, odio aliquid unde nisi voluptatibus. Eum, veniam, deserunt! </span>
-                                </li>
-                                <li class="collection-item msg-list">
-                                    <span class="msg-name">User3</span>
-                                    <span class="msg-time">16:03</span>
-                                    <span class="msg-txt">Want to go drink a beer after work ? </span>
-                                </li>
+                            <ul class="msg-list collection" id="discussion">
+                                @foreach (var message in Model.Messages)
+                                {
+                                    <li>@message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text</li>
+                                }
                             </ul>
                         </div>
                         <div class="chat-footer">
-                            <!--форма для отправки-->
-                            <form action="!#" id="message_request" method="post">
+                            <!--отправка сообщения в чат-->
+                            
                                 <div class="row">
                                     <div class="input-field col s12 ">
                                         <textarea placeholder="Enter your message here" id="message" type="text" class="materialize-textarea msg-box"></textarea>
+                                        <input type="hidden" id="displayname" value="@User.Identity.Name" />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">
+                                        <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="sendmessage">
                                             Send
                                             <i class="material-icons right">send</i>
                                         </button>
                                     </div>
                                 </div>
 
-                            </form>
                         </div>
                     </div>
 
@@ -123,3 +111,38 @@
 {
     <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
 }
+<script>
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.ChatHub;
+            var OrderId = @Model.Id;
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNewMessageToPage = function (name, message) {
+                // Add the message to the page.
+                var time = new Date().toTimeString();
+                var time_el = time.split(":");
+                $('#discussion').append('<li>' + htmlEncode(name)
+                    + " (" + time_el[0] + ":" + time_el[1] + '): ' + htmlEncode(message) + '</li>');
+            };
+            // Get the user name and store it to prepend to messages.
+            if ($('#displayname').val() == "") {
+                $('#displayname').val(prompt('Enter your name:', ''));
+            }
+            // Set initial focus to message input box.
+            $('#message').focus();
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.send($('#displayname').val(), $('#message').val(), OrderId);
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+            });
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+</script>
