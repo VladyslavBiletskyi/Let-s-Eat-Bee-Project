@@ -5,14 +5,22 @@ namespace Let_s_Eat_Bee_Project.Models
 {
     public class ReportViewModel
     {
+        [Required]
+        [EmailAddress]
+        [Display(Name ="Адрес электронной почты")]
         public string Email { set; get; }
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name ="Пароль")]
         public string Pass { set; get; }
     }
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
         [Required]
+        [Display (Name ="Last Name")]
         public string LastName { get; set; }
         public string Organization { get; set; }
 

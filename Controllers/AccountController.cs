@@ -78,6 +78,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult SignIn(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Account");
+            }
             return View(new ReportViewModel());
         }
         [HttpPost]

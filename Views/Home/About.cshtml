@@ -36,8 +36,11 @@
                     </div>
                 </div>
             </div>
-            <a class="waves-effect waves-light btn #4a148c purple darken-3" href="../Account/SignUp">Join us</a>
-            <a class="waves-effect waves-light btn #4a148c purple darken-3" href="../Account/SignIn">Sign in</a>
-        </div>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="waves-effect waves-light btn #4a148c purple darken-3" href="../Account/SignUp">Join us</a>
+                <a class="waves-effect waves-light btn #4a148c purple darken-3" href="../Account/SignIn">Sign in</a>
+            }
+         </div>
     </div>
 </div>
