@@ -188,3 +188,67 @@ button{
 .modal-content{
     padding-bottom: 0 !important;
 }
+.tabs-vertical .tabs {
+  height: auto;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+    padding-top: 30px !important;
+}
+.tab-vertical {
+  width: 100%;
+    float: none; 
+  margin: 0;
+    display: block;
+  padding: 0;
+    line-height: 36px;
+  height: 36px;
+}
+.tab-vertical>a {
+    color: rgba(238, 110, 115, 0.7);
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0 24px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color .28s ease;
+}
+.tab-vertical a:hover {
+    color: #ee6e73
+}
+
+.tab-vertical a.active {
+    color: #ee6e73;
+    border-left: 3px solid purple !important;
+}
+.tab-vertical :hover {
+    border-left: 3px solid #f6b2b5 !important;
+}
+
+.tabs-left {
+    
+  border-bottom: none;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  white-space: nowrap;
+    padding-top: 2px !important;
+}
+label .moder-label{
+    color: purple !important;
+}
+.no-borders{
+    border: 0 !important;
+}
+.order-collapsible {
+    padding: 10px;
+    background-color: #f9f9f9 !important
+}
+#moder-container label{
+    color: purple !important;
+}
