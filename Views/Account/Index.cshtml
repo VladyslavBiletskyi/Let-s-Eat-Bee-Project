@@ -1,40 +1,46 @@
-﻿@model List<Let_s_Eat_Bee_Project.Models.Order>
+﻿@model Let_s_Eat_Bee_Project.Models.AuthorizedUser
 
 <div class="block-order">
     <div class="container">
         <h3>Your account</h3>
         <hr />
+        <h5>Your first name:</h5><br /><h6>@Model.FirstName</h6><br />
+        <h5>Your last name:</h5><br /><h6>@Model.LastName</h6><br />
+        <hr />
         <h5>Your orders</h5>
 
         <div class="row">
 
-          @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)
-          {
+          @{
+                          DateTime now =DateTime.Now;
+                          List<Let_s_Eat_Bee_Project.Models.Order> myOrders = Model.Orders.Where(x => x.CreationDateTime>=now).ToList();
+                          for (int i = (ViewBag.Page - 1) * 6; i < myOrders.Count && i < (ViewBag.Page * 6) - 3; i++)
+                          {
             <div class="col s12 m4">
                 <div class="card #4a148c purple darken-3">
                     <div class="card-content white-text">
-                        <span class="card-title">@Model[i].CreationDateTime</span>
-                        <p>Address: @Model[i].Address </p>
-                        <p>Description: @Model[i].Joinings.First().Text</p>
+                        <span class="card-title">@myOrders[i].CreationDateTime</span>
+                        <p>Address: @myOrders[i].Address </p>
+                        <p>Description: @myOrders[i].Joinings.First().Text</p>
                     </div>
                     <div class="card-action">
                         <div class="row no-margins">
                             <div class="col m4 s12">
-                                @Html.ActionLink("Details", "Detail", "Order", new { @Model[i].Id }, null)
+                                @Html.ActionLink("Details", "Detail", "Order", new { myOrders[i].Id }, null)
                             </div>
                             <div class="col m4 s12">
-                                @Html.ActionLink("Edit", "Edit", "Order", new { id = Model[i].Id }, null)
+                                @Html.ActionLink("Edit", "Edit", "Order", new { id = myOrders[i].Id }, null)
                             </div>
                             <div class="col m4 s12">
-                                @Html.ActionLink("Delete", "Delete", "Order", new { id = Model[i].Id }, null)
+                                @Html.ActionLink("Delete", "Delete", "Order", new { id = myOrders[i].Id }, null)
                             </div>
                         </div>
   
                     </div>
                 </div>
             </div>
-          }
-
+                  }
+              }
         </div>
 
         <hr />
@@ -50,13 +56,16 @@
             </thead>
 
             <tbody>
-                @foreach (var order in Model)
-                {
+                @{
+                    List<Let_s_Eat_Bee_Project.Models.Joining> joinings = Model.Joinings.Where(x => x.Order.CreationDateTime >= now).ToList();
+                    foreach (var joining in joinings)
+                    {
                 <tr>
-                    <td>Date</td>
-                    <td>Address</td>
-                    <td><a href="#">Details...</a></td>
+                    <td>@joining.Order.CreationDateTime</td>
+                    <td>@joining.Order.Address</td>
+                    <td>@Html.ActionLink("Details", "Detail", "Order", new { joining.Order.Id }, null)</td>
                 </tr>
+                }
                 }
             </tbody>
         </table>

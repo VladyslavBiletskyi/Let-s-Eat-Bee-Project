@@ -38,10 +38,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
                           user.AppUserId == myId
                           select user).FirstOrDefault();                
                 ViewBag.Page = page;
-                return View((from order in myUser.Orders
-                             where order.CreationDateTime >= DateTime.Now
-                             orderby order.CreationDateTime
-                             select order).ToList<Order>());
+                return View(myUser);
             }
         }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

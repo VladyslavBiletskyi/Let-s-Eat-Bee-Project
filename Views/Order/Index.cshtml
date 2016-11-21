@@ -11,7 +11,7 @@
                 <div class="row sort-and-filter">
                     <div class="col s12 m3">
                         <div class="input-field col s12">
-                            <select id="sort" name="Sorting">
+                            <select id="sort" name="Sorting" >
                                 <option value="0">First earlier</option>
                                 <option value="1">First later</option>
                             </select>
@@ -67,7 +67,6 @@
                                 <p>Description: @list[i].Joinings.First().Text</p>
                             </div>
                             <div class="card-action">
-                                <a href="#join-order">Join</a>
                                 @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
                             </div>
                         </div>
@@ -86,7 +85,7 @@
                                 <p>Description: @list[i].Joinings.First().Text</p>
                             </div>
                             <div class="card-action">
-                                <a href="#join-order">Join</a>
+                                @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
                             </div>
                         </div>
                     </div>
