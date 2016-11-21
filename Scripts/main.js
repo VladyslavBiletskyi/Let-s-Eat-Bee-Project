@@ -28,6 +28,11 @@ $(document).ready(function () {
     });
 });
 
+
+$(document).ready(function () {
+    $('select').material_select();
+});
+
 ///for validation
 
 function validateEmail(email, toastFlag) {

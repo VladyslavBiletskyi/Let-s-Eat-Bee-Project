@@ -19,6 +19,37 @@
         <div id="create-block">
             <h3>View Orders</h3>
 
+            <form>
+                <div class="row sort-and-filter">
+                    <div class="col s12 m3">
+                        <div class="input-field col s12">
+                            <select id="sort">
+                                <option value="0" selected>No sorting</option>
+                                <option value="1">The earliest</option>
+                                <option value="2">The latest</option>
+                            </select>
+                         </div>
+                        </div>
+                    <div class="col s12 m7">
+                        <div class="input-field col s6">
+                            <label for="startdate">Show orders from</label>
+                            <input type="date" class="datepicker" id="startdate">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="enddate">To</label>
+                            <input type="date" class="datepicker" id="enddate">
+                        </div>
+                    </div>
+                    <div class="col s12 m2">
+                        <div class="input-field" style="padding-top: 8px;">
+                            <button type="button" class="waves-effect waves-light btn #4a148c purple darken-3" id="confirm_filter">Confirm</button>
+                        </div>
+                    </div>
+                   
+                </div>
+
+            </form>
+
             <!--карточки - в рядах. в каждом ряду максимум 3 карточки-->
             <div class="row">
                 @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)

@@ -725,3 +725,7 @@ d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.dll
 d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.xml
 d:\666\ASP\be\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\project\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\project\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\project\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\project\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

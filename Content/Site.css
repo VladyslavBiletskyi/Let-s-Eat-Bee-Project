@@ -252,3 +252,7 @@ label .moder-label{
 #moder-container label{
     color: purple !important;
 }
+
+.sort-and-filter{
+   padding-bottom: 25px;
+}
