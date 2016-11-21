@@ -2,85 +2,91 @@
 @{
     ViewBag.Title = "Index";
 }
-@*<h2>Index</h2>
-    @foreach (var item in Model)
-    {
-        <br />
-        @item.Id
-        <br />
-        @item.Address
-        <br />
-        @item.CompleteDateTime
-        <br />
-    }*@
 
 <div class="block-order">
     <div class="container">
         <div id="create-block">
             <h3>View Orders</h3>
-
-            <form>
+            <form method="get">
                 <div class="row sort-and-filter">
                     <div class="col s12 m3">
                         <div class="input-field col s12">
-                            <select id="sort">
-                                <option value="0" selected>No sorting</option>
-                                <option value="1">The earliest</option>
-                                <option value="2">The latest</option>
+                            <select id="sort" name="Sorting">
+                                <option value="0">First earlier</option>
+                                <option value="1">First later</option>
                             </select>
                          </div>
                         </div>
                     <div class="col s12 m7">
                         <div class="input-field col s6">
                             <label for="startdate">Show orders from</label>
-                            <input type="date" class="datepicker" id="startdate">
+                            <input type="date" class="datepicker" id="startdate" name="DateFrom" value="@Request.QueryString["DateFrom"]">
                         </div>
                         <div class="input-field col s6">
                             <label for="enddate">To</label>
-                            <input type="date" class="datepicker" id="enddate">
+                            <input type="date" class="datepicker" id="enddate"  name="DateTo" value="@Request.QueryString["DateTo"]">
                         </div>
                     </div>
                     <div class="col s12 m2">
                         <div class="input-field" style="padding-top: 8px;">
-                            <button type="button" class="waves-effect waves-light btn #4a148c purple darken-3" id="confirm_filter">Confirm</button>
+                            <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="confirm_filter">Confirm</button>
                         </div>
                     </div>
                    
                 </div>
-
             </form>
-
             <!--карточки - в рядах. в каждом ряду максимум 3 карточки-->
             <div class="row">
-                @for (int i = (ViewBag.Page - 1) * 6; i < Model.Count && i < (ViewBag.Page * 6) - 3; i++)
-                {
+                @{
+                    List<Let_s_Eat_Bee_Project.Models.Order> list = new List<Let_s_Eat_Bee_Project.Models.Order>();
+                    if (Request.QueryString["Sorting"] == "1")
+                    {
+                        list=Model.OrderByDescending(x => x.CreationDateTime).ToList();
+                    }
+                    else
+                    {
+                        list = Model;
+                    }
+                    if (Request.QueryString["DateFrom"] != null&& Request.QueryString["DateFrom"] != "")
+                    {
+                        DateTime date = DateTime.Parse(Request.QueryString["DateFrom"]);
+                        list = list.Where(x => x.CreationDateTime >= date).ToList();
+                    }
+                    if (Request.QueryString["DateTo"] != null && Request.QueryString["DateTo"] != "")
+                    {
+                        DateTime date = DateTime.Parse(Request.QueryString["DateTo"]);
+                        list = list.Where(x => x.CreationDateTime < date).ToList();
+                    }
+                    for (int i = (ViewBag.Page - 1) * 6; i < list.Count && i < (ViewBag.Page * 6) - 3; i++)
+                    {
                     <div class="col s12 m4">
                         <div class="card #4a148c purple darken-3 order-card">
                             <div class="card-content white-text">
-                                <span class="card-title">@Model[i].CreationDateTime</span>
-                                <p>Address: @Model[i].Address </p>
-                                <p>Description: @Model[i].Joinings.First().Text</p>
+                                <span class="card-title">@list[i].CreationDateTime</span>
+                                <p>Address: @list[i].Address </p>
+                                <p>Description: @list[i].Joinings.First().Text</p>
                             </div>
                             <div class="card-action">
                                 <a href="#join-order">Join</a>
-                                @Html.ActionLink("View details","Detail","Order",new { @Model[i].Id },null)
+                                @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
                             </div>
                         </div>
                     </div>
-                }
+                        }
+                    }
             </div>
             <div class="row">
-                @for (int i = ((ViewBag.Page - 1) * 6) + 3; i < Model.Count && i < (ViewBag.Page * 6); i++)
+                @for (int i = ((ViewBag.Page - 1) * 6) + 3; i < list.Count && i < (ViewBag.Page * 6); i++)
                 {
                     <div class="col s12 m4">
                         <div class="card #4a148c purple darken-3">
                             <div class="card-content white-text">
-                                <span class="card-title">@Model[i].CreationDateTime</span>
-                                <p>Address: @Model[i].Address </p>
-                                <p>Description: @Model[i].Joinings.First().Text</p>
+                                <span class="card-title">@list[i].CreationDateTime</span>
+                                <p>Address: @list[i].Address </p>
+                                <p>Description: @list[i].Joinings.First().Text</p>
                             </div>
                             <div class="card-action">
-                                <a href="#join-order?id=@Model[i].Id">Join</a>
+                                <a href="#join-order">Join</a>
                             </div>
                         </div>
                     </div>
