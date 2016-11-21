@@ -256,3 +256,6 @@ label .moder-label{
 .sort-and-filter{
    padding-bottom: 25px;
 }
+.modal-content label{
+    color: purple !important;
+}

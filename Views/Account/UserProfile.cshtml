@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s6">
+                            <div class="input-field col s12">
                                 <label for="organization">Organization</label>
                                 @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @id = "organization", @required = "true" } })
                             </div>
@@ -51,7 +51,7 @@
                         <center>
                             <div class="row">
                                 <div class="button">
-                                    <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Apply changes</button>
+                                    <button type="submit"  id="apply" class="waves-effect waves-light btn #4a148c purple darken-3">Apply changes</button>
                                 </div>
                             </div>
                         </center>
@@ -88,5 +88,5 @@
         </div>   
     </div>
 </div>
-
+<script type="text/javascript" src="~/Scripts/profileValidation.js"></script>
 
