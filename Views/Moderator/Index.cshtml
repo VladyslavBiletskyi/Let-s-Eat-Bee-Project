@@ -1,4 +1,4 @@
-﻿@model Let_s_Eat_Bee_Project.Models.AbstractUser
+﻿@model Let_s_Eat_Bee_Project.Models.DBDump
 
 <div class="block-order">
     <div class="container info-block" id="moder-container">
@@ -14,69 +14,15 @@
                     <br>
                     <div class="col s3">
                         <ul class="tabs-left">
-                            <!--ссылки на основную часть табов юзеров, вставить имя пользователя + сделать объекты на которые ссылаешься(на страничке основная часть табов)-->
-                            <li class="tab tab-vertical"><a href="#Uid1">UName1</a></li>
-                            <li class="tab tab-vertical"><a href="#Uid2">UName2</a></li>
-                            <li class="tab tab-vertical"><a href="#Uid3">UName3</a></li>
-
+                            @foreach (Let_s_Eat_Bee_Project.Models.AbstractUser user in Model.Users) {
+                            <li>@Html.ActionLink(@user.FirstName + " " + @user.LastName, "", new { id = @user.Id }, new { @class = "tab tab-vertical" })</li>
+                            }
                         </ul>
                     </div>
                     <div class="col s9">
                         <!--основная часть табов-->
                         <!--каждый таб - форма для отправки изменений, в ней нужно вставить текущие значения юзверя в поля value-->
                         <div id="Uid1" class="tab-content">
-                            <form>
-                                <div class="input-field col s6">
-                                    <input value="Alvin" id="first_name" name="first_name" type="text">
-                                    <label class="active moder-label" for="first_name">First Name</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input value="Alvin" id="last_name" name="last_name" type="text">
-                                    <label class="active moder-label" for="last_name">Last Name</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input value="ZZZ" id="organization" name="organization" type="text">
-                                    <label class="active moder-label" for="organization">Organization</label>
-                                </div>
-                                <!--айди юзера для передачи при отправке-->
-                                <input type="hidden" name="user_id" value="470124">
-                                <br />
-                                <center>
-                                    <div class="row">
-                                        <div class="button">
-                                            <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
-                                        </div>
-                                    </div>
-                                </center>
-                            </form>
-                        </div>
-                        <div id="Uid2" class="tab-content">
-                            <form>
-                                <div class="input-field col s6">
-                                    <input value="Alvin" id="first_name" name="first_name" type="text">
-                                    <label class="active moder-label" for="first_name">First Name</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input value="Alvin" id="last_name" name="last_name" type="text">
-                                    <label class="active moder-label" for="last_name">Last Name</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input value="ZZZ" id="organization" name="organization" type="text">
-                                    <label class="active moder-label" for="organization">Organization</label>
-                                </div>
-                                <!--айди юзера для передачи при отправке-->
-                                <input type="hidden" name="user_id" value="470124">
-                                <br />
-                                <center>
-                                    <div class="row">
-                                        <div class="button">
-                                            <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
-                                        </div>
-                                    </div>
-                                </center>
-                            </form>
-                        </div>
-                        <div id="Uid3" class="tab-content">
                             <form>
                                 <div class="input-field col s6">
                                     <input value="Alvin" id="first_name" name="first_name" type="text">
@@ -111,8 +57,10 @@
                     <div class="col s3">
                         <ul class="tabs-left">
                             <!--ссылки на основную часть табов ордера, вставить имя создателя и дату-->
-                            <li class="tab tab-vertical"><a href="#Orderid1">UserName on 11.11.11</a></li>
-                            <li class="tab tab-vertical"><a href="#Orderid2">UserName on 11.11.11</a></li>
+                            @foreach (Let_s_Eat_Bee_Project.Models.Order order in Model.Orders)
+                            {
+                                <li>@Html.ActionLink(@order.Id + " " + @order.CreationDateTime, "#", new { id = @order.Id }, new { @class = "tab tab-vertical" })</li>
+                            }
                         </ul>
                     </div>
                     <div class="col s9">
@@ -126,34 +74,27 @@
                                         <li>
                                             <ul class="collapsible no-margins no-borders" data-collapsible="accordion">
                                                 <!--элементы списка - джоининги-->
+                                                @{
+                                                    if (Request.QueryString["#"] != null)
+                                                    {
+                                                        int id = int.Parse(Request.QueryString["#"].Replace("OrderId", ""));
+                                                        foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Orders.Where(x=>x.Id==id).FirstOrDefault().Joinings)
+                                                        {
                                                 <li>
                                                     <!--в хэдер вставить имя того кто присоединяется-->
-                                                    <div class="collapsible-header">UName1</div>
+                                                    <div class="collapsible-header">@joining.UserId</div>
                                                     <div class="collapsible-body order-collapsible">
                                                         <!--в Р вставить текст джоининга-->
-                                                        <p>Lorem ipsum dolor sit amet.</p>
+                                                        <p>@joining.Text</p>
                                                         <!--в id вставить айди джоининга, как в orders/join-->
                                                         <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
                                                         <!--ссылка на удаление джоининга, передать айди-->
                                                         <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="collapsible-header">UName2</div>
-                                                    <div class="collapsible-body order-collapsible">
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
-                                                        <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="collapsible-header">UName3</div>
-                                                    <div class="collapsible-body order-collapsible">
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
-                                                        <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
-                                                    </div>
-                                                </li>
+                                                            }
+                                                        }
+                                                    }
                                             </ul>
                                         </li>
                                     </ul>
@@ -169,11 +110,11 @@
                                     <!--единственное - в placeholder вставить текущие значения из базы-->
                                     <div class="input-field col s12">
                                         <label for="datepicker">Date</label>
-                                        @Html.EditorFor(model =>, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } }) @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                        <!--Html.EditorFor(model =>, new { htmlAttributes = new { type = "text", id = "datepicker", class = "datepicker", required = "true" } }) Html.ValidationMessageFor(model => model.Date, "", new { class = "text-danger" })-->
                                     </div>
                                     <div class="input-field col s12">
                                         <label for="timepicker">Time</label>
-                                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text", @placeholder = "HH:MM", @required = "true" } }) @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                                       <!-- Html.EditorFor(model => model.Time, new { htmlAttributes = new { id = "timepicker", type = "text", placeholder = "HH:MM", required = "true" } }) Html.ValidationMessageFor(model => model.Time, "", new { class = "text-danger" })-->
                                     </div>
                                     <br />
                                     <center>
@@ -186,62 +127,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="Orderid2" class="tab-content">
-                            <div class="row">
-                                <div class="col s7">
-                                    <ul class="collection with-header">
-                                        <li class="collection-header order-view-link">
-                                            <h6>People who joined this order:</h6>
-                                        </li>
-                                        <li>
-                                            <ul class="collapsible no-margins no-borders" data-collapsible="accordion">
-                                                <li>
-                                                    <div class="collapsible-header">UName1</div>
-                                                    <div class="collapsible-body order-collapsible">
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
-                                                        <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="collapsible-header">UName2</div>
-                                                    <div class="collapsible-body order-collapsible">
-                                                        <p>Lorem ipsum dolor sit amet.</p>
-                                                        <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
-                                                        <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <form class="col s5">
-                                    <div class="input-field col s12">
-                                        <input value="ZzZ" id="address" name="address" type="text">
-                                        <label class="active moder-label" for="Address">Address</label>
-                                    </div>
-                                    <input type="hidden" name="order_id" value="470124">
-                                    <!--скопировано с order/create, но должно работать, т.к. фронтенд идентичен-->
-                                    <div class="input-field col s12">
-                                        <label for="datepicker">Date</label>
-                                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } }) @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="timepicker">Time</label>
-                                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text", @placeholder = "HH:MM", @required = "true" } }) @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
-                                    </div>
-                                    <br />
-                                    <center>
-                                        <div class="row">
-                                            <div class="button">
-                                                <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </center>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

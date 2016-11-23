@@ -19,7 +19,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
         // GET: Moderator
         public ActionResult Index()
         {
-            return View(db.AllUsers.ToList());
+            return View(new Let_s_Eat_Bee_Project.Models.DBDump { Orders=db.Orders.ToList(),Users=db.AllUsers.ToList()});
         }
     }
 }
