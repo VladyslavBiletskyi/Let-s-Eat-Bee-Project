@@ -1,0 +1,75 @@
+﻿@model Let_s_Eat_Bee_Project.Models.Order
+<div id="OrderInfo" class="tab-content">
+    <div class="row">
+        <div class="col s7">
+            <ul class="collection with-header">
+                <li class="collection-header order-view-link">
+                    <h6>Joinings in this order:</h6>
+                </li>
+                <li>
+                    <ul class="collapsible no-margins no-borders" data-collapsible="accordion">
+                        <!--элементы списка - джоининги-->
+                        @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
+                        {
+                            <li>
+                                <!--в хэдер вставить имя того кто присоединяется-->
+                                <div class="collapsible-header">@joining.UserId</div>
+                                <div class="collapsible-body order-collapsible">
+                                    <!--в Р вставить текст джоининга-->
+                                    <p>@joining.Text</p>
+                                    <!--в id вставить айди джоининга, как в orders/join-->
+                                    <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
+                                    <!--ссылка на удаление джоининга, передать айди-->
+                                    <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        @using (Html.BeginForm("OrderEdit", "Moderator", FormMethod.Post, new { @class = "col s5" }))
+        {
+            <div class="input-field col s12">
+                <!--в value вставить адрес-->
+                <input value="@Model.Address" id="Address" name="Address" type="text">
+                <label class="active moder-label" for="Address">Address</label>
+            </div>
+            <input type="hidden" name="Id" value="@Model.Id">
+        <!--скопировано с order/create, но должно работать, т.к. фронтенд идентичен-->
+        <!--единственное - в placeholder вставить текущие значения из базы-->
+            <div class="input-field col s12">
+                @Html.LabelFor(x => x.CreationDateTime)<br />
+                @Html.EditorFor(model => model.CreationDateTime, new {  @required = "true" })
+                @Html.ValidationMessageFor(model => model.CreationDateTime, "", new { @class = "text-danger" })
+            </div>
+            <center>
+                <div class="row">
+                    <div class="button">
+                        <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
+                    </div>
+                </div>
+            </center>
+        }
+    </div>
+    <!-- Modal Structure -->
+    <div id="edit-joining" class="modal">
+        <form>
+            <div class="modal-content">
+                <h4>Edit joining text</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="text_of_join">Text</label>
+                        <input type="text" id="Text" name="Text" required />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Change</button>
+                </center>
+            </div>
+        </form>
+    </div>
+    <!--end_modal-->
+    </div>
