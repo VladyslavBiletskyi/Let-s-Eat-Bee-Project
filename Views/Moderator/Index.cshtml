@@ -16,18 +16,20 @@
                         <ul class="tabs-left">
                             @foreach (Let_s_Eat_Bee_Project.Models.AbstractUser user in Model.AuthUsers) {
                                 <!--<li>@Html.ActionLink(@user.FirstName + " " + @user.LastName, "", new { id = @user.Id }, new { @class = "tab tab-vertical" })</li>-->
-                                <li><a href="#" onclick="FetchUser(@user.Id)" class="tab tab-vertical">@user.FirstName @user.LastName</a></li>
+                                <li class="tab tab-vertical">
+                                    <a href="#" onclick="FetchUser(@user.Id)">@user.FirstName @user.LastName</a>
+                                </li>
                             }
                         </ul>
                     </div>
                     <div class="col s9">
                         <!--основная часть табов-->
                         <!--каждый таб - форма для отправки изменений, в ней нужно вставить текущие значения юзверя в поля value-->
-                            <div id="UserDetail" class="tab-content">
-                          @using (Html.BeginForm("UserEdit","Moderator",FormMethod.Post))
+                        <div id="UserDetail" class="tab-content">
+                            @using (Html.BeginForm("UserEdit","Moderator",FormMethod.Post))
                           {
                               <!--Форма заполнится Аяксом, все схвачено-->
-                              <div id="UserInfo"></div><br />
+                                <div id="UserInfo"></div><br />
                                 <center>
                                     <div class="row">
                                         <div class="button">
@@ -48,13 +50,15 @@
                             <!--ссылки на основную часть табов ордера, вставить имя создателя и дату-->
                             @foreach (Let_s_Eat_Bee_Project.Models.Order order in Model.Orders)
                             {
-                                <li><a href="#" class = "tab tab-vertical" onclick="FetchOrder(@order.Id)">@order.Id @order.CreationDateTime</a></li>
+                                <li class="tab tab-vertical">
+                                    <a href="#" onclick="FetchOrder(@order.Id)">@order.Id @order.CreationDateTime</a>
+                                </li>
                             }
                         </ul>
                     </div>
                     <div class="col s9">
                         <div id="OrderInfo" class="tab-content"></div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,23 +67,39 @@
 </div>
 <script>
     function FetchUser(id) {
+        @*$.ajax({
+            url: '/Scripts/materialize.js',
+            success: function () {
+                console.log('user');
+            }
+        });*@
         $.ajax({
             type: "POST",
             url: '@Url.Action("UserDetail")/' + id,
             success: function (data) {
-                $('#UserInfo').replaceWith(data);
+                $('#UserInfo').html(data);
             }
         });
+
     }
     $(document).ready(FetchUser(@Model.AuthUsers.FirstOrDefault().Id));
+
     function FetchOrder(id) {
+        @*$.ajax({
+            url: '/Scripts/materialize.js',
+            success:function() {
+                console.log('order');
+            }
+        });*@
         $.ajax({
             type: "POST",
             url: '@Url.Action("OrderDetail")/' + id,
             success: function (data) {
-                $('#OrderInfo').replaceWith(data);
+                $('#OrderInfo').html(data);
             }
         });
+
     }
     $(document).ready(FetchOrder(@Model.Orders.FirstOrDefault().Id));
+
 </script>

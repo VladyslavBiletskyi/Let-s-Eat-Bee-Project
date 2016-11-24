@@ -1,4 +1,5 @@
 ﻿@model Let_s_Eat_Bee_Project.Models.Order
+<script type="text/javascript" src="~/Scripts/materialize.js"></script>
 <div id="OrderInfo" class="tab-content">
     <div class="row">
         <div class="col s7">
@@ -16,7 +17,7 @@
                                 <div class="collapsible-header">@joining.UserId</div>
                                 <div class="collapsible-body order-collapsible">
                                     <!--в Р вставить текст джоининга-->
-                                    <p>@joining.Text</p>
+                                    <p>Lorem Ipsum</p>
                                     <!--в id вставить айди джоининга, как в orders/join-->
                                     <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
                                     <!--ссылка на удаление джоининга, передать айди-->
@@ -40,7 +41,7 @@
         <!--единственное - в placeholder вставить текущие значения из базы-->
             <div class="input-field col s12">
                 @Html.LabelFor(x => x.CreationDateTime)<br />
-                @Html.EditorFor(model => model.CreationDateTime, new {  @required = "true" })
+                @Html.EditorFor(model => model.CreationDateTime, new { @required = "true" })
                 @Html.ValidationMessageFor(model => model.CreationDateTime, "", new { @class = "text-danger" })
             </div>
             <center>
@@ -60,7 +61,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <label for="text_of_join">Text</label>
-                        <input type="text" id="Text" name="Text" required />
+                        <input type="text" id="text_of_join" name="Text" required />
                     </div>
                 </div>
             </div>
@@ -72,4 +73,4 @@
         </form>
     </div>
     <!--end_modal-->
-    </div>
+</div>
