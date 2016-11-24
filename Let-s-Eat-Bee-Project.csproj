@@ -264,6 +264,7 @@
     <Content Include="Views\Moderator\Index.cshtml" />
     <Content Include="Views\Moderator\UserDetail.cshtml" />
     <Content Include="Views\Moderator\OrderDetail.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

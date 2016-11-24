@@ -93,6 +93,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
                 // Сбои при входе не приводят к блокированию учетной записи
                 // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
+                var user = db.Users.FirstOrDefault(x => x.Email == report.Email);
+                if (user != null && !user.EmailConfirmed)
+                {
+                    return View("Error");
+                }
+
                 var result = await SignInManager.PasswordSignInAsync(report.Email, report.Pass, true, shouldLockout: false);
                 switch (result)
                 {
@@ -120,7 +126,18 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // генерируем токен для подтверждения регистрации
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // создаем ссылку для подтверждения
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                               protocol: Request.Url.Scheme);
+                    // отправка письма
+                    await UserManager.SendEmailAsync(user.Id, "Подтверждение электронной почты",
+                               "Для завершения регистрации перейдите по ссылке:: <a href=\""
+                                                               + callbackUrl + "\">завершить регистрацию</a>");
+
                     AuthorizedUser aUser = new AuthorizedUser();
                     aUser.AppUser = db.Users.Find(user.Id);
                     aUser.AppUserId = user.Id;
@@ -130,8 +147,6 @@ namespace Let_s_Eat_Bee_Project.Controllers
                     db.AllUsers.Add(aUser);
 
                     db.SaveChanges();
-
-                    return RedirectToAction("Index", "Account");
                 }
                 ModelState.AddModelError("", "Неудачная попытка входа!");
             }
@@ -180,5 +195,25 @@ namespace Let_s_Eat_Bee_Project.Controllers
             db.SaveChanges();
             return RedirectToAction("UserProfile", "Account");
         }
+
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            return View("Error");
+        }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
+
     }
 }

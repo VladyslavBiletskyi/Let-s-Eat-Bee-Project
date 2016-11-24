@@ -11,6 +11,7 @@
             <div class="row">
             @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { id = "report_request" }))
             {
+                @Html.ValidationSummary();
                 <form class="col s12" method="post" id="signin-form">
                     <div class="row">
                         <div class="input-field col s12">
