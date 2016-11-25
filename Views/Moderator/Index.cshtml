@@ -62,7 +62,30 @@
                 </div>
             </div>
         </div>
-
+        <!-- Modal Structure -->
+        <div id="edit-joining" class="modal">
+            @using (Html.BeginForm("JoiningEdit", "Order", FormMethod.Post))
+            {
+                <div class="modal-content">
+                    <h4>Edit joining text</h4>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="text_of_join">Text</label>
+                            <input type="text" id="Text" name="Text" required />
+                            <div id="JoinId">
+                                <input type="text" name="Id" value="" hidden />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button id="Change" class="modal-action modal-close waves-effect waves-green btn-flat">Change</button>
+                    </center>
+                </div>
+            }
+        </div>
+        <!--end_modal-->
     </div>
 </div>
 <script>
@@ -102,4 +125,7 @@
     }
     $(document).ready(FetchOrder(@Model.Orders.FirstOrDefault().Id));
 
+    function FetchJoin(id) {
+        $("#JoinId").replaceWith("<input type=\"text\" name=\"Id\" value=\"" + id + "\" hidden />");
+    }
 </script>

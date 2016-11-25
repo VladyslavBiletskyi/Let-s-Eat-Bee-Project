@@ -14,14 +14,17 @@
                         {
                             <li>
                                 <!--в хэдер вставить имя того кто присоединяется-->
-                                <div class="collapsible-header">@joining.UserId</div>
+                                <div class="collapsible-header">@joining.User.FirstName @joining.User.LastName</div>
                                 <div class="collapsible-body order-collapsible">
                                     <!--в Р вставить текст джоининга-->
                                     <p>@joining.Text</p>
                                     <!--в id вставить айди джоининга, как в orders/join-->
-                                    <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
+                                    <a href="#edit-joining" class="waves-effect waves-light btn-flat" onclick="FetchJoin(@joining.Id)" >Edit</a>
                                     <!--ссылка на удаление джоининга, передать айди-->
-                                    <a class="waves-effect waves-light btn-flat" href="#">Delete</a>
+                                    @using (Html.BeginForm("JoiningDelete", "Order", FormMethod.Post,new { @class = "waves-effect waves-light btn-flat" }))
+                                    {
+                                        <input type="text" value="@joining.Id" name="Id" hidden /><input type="submit" value="Delete" />
+                                    }
                                 </div>
                             </li>
                         }
@@ -50,27 +53,12 @@
                         <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="button">
+                        @Html.ActionLink("Delete Order","Delete","Order",new { id=Model.Id},new { @class ="waves-effect waves-light btn #4a148c purple darken-3" })
+                    </div>
+                </div>
             </center>
         }
     </div>
-    <!-- Modal Structure -->
-    <div id="edit-joining" class="modal">
-        <form>
-            <div class="modal-content">
-                <h4>Edit joining text</h4>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="text_of_join">Text</label>
-                        <input type="text" id="text_of_join" name="Text" required />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <center>
-                    <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Change</button>
-                </center>
-            </div>
-        </form>
-    </div>
-    <!--end_modal-->
 </div>

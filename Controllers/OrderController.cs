@@ -165,6 +165,29 @@ namespace Let_s_Eat_Bee_Project.Controllers
             }
             return RedirectToAction("Index","Order");   
         }
+        [HttpPost]
+        public ActionResult JoiningDelete(int Id)
+        {
+            Joining joining = db.Joinings.Find(Id);
+            if (joining != null)
+            {
+                db.Joinings.Remove(joining);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Account");
+
+        }
+        [HttpPost]
+        public ActionResult JoiningEdit(Joining newJoining)
+        {
+            Joining joining = db.Joinings.Find(newJoining.Id);
+            if (joining != null)
+            {
+                joining.Text = newJoining.Text;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Account");
+        }
 
     }
 }
