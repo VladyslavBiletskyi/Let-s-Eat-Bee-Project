@@ -72,9 +72,7 @@
                         <div class="input-field col s12">
                             <label for="text_of_join">Text</label>
                             <input type="text" id="Text" name="Text" required />
-                            <div id="JoinId">
-                                <input type="text" name="Id" value="" hidden />
-                            </div>
+                            <input type="text" id="JoinId" name="Id" value="" hidden />
                         </div>
                     </div>
                 </div>
@@ -90,17 +88,11 @@
 </div>
 <script>
     function FetchUser(id) {
-        @*$.ajax({
-            url: '/Scripts/materialize.js',
-            success: function () {
-                console.log('user');
-            }
-        });*@
         $.ajax({
             type: "POST",
             url: '@Url.Action("UserDetail")/' + id,
             success: function (data) {
-                $('#UserInfo').html(data);
+                $('#UserInfo').replaceWith(data);
             }
         });
 
@@ -108,17 +100,12 @@
     $(document).ready(FetchUser(@Model.AuthUsers.FirstOrDefault().Id));
 
     function FetchOrder(id) {
-        @*$.ajax({
-            url: '/Scripts/materialize.js',
-            success:function() {
-                console.log('order');
-            }
-        });*@
+
         $.ajax({
             type: "POST",
             url: '@Url.Action("OrderDetail")/' + id,
             success: function (data) {
-                $('#OrderInfo').html(data);
+                $('#OrderInfo').replaceWith(data);
             }
         });
 
@@ -126,6 +113,6 @@
     $(document).ready(FetchOrder(@Model.Orders.FirstOrDefault().Id));
 
     function FetchJoin(id) {
-        $("#JoinId").replaceWith("<input type=\"text\" name=\"Id\" value=\"" + id + "\" hidden />");
+        $("#JoinId").replaceWith("<input type=\"text\" id=\"JoinId\" name=\"Id\" value=\"" + id + "\" hidden />");
     }
 </script>
