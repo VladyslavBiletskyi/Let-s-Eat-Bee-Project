@@ -19,8 +19,9 @@ namespace Let_s_Eat_Bee_Project.Controllers
         public ActionResult Index(int page = 1)
         {
             IEnumerable<Order> orders = from u in db.Orders
-                                        where u.CreationDateTime >= DateTime.Now
-                                        orderby u.CreationDateTime
+                                        where u.CompletionDateTime >= DateTime.Now
+                                        && u.IsPrivate == false
+                                        orderby u.CompletionDateTime
                                         select u;
 
             ViewBag.Page = page;
@@ -63,7 +64,9 @@ namespace Let_s_Eat_Bee_Project.Controllers
             order.Creator = user;
             order.CreatorId = user.Id;
             order.Address = model.Address;
-            order.CreationDateTime = DateTime.Parse(model.Date + " " + model.Time);
+            order.CompletionDateTime = DateTime.Parse(model.Date + " " + model.Time);
+            order.OrderPlace = model.Place;
+            order.IsPrivate = model.IsPrivate;
 
             db.Orders.Add(order);
             db.SaveChanges();
@@ -95,8 +98,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
                     }
                     EditOrder currentOrder = new EditOrder();
                     currentOrder.Address = order.Address;
-                    currentOrder.Date = order.CreationDateTime.Date.ToShortDateString();
-                    currentOrder.Time = order.CreationDateTime.ToShortTimeString();
+                    currentOrder.Date = order.CompletionDateTime.Date.ToShortDateString();
+                    currentOrder.Time = order.CompletionDateTime.ToShortTimeString();
                     currentOrder.Text = order.Joinings.First().Text;
                     return View(currentOrder);
                 }
@@ -113,7 +116,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 if (order != null)
                 {
                     order.Address = model.Address;
-                    order.CreationDateTime = DateTime.Parse(model.Date + " " + model.Time);
+                    order.CompletionDateTime = DateTime.Parse(model.Date + " " + model.Time);
                     order.Joinings.First().Text = model.Text;
                     db.SaveChanges();
                 }
@@ -135,7 +138,22 @@ namespace Let_s_Eat_Bee_Project.Controllers
         }
         public ActionResult Detail(int id)
         {
-            return View(db.Orders.Where(x=>x.Id==id).FirstOrDefault());
+            Order order = db.Orders.Find(id);
+            if (order != null)
+            {
+                if (!order.IsPrivate)
+                {
+                    return View(order);
+                }
+                else
+                {
+                    if ((order.Creator is AuthorizedUser) && ((AuthorizedUser)order.Creator).AppUserId + order.Id == Request.QueryString["oid"])
+                    {
+                        return View(order);
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Order", null);
         }
         [HttpPost]
         public ActionResult Join (NewJoining newJoining)
@@ -143,7 +161,15 @@ namespace Let_s_Eat_Bee_Project.Controllers
             if (newJoining.OrderID != 0)
             {
                 string id = User.Identity.GetUserId();
-                AuthorizedUser user = db.AllUsers.OfType<AuthorizedUser>().Where(x => x.AppUser.Id == id).FirstOrDefault();
+                AbstractUser user = db.AllUsers.OfType<AuthorizedUser>().Where(x => x.AppUser.Id == id).FirstOrDefault();
+                if (user == null)
+                {
+                    user = new UnauthorizedUser();
+                    user.FirstName = newJoining.UserFirstName;
+                    user.LastName = newJoining.UserLastName;
+                    db.AllUsers.Add(user);
+                    db.SaveChanges();
+                }
                 if (newJoining.UserFirstName == null || newJoining.UserLastName == null)
                 {
                     newJoining.UserFirstName = user.FirstName;
@@ -188,6 +214,15 @@ namespace Let_s_Eat_Bee_Project.Controllers
             }
             return RedirectToAction("Index", "Account");
         }
-
+        public ActionResult MessageDelete(int Id)
+        {
+            Message message = db.Messages.Find(Id);
+            if (message != null)
+            {
+                db.Messages.Remove(message);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Account");
+        }
     }
 }

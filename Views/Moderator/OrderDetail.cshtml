@@ -43,9 +43,31 @@
         <!--скопировано с order/create, но должно работать, т.к. фронтенд идентичен-->
         <!--единственное - в placeholder вставить текущие значения из базы-->
             <div class="input-field col s12">
-                @Html.LabelFor(x => x.CreationDateTime)<br />
-                @Html.EditorFor(model => model.CreationDateTime, new { @required = "true" })
-                @Html.ValidationMessageFor(model => model.CreationDateTime, "", new { @class = "text-danger" })
+                @Html.LabelFor(x => x.CompletionDateTime)<br />
+                @Html.EditorFor(model => model.CompletionDateTime, new { @required = "true" })
+                @Html.ValidationMessageFor(model => model.CompletionDateTime, "", new { @class = "text-danger" })
+            </div>
+            <!--Чат жы-->
+            <div class="col m8 s12">
+                <div class="chat-panel">
+                    <div class="chat-heading">Chat</div>
+                    <div class="chat-body">
+                        <!--список сообщений в чатике заказа-->
+                        <ul class="msg-list collection" id="discussion">
+                            @foreach (var message in Model.Messages)
+                            {
+                                <li>
+                                    @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
+                                    <div class="button">
+                                        @Html.ActionLink("Delete Message", "MessageDelete", "Order", new { id =message.Id }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="chat-footer">
+                    </div>
+                </div>
             </div>
             <center>
                 <div class="row">

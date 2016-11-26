@@ -75,7 +75,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
             else
             {
                 Order old = db.Orders.Where(x => x.Id == order.Id).FirstOrDefault();
-                old.CreationDateTime = order.CreationDateTime;
+                old.CompletionDateTime = order.CompletionDateTime;
                 old.Address = order.Address;
                 db.SaveChanges();
                 return RedirectToAction("Index");

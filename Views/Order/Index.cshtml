@@ -41,7 +41,7 @@
                     List<Let_s_Eat_Bee_Project.Models.Order> list = new List<Let_s_Eat_Bee_Project.Models.Order>();
                     if (Request.QueryString["Sorting"] == "1")
                     {
-                        list=Model.OrderByDescending(x => x.CreationDateTime).ToList();
+                        list=Model.OrderByDescending(x => x.CompletionDateTime).ToList();
                     }
                     else
                     {
@@ -50,19 +50,20 @@
                     if (Request.QueryString["DateFrom"] != null&& Request.QueryString["DateFrom"] != "")
                     {
                         DateTime date = DateTime.Parse(Request.QueryString["DateFrom"]);
-                        list = list.Where(x => x.CreationDateTime >= date).ToList();
+                        list = list.Where(x => x.CompletionDateTime >= date).ToList();
                     }
                     if (Request.QueryString["DateTo"] != null && Request.QueryString["DateTo"] != "")
                     {
                         DateTime date = DateTime.Parse(Request.QueryString["DateTo"]);
-                        list = list.Where(x => x.CreationDateTime < date).ToList();
+                        list = list.Where(x => x.CompletionDateTime < date).ToList();
                     }
                     for (int i = (ViewBag.Page - 1) * 6; i < list.Count && i < (ViewBag.Page * 6) - 3; i++)
                     {
                     <div class="col s12 m4">
                         <div class="card #4a148c purple darken-3 order-card">
                             <div class="card-content white-text">
-                                <span class="card-title">@list[i].CreationDateTime</span>
+                                <span class="card-title">@list[i].CompletionDateTime</span>
+                                <p>Place:@list[i].OrderPlace</p>
                                 <p>Address: @list[i].Address </p>
                                 <p>Description: @list[i].Joinings.First().Text</p>
                             </div>
@@ -80,7 +81,8 @@
                     <div class="col s12 m4">
                         <div class="card #4a148c purple darken-3">
                             <div class="card-content white-text">
-                                <span class="card-title">@list[i].CreationDateTime</span>
+                                <span class="card-title">@list[i].CompletionDateTime</span>
+                                <p>Place:@list[i].OrderPlace</p>
                                 <p>Address: @list[i].Address </p>
                                 <p>Description: @list[i].Joinings.First().Text</p>
                             </div>

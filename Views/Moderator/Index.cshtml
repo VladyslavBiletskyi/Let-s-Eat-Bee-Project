@@ -51,7 +51,7 @@
                             @foreach (Let_s_Eat_Bee_Project.Models.Order order in Model.Orders)
                             {
                                 <li class="tab tab-vertical">
-                                    <a href="#" onclick="FetchOrder(@order.Id)">@order.Id @order.CreationDateTime</a>
+                                    <a href="#" onclick="FetchOrder(@order.Id)">@order.Id @order.CompletionDateTime</a>
                                 </li>
                             }
                         </ul>

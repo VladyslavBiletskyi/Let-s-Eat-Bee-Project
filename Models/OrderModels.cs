@@ -13,6 +13,9 @@ namespace Let_s_Eat_Bee_Project.Models
         public string Address { set; get; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Input Date in format dd:MM:yyyy")]
         public string Date { set; get; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Input Place from where you want to make an order")]
+        public string Place { set; get; }
+        public bool IsPrivate { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Input Time in format hh:mm")]
         public string Time { set; get; }
         public string TextOfOrder { set; get; }

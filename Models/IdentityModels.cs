@@ -45,7 +45,12 @@ namespace Let_s_Eat_Bee_Project.Models
     { }
     public class AuthorizedUser : AbstractUser
     {
+        public AuthorizedUser():base()
+        {
+            this.Friends = new HashSet<AuthorizedUser>();
+        }
         public string Organization { get; set; }
+        public virtual ICollection<AuthorizedUser> Friends { get; set; }
         public string AppUserId { get; set; }
         public virtual ApplicationUser AppUser { get; set; }
     }
@@ -57,16 +62,20 @@ namespace Let_s_Eat_Bee_Project.Models
         {
             this.Joinings = new HashSet<Joining>();
             this.Messages = new HashSet<Message>();
+            this.BlackList = new HashSet<AuthorizedUser>();
         }
 
         public int Id { get; set; }
-        public System.DateTime CreationDateTime { get; set; }
+        public System.DateTime CompletionDateTime { get; set; }
         public string Address { get; set; }
+        public string OrderPlace { get; set; }
+        public bool IsPrivate { get; set; }
         public int CreatorId { get; set; }
 
         public virtual AbstractUser Creator { get; set; }
         public virtual ICollection<Joining> Joinings { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<AuthorizedUser> BlackList { get; set; }
     }
     public class Message
     {

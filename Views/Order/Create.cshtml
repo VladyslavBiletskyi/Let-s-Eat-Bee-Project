@@ -10,7 +10,7 @@
             <h3>Create an Order</h3>
             <div class="row">
                 @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
+                {
                     <div class="row">
                         <div class="input-field col s6">
                             @if (!User.Identity.IsAuthenticated)
@@ -39,6 +39,20 @@
                             <label for="timepicker">Time</label>
                             @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text", @placeholder = "HH:MM", @required = "true" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>                        
+                    </div>
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="row">
+                                <label for="IsPrivate">Private order</label>
+                            </div>
+                        }
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="place">Place from where you want to make order</label>
+                            @Html.EditorFor(model => model.Place, new { htmlAttributes = new { @class = "validate", @id = "place", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+
                         </div>
                     </div>
                     <div class="row">

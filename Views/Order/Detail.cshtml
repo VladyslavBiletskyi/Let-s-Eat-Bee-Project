@@ -6,8 +6,15 @@
             <div class="col s10 offset-s1 ">
                 <!--тут выводится инфа о заказе-->
                 <h4>
-                    @Html.NameFor(model => model.Address):@Html.DisplayFor(model => model.Address)<br />
-                    Creation date and time:@Html.DisplayFor(model => model.CreationDateTime)
+                    @Html.NameFor(model => model.Address): @Html.DisplayFor(model => model.Address)<br />
+                    Completion date and time: @Html.DisplayFor(model => model.CompletionDateTime)<br />
+                    Place from where will be order made: @Html.DisplayFor(model => model.OrderPlace)
+                    @{ 
+                        if (Model.IsPrivate)
+                        {
+                            Write("Order is private. Link for order: " + Request.Path+"?oid" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
+                        }
+                    }
                 </h4>
                 <!--ссылка на создателя-->
                 <p>
@@ -95,7 +102,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

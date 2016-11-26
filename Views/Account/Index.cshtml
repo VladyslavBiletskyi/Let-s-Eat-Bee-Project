@@ -9,14 +9,15 @@
         <div class="row">
 
           @{
-                          DateTime now =DateTime.Now;
-                          List<Let_s_Eat_Bee_Project.Models.Order> myOrders = Model.Orders.Where(x => x.CreationDateTime>=now).ToList();
-                          for (int i = (ViewBag.Page - 1) * 6; i < myOrders.Count && i < (ViewBag.Page * 6) - 3; i++)
-                          {
+              DateTime now =DateTime.Now;
+              List<Let_s_Eat_Bee_Project.Models.Order> myOrders = Model.Orders.Where(x => x.CompletionDateTime >= now).ToList();
+              for (int i = (ViewBag.Page - 1) * 6; i < myOrders.Count && i < (ViewBag.Page * 6) - 3; i++)
+              {
             <div class="col s12 m4">
                 <div class="card #4a148c purple darken-3">
                     <div class="card-content white-text">
-                        <span class="card-title">@myOrders[i].CreationDateTime</span>
+                        <span class="card-title">@myOrders[i].CompletionDateTime</span>
+                        <p>Place:@myOrders[i].OrderPlace</p>
                         <p>Address: @myOrders[i].Address </p>
                         <p>Description: @myOrders[i].Joinings.First().Text</p>
                     </div>
@@ -54,11 +55,11 @@
 
             <tbody>
                 @{
-                    List<Let_s_Eat_Bee_Project.Models.Joining> joinings = Model.Joinings.Where(x => x.Order.CreationDateTime >= now).ToList();
+                    List<Let_s_Eat_Bee_Project.Models.Joining> joinings = Model.Joinings.Where(x => x.Order.CompletionDateTime >= now).ToList();
                     foreach (var joining in joinings)
                     {
                 <tr>
-                    <td>@joining.Order.CreationDateTime</td>
+                    <td>@joining.Order.CompletionDateTime</td>
                     <td>@joining.Order.Address</td>
                     <td>@Html.ActionLink("Details", "Detail", "Order", new { joining.Order.Id }, null)</td>
                 </tr>
