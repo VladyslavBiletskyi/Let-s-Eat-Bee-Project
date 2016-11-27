@@ -41,20 +41,16 @@ namespace Let_s_Eat_Bee_Project.Models
 
     public class ChangePasswordViewModel
     {
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Текущий пароль")]
-        public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Новый пароль")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение нового пароля")]
-        [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "New password and confirm are not equals.")]
         public string ConfirmPassword { get; set; }
     }
 

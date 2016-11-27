@@ -64,17 +64,19 @@
                 <div id="change_pass" class="col s12">
                     <div class="col s3"></div>
                     <div class="col s6">
-                        <form>
+                    @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                            @Html.ValidationSummary();
                             <div class="row">
                                 <div class="input-field col s12">
                                     <label for="new_password">New Password</label>
-                                    <input type="password" id="new_password" required />
+                                    <input type="password" id="new_password" required name="NewPassword"/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <label for="conf_password">Confirm Password</label>
-                                    <input type="password" id="conf_password" class="validate" required />
+                                    <input type="password" id="conf_password" class="validate" required  name="ConfirmPassword"/>
                                 </div>
                             </div>
                             <center>
@@ -84,7 +86,7 @@
                                     </div>
                                 </div>
                             </center>
-                        </form>
+                    }
                     </div>
                     <div class="col s3"></div>
                 </div>

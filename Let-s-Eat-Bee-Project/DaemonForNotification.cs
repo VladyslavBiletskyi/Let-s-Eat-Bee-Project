@@ -28,7 +28,9 @@ namespace Let_s_Eat_Bee_Project
             {
                 Thread.Sleep(300000);
                 DateTime now = DateTime.Now;
-                List<Order> Orders = db.Orders.Where(x => x.CompletionDateTime >= now.AddMinutes(25) && x.CompletionDateTime <= now.AddMinutes(30)).ToList();
+                DateTime start = now.AddMinutes(25);
+                DateTime end = now.AddMinutes(30);
+                List<Order> Orders = db.Orders.Where(x => x.CompletionDateTime >= start && x.CompletionDateTime <= end).ToList();
                 foreach (var order in Orders)
                 {
                     foreach (var join in order.Joinings)

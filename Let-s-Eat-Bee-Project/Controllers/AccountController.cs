@@ -216,6 +216,26 @@ namespace Let_s_Eat_Bee_Project.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("UserProfile");
+            }
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            string code = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.NewPassword);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("UserProfile");
+            }
+            AddErrors(result);
+            return RedirectToAction("UserProfile");
+        }
+
+
+        [HttpPost]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)

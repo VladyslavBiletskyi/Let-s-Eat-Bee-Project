@@ -59,4 +59,5 @@ namespace Let_s_Eat_Bee_Project.Models
         [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
     }
+
 }
