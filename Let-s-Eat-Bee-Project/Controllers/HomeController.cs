@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace Let_s_Eat_Bee_Project.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

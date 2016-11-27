@@ -16,6 +16,9 @@ namespace Let_s_Eat_Bee_Project
         {
             Database.SetInitializer(new DBIntializator());
 
+            DaemonForNotification notification = new DaemonForNotification();
+            notification.StartDaemon();
+
             AreaRegistration.RegisterAllAreas();
 
             AreaRegistration.RegisterAllAreas();

@@ -3,6 +3,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Let_s_Eat_Bee_Project.Models
 {
+    public class ExternalLoginConfirmationViewModel
+    {
+        [Required]
+        [Display(Name = "E-mail")]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Organization")]
+        public string Organization { get; set; }
+    }
+    public class ExternalLoginListViewModel
+    {
+        public string ReturnUrl { get; set; }
+    }
     public class ReportViewModel
     {
         [Required]

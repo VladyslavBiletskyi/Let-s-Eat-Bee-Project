@@ -58,11 +58,11 @@ namespace Let_s_Eat_Bee_Project
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "998493079580-vs0b4olp3i46elamap88s2uor9jotuvk.apps.googleusercontent.com",
+                ClientSecret = "qfJInydHS-HwIcEadeto9P2e"
+            });
         }
     }
 }
