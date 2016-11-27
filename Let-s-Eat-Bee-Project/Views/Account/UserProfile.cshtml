@@ -64,7 +64,7 @@
                 <div id="change_pass" class="col s12">
                     <div class="col s3"></div>
                     <div class="col s6">
-                    @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "change-pass" }))
+                    @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { role = "form", id = "change-pass" }))
                     {
                             @Html.ValidationSummary();
                             <div class="row">
