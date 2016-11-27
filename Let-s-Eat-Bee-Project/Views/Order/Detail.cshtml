@@ -14,10 +14,10 @@
                     @Html.NameFor(model => model.Address): @Html.DisplayFor(model => model.Address)<br />
                     Completion date and time: @Html.DisplayFor(model => model.CompletionDateTime)<br />
                     Place from where will be order made: @Html.DisplayFor(model => model.OrderPlace)
-                    @{ 
+                    @{
                         if (Model.IsPrivate)
                         {
-                            Write("Order is private. Link for order: " + Request.Path+"?oid" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
+                            Write("Order is private. Link for order: " + Request.Path + "?oid" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
                         }
                     }
                 </h4>
@@ -55,17 +55,31 @@
                         </li>
 
                         @*<!--старая версия-->
-                        @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
-                        {                        
-                            <li class="order-view-link">
-                                @Html.DisplayFor(model => joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
-                                <br />
-                                @Html.DisplayFor(model => joining.Text)
-                                <br />
-                            </li>
-                        }*@
+                            @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
+                            {
+                                <li class="order-view-link">
+                                    @Html.DisplayFor(model => joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
+                                    <br />
+                                    @Html.DisplayFor(model => joining.Text)
+                                    <br />
+                                </li>
+                            }*@
                     </ul>
-                    <a href="#join-order">Join</a>
+                    @if (ViewBag.UserId != null)
+                    {
+                        if (ViewBag.UserId == Model.CreatorId)
+                        {
+                            @Html.ActionLink("Edit", "Edit/" + Model.Id)
+                        }
+                        else if (Model.Joinings.Where(x => x.UserId == ViewBag.UserId).Count() == 0)
+                        {
+                            <a href="#join-order">Join</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href="#join-order">Join</a>
+                    }
                 </div>
                 <div class="col m8 s12">
                     <div class="chat-panel">
@@ -79,11 +93,11 @@
                                         @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
                                     </li>
                                     @*<!--изначальный вариант сообщений, почти как в вк-->
-                                        <li class="collection-item msg-list ">
-                                        <span class="msg-name">@message.User.FirstName @message.User.LastName</span>
-                                        <span class="msg-time">@message.CreationDateTime.ToShortTimeString()</span>
-                                        <span class="msg-txt">@message.Text</span>
-                                    </li>*@
+                                            <li class="collection-item msg-list ">
+                                            <span class="msg-name">@message.User.FirstName @message.User.LastName</span>
+                                            <span class="msg-time">@message.CreationDateTime.ToShortTimeString()</span>
+                                            <span class="msg-txt">@message.Text</span>
+                                        </li>*@
                                 }
                             </ul>
                         </div>
@@ -104,7 +118,6 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -115,36 +128,36 @@
     <div id="join-order" class="modal">
         @using (Html.BeginForm("Join", "Order"))
         {
-        <div class="modal-content">
-            <h4>Join Order</h4>
-            <input type="text" id="orderId" name="OrderId" value="@Model.Id" class="hide" />
-            @if (!User.Identity.IsAuthenticated)
+            <div class="modal-content">
+                <h4>Join Order</h4>
+                <input type="text" id="orderId" name="OrderId" value="@Model.Id" class="hide" />
+                @if (!User.Identity.IsAuthenticated)
                 {
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="UserFirstName" required />
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="first_name">First Name</label>
+                            <input type="text" id="first_name" name="UserFirstName" required />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="UserLastName" required />
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="UserLastName" required />
+                        </div>
                     </div>
-                </div>
                 }
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="text_of_join" >Text</label>
-                    <input type="text" id="text_of_join" name="Text" required />
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="text_of_join">Text</label>
+                        <input type="text" id="text_of_join" name="Text" required />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <center>
-                <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
-            </center>
-        </div>
+            <div class="modal-footer">
+                <center>
+                    <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
+                </center>
+            </div>
         }
     </div>
     <div id="edit-joining" class="modal">

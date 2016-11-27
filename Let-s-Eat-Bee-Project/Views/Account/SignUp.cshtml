@@ -10,7 +10,7 @@
             <div class="row">
                 @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id = "signup-form" }))
                 {
-                    
+                    @Html.ValidationSummary()
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="first_name">First Name</label>

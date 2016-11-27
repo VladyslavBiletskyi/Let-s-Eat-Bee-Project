@@ -41,13 +41,13 @@
                     List<Let_s_Eat_Bee_Project.Models.Order> list = new List<Let_s_Eat_Bee_Project.Models.Order>();
                     if (Request.QueryString["Sorting"] == "1")
                     {
-                        list=Model.OrderByDescending(x => x.CompletionDateTime).ToList();
+                        list = Model.OrderByDescending(x => x.CompletionDateTime).ToList();
                     }
                     else
                     {
                         list = Model;
                     }
-                    if (Request.QueryString["DateFrom"] != null&& Request.QueryString["DateFrom"] != "")
+                    if (Request.QueryString["DateFrom"] != null && Request.QueryString["DateFrom"] != "")
                     {
                         DateTime date = DateTime.Parse(Request.QueryString["DateFrom"]);
                         list = list.Where(x => x.CompletionDateTime >= date).ToList();
@@ -56,6 +56,10 @@
                     {
                         DateTime date = DateTime.Parse(Request.QueryString["DateTo"]);
                         list = list.Where(x => x.CompletionDateTime < date).ToList();
+                    }
+                    if (list.Count == 0)
+                    {
+                        <p>There is no orders</p>
                     }
                     for (int i = (ViewBag.Page - 1) * 6; i < list.Count && i < (ViewBag.Page * 6) - 3; i++)
                     {

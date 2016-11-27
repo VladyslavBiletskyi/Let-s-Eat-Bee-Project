@@ -141,6 +141,11 @@ namespace Let_s_Eat_Bee_Project.Controllers
             Order order = db.Orders.Find(id);
             if (order != null)
             {
+                string userId = User.Identity.GetUserId();
+                if (userId != null)
+                {
+                    ViewBag.UserId = db.AllUsers.OfType<AuthorizedUser>().FirstOrDefault(x => x.AppUserId == userId).Id;
+                }
                 if (!order.IsPrivate)
                 {
                     return View(order);

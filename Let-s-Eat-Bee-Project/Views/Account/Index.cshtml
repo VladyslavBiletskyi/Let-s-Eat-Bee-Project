@@ -12,8 +12,12 @@
         <div class="row">
 
           @{
-              DateTime now =DateTime.Now;
+              DateTime now = DateTime.Now;
               List<Let_s_Eat_Bee_Project.Models.Order> myOrders = Model.Orders.Where(x => x.CompletionDateTime >= now).ToList();
+              if (myOrders.Count == 0)
+              {
+                <p>You have no orders</p>
+              }
               for (int i = (ViewBag.Page - 1) * 6; i < myOrders.Count && i < (ViewBag.Page * 6) - 3; i++)
               {
             <div class="col s12 m4">
@@ -48,25 +52,36 @@
         <h5>Your joinings</h5>
 
         <table class="responsive-table">
-            <thead>
-                <tr>
-                    <th data-field="date">Date</th>
-                    <th data-field="address">Address</th>
-                    <th data-field="link">Links</th>
-                </tr>
-            </thead>
-
+            @{
+                List<Let_s_Eat_Bee_Project.Models.Joining> joinings = Model.Joinings.Where(x => x.Order.CompletionDateTime >= now).ToList();
+                if (joinings.Count != 0)
+                {
+                    <thead>
+                        <tr>
+                            <th data-field="date">Date</th>
+                            <th data-field="address">Address</th>
+                            <th data-field="link">Links</th>
+                        </tr>
+                    </thead>
+                }
+            }
             <tbody>
                 @{
-                    List<Let_s_Eat_Bee_Project.Models.Joining> joinings = Model.Joinings.Where(x => x.Order.CompletionDateTime >= now).ToList();
-                    foreach (var joining in joinings)
+                    if (joinings.Count == 0)
                     {
-                <tr>
-                    <td>@joining.Order.CompletionDateTime</td>
-                    <td>@joining.Order.Address</td>
-                    <td>@Html.ActionLink("Details", "Detail", "Order", new { joining.Order.Id }, null)</td>
-                </tr>
-                }
+                        <tr><td>You have no joinings</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var joining in joinings)
+                        {
+                            <tr>
+                                <td>@joining.Order.CompletionDateTime</td>
+                                <td>@joining.Order.Address</td>
+                                <td>@Html.ActionLink("Details", "Detail", "Order", new { joining.Order.Id }, null)</td>
+                            </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>
