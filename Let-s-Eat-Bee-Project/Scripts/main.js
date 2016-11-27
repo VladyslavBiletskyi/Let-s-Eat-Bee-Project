@@ -1,4 +1,4 @@
-﻿var toatContent = $('<img src="/Content/gendalf.jpg"/>');
+﻿var toastContent = $('<img src="/Content/gendalf.jpg"/>');
 
 $(document).ready(function () {
     $(".dropdown-button").dropdown();
@@ -45,7 +45,7 @@ function validateEmail(email, toastFlag) {
         if (toastFlag)
         {
             Materialize.toast('Invalid email format.', 3000);
-            Materialize.toast(toatContent, 3000);
+            //Materialize.toast(toatContent, 3000);
         }
         return false;
     }
@@ -58,7 +58,7 @@ function validatePassword(password, toastFlag) {
     if (!res) {
         if (toastFlag) {
             Materialize.toast('Invalid password format. Use letters & digits (6-25).', 3000);
-            Materialize.toast(toatContent, 3000);
+            //Materialize.toast(toatContent, 3000);
         }
         return false;
     }
@@ -71,7 +71,7 @@ function validateName(name, toastFlag) {
     if (!res) {
         if (toastFlag) {
             Materialize.toast('Invalid name format. Use letters only (3-25)', 3000);
-            Materialize.toast(toatContent, 3000);
+            //Materialize.toast(toatContent, 3000);
         }
         return false;
     }
@@ -85,9 +85,20 @@ function validateTime(time, toastFlag)
     if (!res) {
         if (toastFlag) {
             Materialize.toast('Use time format like 09:30, 16:15.', 3000);
-            Materialize.toast(toatContent, 3000);
+            //Materialize.toast(toatContent, 3000);
         }
         return false;
     }
     return true;
+}
+
+function markAsValid(id)
+{
+    $(id).removeClass('invalid');
+    $(id).addClass('valid');
+}
+
+function markAsInvalid(id) {
+    $(id).removeClass('valid');
+    $(id).addClass('invalid');
 }

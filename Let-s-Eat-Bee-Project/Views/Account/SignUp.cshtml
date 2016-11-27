@@ -8,7 +8,7 @@
         <div id="signup-block">
             <h3>Join us</h3>
             <div class="row">
-                @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id = "signup-form" }))
                 {
                     
                     <div class="row">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <center><button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3" disabled>Sign up</button></center>
+                    <center><button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3">Sign up</button></center>
 }
             </div>
         </div>
