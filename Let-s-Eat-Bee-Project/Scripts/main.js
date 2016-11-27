@@ -36,10 +36,12 @@ $(document).ready(function () {
 ///for validation
 
 function validateEmail(email, toastFlag) {
-    var pattern = new RegExp("^[a-zA-Z]+([a-z]|\.|_|[0-9])+@[a-z]+\.[a-z]+$");
-    var res = pattern.test(email);
-
-    if (!res) {
+    //var pattern = new RegExp("^[a-zA-Z]+([a-z]|\.|_|[0-9])+@[a-z]+\.[a-z]+$");
+    //работает рандомно, не трогать
+    var res = [];
+    res = email.match(/[a-zA-Z]+([a-z]|\.|_|[0-9])+@[a-z]+\.[a-z]+/g);
+    //alert(res);
+    if ( res === null || !(res.length === 1 && res[0].length === email.length)) {
         if (toastFlag)
         {
             Materialize.toast('Invalid email format.', 3000);
