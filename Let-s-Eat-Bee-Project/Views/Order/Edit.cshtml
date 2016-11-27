@@ -6,7 +6,7 @@
 <div class="block-order">
     <div class="container">
         <div id="create-block">
-            <h3>Create an Order</h3>
+            <h3>Edit an Order</h3>
             <div class="row">
                 @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
@@ -21,14 +21,14 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="dates">Date</label>
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "date", @id = "date", @class = "datepicker" } })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "date", @class = "datepicker" } })
                             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="timepicker">Time</label>
-                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @class = "timepicker", @type = "time" } })
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text" } })
                             @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
                         </div>
                     </div>
