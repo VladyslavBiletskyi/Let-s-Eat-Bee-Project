@@ -9,7 +9,7 @@
         <div id="create-block">
             <h3>Create an Order</h3>
             <div class="row">
-                @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data", id = "create-form" }))
                 {
                     <div class="row">
                         <div class="input-field col s6">
