@@ -23,13 +23,12 @@
                 </h4>
                 <!--ссылка на создателя-->
                 <p>
-                    Author:@Html.DisplayFor(model => model.Creator.FirstName)
-                    @Html.DisplayFor(model => model.Creator.LastName)
+                    Author: @Html.DisplayFor(model => model.Creator.FirstName) @Html.DisplayFor(model => model.Creator.LastName)
                 </p>
                 <br>
                 <div class="col m4 s12">
                     <ul class="collection with-header">
-                        <li class="collection-header order-view-link">
+                        <li class="collection-header order-view-link #ce93d8 purple lighten-3"">
                             <h6>People who joined this order:</h6>
                         </li>
                         <li>
@@ -43,27 +42,12 @@
                                         </div>
                                         <div class="collapsible-body order-collapsible">
                                             <p>@Html.DisplayFor(model => joining.Text)</p>
-                                            @*<!--сделать так, чтобы редактировать пользователь мог только свой джоининг-->
-                                                <!--в #edit-joining?id= вставить айди джоининга, как в orders/join-->
-                                                <a class="waves-effect waves-light btn-flat" href="#edit-joining">Edit</a>
-                                                <!--ссылка на удаление джоининга, передать айди-->
-                                                <a class="waves-effect waves-light btn-flat" href="#">Delete</a>*@
+
                                         </div>
                                     </li>
                                 }
                             </ul>
                         </li>
-
-                        @*<!--старая версия-->
-                            @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
-                            {
-                                <li class="order-view-link">
-                                    @Html.DisplayFor(model => joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
-                                    <br />
-                                    @Html.DisplayFor(model => joining.Text)
-                                    <br />
-                                </li>
-                            }*@
                     </ul>
                     @if (ViewBag.UserId != null)
                     {
@@ -126,7 +110,7 @@
     </div>
     <!-- Modal Structure -->
     <div id="join-order" class="modal">
-        @using (Html.BeginForm("Join", "Order"))
+        @using (Html.BeginForm("Join", "Order", new { @id = "join-modal", @class = "col s12" }))
         {
             <div class="modal-content">
                 <h4>Join Order</h4>
@@ -159,6 +143,7 @@
                 </center>
             </div>
         }
+        <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
     </div>
     <div id="edit-joining" class="modal">
         <form>

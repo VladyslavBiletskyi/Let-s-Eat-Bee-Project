@@ -16,7 +16,7 @@
               List<Let_s_Eat_Bee_Project.Models.Order> myOrders = Model.Orders.Where(x => x.CompletionDateTime >= now).ToList();
               if (myOrders.Count == 0)
               {
-                <p>You have no orders</p>
+                <div class="col s12">You have no orders</div>
               }
               for (int i = (ViewBag.Page - 1) * 6; i < myOrders.Count && i < (ViewBag.Page * 6) - 3; i++)
               {

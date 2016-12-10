@@ -2,7 +2,7 @@
 
     var $form = $("#create-form");
 
-    $form.submit(function (e) {
+    $("#join").click(function (e) {
         e.preventDefault();
 
         var first_name = $("#first_name").val();

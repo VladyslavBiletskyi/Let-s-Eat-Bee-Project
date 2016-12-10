@@ -11,7 +11,8 @@
     padding-bottom: 30px;
 }
 .block-order{
-    background: url("order_bg.jpg") fixed center;
+    /*background: url("order_bg.jpg") fixed center;*/
+    background: url("bg2.jpg") fixed;
     /*/min-height: 530px;*/
     min-height: 90vh;
     height: auto;
@@ -23,6 +24,7 @@
 
 h3, h5{
     margin-top: 0;
+    text-shadow: 0 0 5px white;
 }
 .block-order h3{
     padding-top: 30px;
@@ -53,22 +55,22 @@ footer{
     color: whitesmoke;
     text-shadow: 0 0 2px purple;
     text-align: center;
-    padding-top: 15%;
+    padding-top: 7%;
 }
 label{
     font-size: 14px !important;
     font-weight: bold;
     color: white !important;
+    /*text-shadow: 0 0 5px purple;*/
 }
 #signup-block{
     color: whitesmoke;
     text-shadow: 0 0 2px purple;
     text-align: center;
-    padding-top: 10%;
+    padding-top: 7%;
 }
 #create-block{
     color: purple !important;
-    text-shadow: 0 0 2px whitesmoke;
     text-align: center;
     padding-top: 0.5%;
 }
@@ -258,4 +260,9 @@ label .moder-label{
 }
 .modal-content label{
     color: purple !important;
+}
+form{
+    /*/background-color: rgba(178, 183, 218, 0.8); */
+    padding: 15px;
+    padding-top: 15px !important;
 }

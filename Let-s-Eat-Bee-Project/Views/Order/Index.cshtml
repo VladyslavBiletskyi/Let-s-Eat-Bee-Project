@@ -10,8 +10,8 @@
             <form method="get">
                 <div class="row sort-and-filter">
                     <div class="col s12 m3">
-                        <div class="input-field col s12">
-                            <select id="sort" name="Sorting" >
+                        <div class="input-field col s12"  style="color: purple !important;">
+                            <select id="sort" name="Sorting">
                                 <option value="0">First earlier</option>
                                 <option value="1">First later</option>
                             </select>
@@ -59,7 +59,7 @@
                     }
                     if (list.Count == 0)
                     {
-                        <p>There is no orders</p>
+                        <p>There are no orders</p>
                     }
                     for (int i = (ViewBag.Page - 1) * 6; i < list.Count && i < (ViewBag.Page * 6) - 3; i++)
                     {
