@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col s7">
             <ul class="collection with-header">
-                <li class="collection-header order-view-link">
+                <li class="collection-header order-view-link grey lighten-4">
                     <h6>Joinings in this order:</h6>
                 </li>
                 <li>
@@ -23,11 +23,12 @@
                                     <!--в Р вставить текст джоининга-->
                                     <p>@joining.Text</p>
                                     <!--в id вставить айди джоининга, как в orders/join-->
-                                    <a href="#edit-joining" class="waves-effect waves-light btn-flat" onclick="FetchJoin(@joining.Id)" >Edit</a>
+                                    <a href="#edit-joining" class="waves-effect waves-light btn-flat" onclick="FetchJoin(@joining.Id)">Edit</a>
                                     <!--ссылка на удаление джоининга, передать айди-->
-                                    @using (Html.BeginForm("JoiningDelete", "Order", FormMethod.Post,new { @class = "waves-effect waves-light btn-flat" }))
+                                    @using (Html.BeginForm("JoiningDelete", "Order", FormMethod.Post, new { @class = "waves-effect waves-light btn-flat no-padding-top" }))
                                     {
-                                        <input type="text" value="@joining.Id" name="Id" hidden /><input type="submit" value="Delete" />
+                                        <input type="hidden" value="@joining.Id" name="Id" />
+                                        <input type="submit" value="Delete" />
                                     }
                                 </div>
                             </li>
@@ -44,47 +45,36 @@
                 <label class="active moder-label" for="Address">Address</label>
             </div>
             <input type="hidden" name="Id" value="@Model.Id">
-        <!--скопировано с order/create, но должно работать, т.к. фронтенд идентичен-->
-        <!--единственное - в placeholder вставить текущие значения из базы-->
             <div class="input-field col s12">
                 @Html.LabelFor(x => x.CompletionDateTime)<br />
                 @Html.EditorFor(model => model.CompletionDateTime, new { @required = "true" })
                 @Html.ValidationMessageFor(model => model.CompletionDateTime, "", new { @class = "text-danger" })
             </div>
-            <!--Чат жы-->
-            <div class="col m8 s12">
-                <div class="chat-panel">
-                    <div class="chat-heading">Chat</div>
-                    <div class="chat-body">
-                        <!--список сообщений в чатике заказа-->
-                        <ul class="msg-list collection" id="discussion">
-                            @foreach (var message in Model.Messages)
-                            {
-                                <li>
-                                    @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
-                                    <div class="button">
-                                        @Html.ActionLink("Delete Message", "MessageDelete", "Order", new { id =message.Id }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="chat-footer">
-                    </div>
-                </div>
-            </div>
             <center>
                 <div class="row">
-                    <div class="button">
-                        <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3">Save changes</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="button">
-                        @Html.ActionLink("Delete Order","Delete","Order",new { id=Model.Id},new { @class ="waves-effect waves-light btn #4a148c purple darken-3" })
-                    </div>
+                    <input type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" value="Save">
+                    @Html.ActionLink("Delete Order", "Delete", "Order", new { id = Model.Id }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
                 </div>
             </center>
         }
     </div>
+    <!--Чат жы-->
+    <div class="col m9 s12">
+        <div class="chat-panel">
+            <div class="chat-heading">Chat</div>
+            <div class="chat-body">
+                <!--список сообщений в чатике заказа-->
+                <ul class="msg-list collection" id="discussion">
+                    @foreach (var message in Model.Messages)
+                    {
+                        <li>
+                            @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
+                            @Html.ActionLink("Delete", "MessageDelete", "Order", new { id = message.Id }, new { @class = "waves-effect waves-light btn-flat" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </div>

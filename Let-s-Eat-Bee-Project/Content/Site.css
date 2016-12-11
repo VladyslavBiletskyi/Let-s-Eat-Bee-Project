@@ -266,3 +266,15 @@ form{
     padding: 15px;
     padding-top: 15px !important;
 }
+.no-padding-top{
+    padding-top: 0 !important;
+}
+.block-moderator{
+    background: url("bg3.jpg") fixed;
+    min-height: 90vh;
+    height: auto;
+    background-size: 100%;
+    color: purple !important;
+    padding-bottom: 30px;
+    min-width: 435px;
+}

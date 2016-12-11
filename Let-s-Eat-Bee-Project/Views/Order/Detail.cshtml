@@ -13,7 +13,7 @@
                 <h4>
                     @Html.NameFor(model => model.Address): @Html.DisplayFor(model => model.Address)<br />
                     Completion date and time: @Html.DisplayFor(model => model.CompletionDateTime)<br />
-                    Place from where will be order made: @Html.DisplayFor(model => model.OrderPlace)
+                    Place: @Html.DisplayFor(model => model.OrderPlace)
                     @{
                         if (Model.IsPrivate)
                         {
@@ -28,7 +28,7 @@
                 <br>
                 <div class="col m4 s12">
                     <ul class="collection with-header">
-                        <li class="collection-header order-view-link #ce93d8 purple lighten-3"">
+                        <li class="collection-header order-view-link grey lighten-4">
                             <h6>People who joined this order:</h6>
                         </li>
                         <li>
