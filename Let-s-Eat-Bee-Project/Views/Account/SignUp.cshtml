@@ -1,0 +1,52 @@
+﻿@model Let_s_Eat_Bee_Project.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<div class="block-content">
+    <div class="container">
+        <div id="signup-block">
+            <h3>Join us</h3>
+            <div class="row">
+                @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id = "signup-form" }))
+                {
+                    @Html.ValidationSummary()
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="first_name">First Name</label>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "first_name"} })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="last_name">Last Name</label>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @id = "last_name", @required = "true"} })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="password">Password</label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "password", @required = "true" } })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="conf_password">Confirm Password</label>
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "conf_password", @class = "validate", @required = "true" } })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="email">E-Mail</label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "email", @required = "true" } })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="organization">Organization</label>
+                            @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "validate", @id = "organization", @required = "true" } })
+                        </div>
+                    </div>
+
+                    <center><button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3">Sign up</button></center>
+}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/signupValidation.js"></script>
+<!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА-->

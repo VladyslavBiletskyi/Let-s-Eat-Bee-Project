@@ -1,0 +1,110 @@
+﻿@model Let_s_Eat_Bee_Project.Models.NewOrder
+
+@{
+    ViewBag.Title = "Create an Order";
+}
+
+<div class="block-order">
+    <div class="container">
+        <div id="create-block">
+            <h3>Create an Order</h3>
+            <div class="row">
+                @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { enctype = "multipart/form-data", id = "create-form" }))
+                {
+                    <div class="row">
+                        <div class="input-field col s6">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                 @Html.Label("First Name")
+                            }
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = (User.Identity.IsAuthenticated) ? "hide" : "validate", @id = "first_name", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-field col s6">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                @Html.Label("Last Name")
+                            }
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = (User.Identity.IsAuthenticated) ? "hide" : "validate", @id = "last_name", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="datepicker">Date</label>
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "datepicker", @class = "datepicker", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="timepicker">Time</label>
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text", @placeholder = "HH:MM", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>                        
+                    </div>
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="place">Place from where you want to make order</label>
+                                @Html.EditorFor(model => model.Place, new { htmlAttributes = new { @class = "validate", @id = "place", @required = "true" } })
+                                @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="input-field col s6">
+                                <div class="row">
+                                    <div class="col m4">
+                                        <input type="checkbox" class="filled-in" id="private-order" name="IsPrivate" />
+                                        <label for="private-order">Private order</label>  
+                                    </div>
+                                    <div class="col m4"></div>
+                                    <div class="col m4"></div>
+                                    
+                                </div>
+                                                     
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="place">Place from where you want to make order</label>
+                                @Html.EditorFor(model => model.Place, new { htmlAttributes = new { @class = "validate", @id = "place", @required = "true" } })
+                                @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="address">Address</label>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "validate", @id = "address", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="input-field col s12">
+                            <label for="text_of_order">Text of Order</label>
+                            @Html.EditorFor(model => model.TextOfOrder, new { htmlAttributes = new { @class = "text", @id = "text_of_order", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="button">
+                            <button type="submit" id="create" value="Create" class="waves-effect waves-light btn #4a148c purple darken-3">Create</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/creatingValidationAuth.js"></script>
+}
+else
+{ 
+    <script type="text/javascript" src="~/Scripts/creatingValidation.js"></script>
+}

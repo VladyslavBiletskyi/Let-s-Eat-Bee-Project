@@ -1,0 +1,53 @@
+﻿@model Let_s_Eat_Bee_Project.Models.EditOrder
+
+@{
+    ViewBag.Title = "Edit an Order";
+}
+<div class="block-order">
+    <div class="container">
+        <div id="create-block">
+            <h3>Edit an Order</h3>
+            <div class="row">
+                @using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="address">Address</label>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "validate", @id = "address", @required = "true" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="dates">Date</label>
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @type = "text", @id = "date", @class = "datepicker" } })
+                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="timepicker">Time</label>
+                            @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @id = "timepicker", @type = "text" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="text_of_order">Text of Order</label>
+                            @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "text", @id = "text_of_order" } })
+                            @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.EditorFor(model => model.OrderID, new { htmlAttributes = new { @class = "hide", @id = "order_id" } })
+                    <div class="row">
+                        <div class="button">
+                            <input type="submit" value="Save changes" class="waves-effect waves-light btn #4a148c purple darken-3" />
+                        </div>
+                           @Html.ActionLink("Back to orders", "Index", "Account")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

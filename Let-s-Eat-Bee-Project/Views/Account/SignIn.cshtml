@@ -1,0 +1,41 @@
+﻿@using Let_s_Eat_Bee_Project.Models 
+@model Let_s_Eat_Bee_Project.Models.ReportViewModel
+@{
+    ViewBag.Title = "Sign In";
+}
+
+<!--ЦЕНТРАЛЬНЫЙ БЛОК-->
+<script type="text/javascript" src="~/Scripts/signinValidation.js"></script>
+<div class="block-content">
+    <div class="container">
+        <div id="signin-block">
+            <h4>Sign in</h4>
+            <div class="row">
+            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post, new { id = "signin-form", @class = "col s12" }))
+            {
+                
+                @Html.ValidationSummary();
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="email">E-Mail</label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email",  @id = "email", @required = "true"} })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="password">Password</label>
+                            @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password", @id = "password",  @required = "true" } })
+                        </div>
+                    </div>
+                    <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="signin">Sign in</button>
+                }
+            </div>
+            <div class="row">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА-->

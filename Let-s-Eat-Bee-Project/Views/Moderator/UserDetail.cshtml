@@ -1,0 +1,23 @@
+﻿@model Let_s_Eat_Bee_Project.Models.AuthorizedUser
+
+@{
+    ViewBag.Title = "User details - Moderator";
+}
+<script type="text/javascript" src="~/Scripts/materialize.js"></script>
+<div id="UserInfo">
+    <div class="input-field col s6">
+        @Html.EditorFor(x => x.FirstName)
+        <label class="active moder-label" for="first_name">First Name</label>
+    </div>
+    <div class="input-field col s6">
+        @Html.EditorFor(x => x.LastName)
+        <label class="active moder-label" for="last_name">Last Name</label>
+    </div>
+    <div class="input-field col s6">
+        @Html.EditorFor(x => x.Organization)
+        <label class="active moder-label" for="organization">Organization</label>
+    </div>
+    <!--айди юзера для передачи при отправке-->
+    <input type="hidden" name="Id" value="@Model.Id">
+    <br />
+</div>

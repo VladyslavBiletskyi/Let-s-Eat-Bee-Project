@@ -1,0 +1,205 @@
+﻿@model Let_s_Eat_Bee_Project.Models.Order
+
+@{
+    ViewBag.Title = "Order details";
+}
+
+<div class="block-order">
+    <br>
+    <div class="container order-view">
+        <div class="row">
+            <div class="col s10 offset-s1 ">
+                <!--тут выводится инфа о заказе-->
+                <h4>
+                    @Html.NameFor(model => model.Address): @Html.DisplayFor(model => model.Address)<br />
+                    Completion date and time: @Html.DisplayFor(model => model.CompletionDateTime)<br />
+                    Place: @Html.DisplayFor(model => model.OrderPlace)
+                    @{
+                        if (Model.IsPrivate)
+                        {
+                            Write("Order is private. Link for order: " + Request.Path + "?oid" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
+                        }
+                    }
+                </h4>
+                <!--ссылка на создателя-->
+                <p>
+                    Author: @Html.DisplayFor(model => model.Creator.FirstName) @Html.DisplayFor(model => model.Creator.LastName)
+                </p>
+                <br>
+                <div class="col m4 s12">
+                    <ul class="collection with-header">
+                        <li class="collection-header order-view-link grey lighten-4">
+                            <h6>People who joined this order:</h6>
+                        </li>
+                        <li>
+                            <ul class="collapsible no-margins no-borders" data-collapsible="accordion">
+                                <!--элементы списка - джоининги-->
+                                @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
+                                {
+                                    <li>
+                                        <div class="collapsible-header">
+                                            @Html.DisplayFor(model => joining.User.FirstName) @Html.DisplayFor(model => joining.User.LastName)
+                                        </div>
+                                        <div class="collapsible-body order-collapsible">
+                                            <p>@Html.DisplayFor(model => joining.Text)</p>
+
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                    @if (ViewBag.UserId != null)
+                    {
+                        if (ViewBag.UserId == Model.CreatorId)
+                        {
+                            @Html.ActionLink("Edit", "Edit/" + Model.Id)
+                        }
+                        else if (Model.Joinings.Where(x => x.UserId == ViewBag.UserId).Count() == 0)
+                        {
+                            <a href="#join-order">Join</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href="#join-order">Join</a>
+                    }
+                </div>
+                <div class="col m8 s12">
+                    <div class="chat-panel">
+                        <div class="chat-heading">Chat</div>
+                        <div class="chat-body">
+                            <!--список сообщений в чатике заказа-->
+                            <ul class="msg-list collection" id="discussion">
+                                @foreach (var message in Model.Messages)
+                                {
+                                    <li>
+                                        @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
+                                    </li>
+                                    @*<!--изначальный вариант сообщений, почти как в вк-->
+                                            <li class="collection-item msg-list ">
+                                            <span class="msg-name">@message.User.FirstName @message.User.LastName</span>
+                                            <span class="msg-time">@message.CreationDateTime.ToShortTimeString()</span>
+                                            <span class="msg-txt">@message.Text</span>
+                                        </li>*@
+                                }
+                            </ul>
+                        </div>
+                        <div class="chat-footer">
+                            <!--отправка сообщения в чат-->
+
+                            <div class="row">
+                                <div class="input-field col s12 ">
+                                    <textarea placeholder="Enter your message here" id="message" type="text" class="materialize-textarea msg-box"></textarea>
+                                    <input type="hidden" id="displayname" value="@User.Identity.Name" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="sendmessage">
+                                        Send
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="join-order" class="modal">
+        @using (Html.BeginForm("Join", "Order", new { @id = "join-modal", @class = "col s12" }))
+        {
+            <div class="modal-content">
+                <h4>Join Order</h4>
+                <input type="text" id="orderId" name="OrderId" value="@Model.Id" class="hide" />
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="first_name">First Name</label>
+                            <input type="text" id="first_name" name="UserFirstName" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="UserLastName" required />
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="text_of_join">Text</label>
+                        <input type="text" id="text_of_join" name="Text" required />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
+                </center>
+            </div>
+        }
+        <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+    </div>
+    <div id="edit-joining" class="modal">
+        <form>
+            <div class="modal-content">
+                <h4>Edit joining text</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="joining_text">Text</label>
+                        <input type="text" id="joining_text" name="Text" required />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button id="edit_join" class="modal-action modal-close waves-effect waves-green btn-flat">Change</button>
+                </center>
+            </div>
+        </form>
+    </div>
+</div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+}
+<script>
+    $(function () {
+        // Reference the auto-generated proxy for the hub.
+        var chat = $.connection.ChatHub;
+        var OrderId = @Model.Id;
+        // Create a function that the hub can call back to display messages.
+        chat.client.addNewMessageToPage = function (name, message) {
+            // Add the message to the page.
+            var time = new Date().toTimeString();
+            var time_el = time.split(":");
+            $('#discussion').append('<li>' + htmlEncode(name)
+                + " (" + time_el[0] + ":" + time_el[1] + '): ' + htmlEncode(message) + '</li>');
+        };
+        // Get the user name and store it to prepend to messages.
+        if ($('#displayname').val() == "") {
+            $('#displayname').val(prompt('Enter your name:', ''));
+        }
+        // Set initial focus to message input box.
+        $('#message').focus();
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            $('#sendmessage').click(function () {
+                // Call the Send method on the hub.
+                chat.server.send($('#displayname').val(), $('#message').val(), OrderId);
+                // Clear text box and reset focus for next comment.
+                $('#message').val('').focus();
+            });
+        });
+    });
+    // This optional function html-encodes messages for display in the page.
+    function htmlEncode(value) {
+        var encodedValue = $('<div />').text(value).html();
+        return encodedValue;
+    }
+</script>

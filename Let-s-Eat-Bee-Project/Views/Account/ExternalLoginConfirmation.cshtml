@@ -1,0 +1,77 @@
+﻿@model Let_s_Eat_Bee_Project.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Registration";
+}
+<div class="block-content">
+    <div class="container">
+        <div id="signup-block">
+            <h4>Success</h4>
+            <h5>Please finish your registration.</h5>
+            <div class="row">
+                @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl },
+
+FormMethod.Post, new { enctype = "multipart/form-data", id = "signup-form" }))
+                {
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="first_name">First Name</label>
+                            @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @id = "first_name" } })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="last_name">Last Name</label>
+                            @Html.EditorFor(m => m.LastName, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @id = "last_name",
+                               @required =
+
+                                   "true"
+                           }
+                       })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="email">E-Mail</label>
+                            @Html.EditorFor(m => m.Email, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @type = "email",
+                               @id = "email",
+
+                               @required = "true"
+                           }
+                       })
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="organization">Organization</label>
+                            @Html.EditorFor(m => m.Organization, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "validate",
+                               @id =
+
+                                   "organization",
+                               @required = "true"
+                           }
+                       })
+                        </div>
+                    </div>
+
+                    <center>
+                        <button type="submit" id="signup" class="waves-effect waves-light btn #4a148c purple darken-3">
+                            Sign
+
+                            up
+                        </button>
+                    </center>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/signupValidation.js"></script>

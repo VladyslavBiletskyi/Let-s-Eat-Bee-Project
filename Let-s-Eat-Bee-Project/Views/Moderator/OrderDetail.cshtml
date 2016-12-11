@@ -1,0 +1,80 @@
+﻿@model Let_s_Eat_Bee_Project.Models.Order
+
+@{
+    ViewBag.Title = "Order Details - Moderator";
+}
+<script type="text/javascript" src="~/Scripts/materialize.js"></script>
+<div id="OrderInfo" class="tab-content">
+    <div class="row">
+        <div class="col s7">
+            <ul class="collection with-header">
+                <li class="collection-header order-view-link grey lighten-4">
+                    <h6>Joinings in this order:</h6>
+                </li>
+                <li>
+                    <ul class="collapsible no-margins no-borders" data-collapsible="accordion">
+                        <!--элементы списка - джоининги-->
+                        @foreach (Let_s_Eat_Bee_Project.Models.Joining joining in Model.Joinings)
+                        {
+                            <li>
+                                <!--в хэдер вставить имя того кто присоединяется-->
+                                <div class="collapsible-header">@joining.User.FirstName @joining.User.LastName</div>
+                                <div class="collapsible-body order-collapsible">
+                                    <!--в Р вставить текст джоининга-->
+                                    <p>@joining.Text</p>
+                                    <!--в id вставить айди джоининга, как в orders/join-->
+                                    <a href="#edit-joining" class="waves-effect waves-light btn-flat" onclick="FetchJoin(@joining.Id)">Edit</a>
+                                    <!--ссылка на удаление джоининга, передать айди-->
+                                    @using (Html.BeginForm("JoiningDelete", "Order", FormMethod.Post, new { @class = "waves-effect waves-light btn-flat no-padding-top" }))
+                                    {
+                                        <input type="hidden" value="@joining.Id" name="Id" />
+                                        <input type="submit" value="Delete" />
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        @using (Html.BeginForm("OrderEdit", "Moderator", FormMethod.Post, new { @class = "col s5" }))
+        {
+            <div class="input-field col s12">
+                <!--в value вставить адрес-->
+                <input value="@Model.Address" id="Address" name="Address" type="text">
+                <label class="active moder-label" for="Address">Address</label>
+            </div>
+            <input type="hidden" name="Id" value="@Model.Id">
+            <div class="input-field col s12">
+                @Html.LabelFor(x => x.CompletionDateTime)<br />
+                @Html.EditorFor(model => model.CompletionDateTime, new { @required = "true" })
+                @Html.ValidationMessageFor(model => model.CompletionDateTime, "", new { @class = "text-danger" })
+            </div>
+            <center>
+                <div class="row">
+                    <input type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" value="Save">
+                    @Html.ActionLink("Delete Order", "Delete", "Order", new { id = Model.Id }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
+                </div>
+            </center>
+        }
+    </div>
+    <!--Чат жы-->
+    <div class="col m9 s12">
+        <div class="chat-panel">
+            <div class="chat-heading">Chat</div>
+            <div class="chat-body">
+                <!--список сообщений в чатике заказа-->
+                <ul class="msg-list collection" id="discussion">
+                    @foreach (var message in Model.Messages)
+                    {
+                        <li>
+                            @message.User.FirstName @message.User.LastName (@message.CreationDateTime.ToShortTimeString()): @message.Text
+                            @Html.ActionLink("Delete", "MessageDelete", "Order", new { id = message.Id }, new { @class = "waves-effect waves-light btn-flat" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

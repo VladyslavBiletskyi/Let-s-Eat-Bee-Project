@@ -1,0 +1,151 @@
+﻿@model List<Let_s_Eat_Bee_Project.Models.Order>
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="block-order">
+    <div class="container">
+        <div id="create-block">
+            <h3>View Orders</h3>
+            <form method="get">
+                <div class="row sort-and-filter">
+                    <div class="col s12 m3">
+                        <div class="input-field col s12"  style="color: purple !important;">
+                            <select id="sort" name="Sorting">
+                                <option value="0">First earlier</option>
+                                <option value="1">First later</option>
+                            </select>
+                         </div>
+                        </div>
+                    <div class="col s12 m7">
+                        <div class="input-field col s6">
+                            <label for="startdate">Show orders from</label>
+                            <input type="text" class="datepicker" id="startdate" name="DateFrom" value="@Request.QueryString["DateFrom"]">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="enddate">To</label>
+                            <input type="text" class="datepicker" id="enddate"  name="DateTo" value="@Request.QueryString["DateTo"]">
+                        </div>
+                    </div>
+                    <div class="col s12 m2">
+                        <div class="input-field" style="padding-top: 8px;">
+                            <button type="submit" class="waves-effect waves-light btn #4a148c purple darken-3" id="confirm_filter">Confirm</button>
+                        </div>
+                    </div>
+                   
+                </div>
+            </form>
+            <!--карточки - в рядах. в каждом ряду максимум 3 карточки-->
+            <div class="row">
+                @{
+                    List<Let_s_Eat_Bee_Project.Models.Order> list = new List<Let_s_Eat_Bee_Project.Models.Order>();
+                    if (Request.QueryString["Sorting"] == "1")
+                    {
+                        list = Model.OrderByDescending(x => x.CompletionDateTime).ToList();
+                    }
+                    else
+                    {
+                        list = Model;
+                    }
+                    if (Request.QueryString["DateFrom"] != null && Request.QueryString["DateFrom"] != "")
+                    {
+                        DateTime date = DateTime.Parse(Request.QueryString["DateFrom"]);
+                        list = list.Where(x => x.CompletionDateTime >= date).ToList();
+                    }
+                    if (Request.QueryString["DateTo"] != null && Request.QueryString["DateTo"] != "")
+                    {
+                        DateTime date = DateTime.Parse(Request.QueryString["DateTo"]);
+                        list = list.Where(x => x.CompletionDateTime < date).ToList();
+                    }
+                    if (list.Count == 0)
+                    {
+                        <p>There are no orders</p>
+                    }
+                    for (int i = (ViewBag.Page - 1) * 6; i < list.Count && i < (ViewBag.Page * 6) - 3; i++)
+                    {
+                    <div class="col s12 m4">
+                        <div class="card #4a148c purple darken-3 order-card">
+                            <div class="card-content white-text">
+                                <span class="card-title">@list[i].CompletionDateTime</span>
+                                <p>Place:@list[i].OrderPlace</p>
+                                <p>Address: @list[i].Address </p>
+                                <p>Description: @list[i].Joinings.First().Text</p>
+                            </div>
+                            <div class="card-action">
+                                @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    }
+            </div>
+            <div class="row">
+                @for (int i = ((ViewBag.Page - 1) * 6) + 3; i < list.Count && i < (ViewBag.Page * 6); i++)
+                {
+                    <div class="col s12 m4">
+                        <div class="card #4a148c purple darken-3">
+                            <div class="card-content white-text">
+                                <span class="card-title">@list[i].CompletionDateTime</span>
+                                <p>Place:@list[i].OrderPlace</p>
+                                <p>Address: @list[i].Address </p>
+                                <p>Description: @list[i].Joinings.First().Text</p>
+                            </div>
+                            <div class="card-action">
+                                @Html.ActionLink("View details", "Detail", "Order", new { @Model[i].Id }, null)
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.Page > 1)
+                {
+                    @Html.ActionLink("Previous page", "Index", "Order", new { page = ViewBag.Page -1 }, null)
+                }
+                @if ((ViewBag.Page * 6) < Model.Count)
+                {
+                    @Html.ActionLink("Next page", "Index", "Order", new { page = ViewBag.Page+1 }, null)
+                }
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="join-order" class="modal">
+                @using (Html.BeginForm("Join", "Order", new { id = Request.QueryString["id"] }))
+                    {
+                 <div class="modal-content">
+                    <h4>Join Order</h4>
+                    @if (!User.Identity.IsAuthenticated)
+                    {                        
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="UserFirstName" required />                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="UserLastName" required />
+                            </div>
+                        </div>
+                    }
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="text_of_join">Text</label>
+                                <input type="text" id="text_of_join" name="Text" required />
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button id="join" class="modal-action modal-close waves-effect waves-green btn-flat">Join</button>
+                    </center>
+                </div>
+                    }
+            </div>
+
+        </div>
+    </div>
+</div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript" src="~/Scripts/validateModal.js"></script>
+}

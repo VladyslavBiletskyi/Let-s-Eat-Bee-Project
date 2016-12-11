@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Welcome";
+}
+        <!--ЦЕНТРАЛЬНЫЙ БЛОК С ПРИВЕТСТВИЕМ-->
+<div class="block-content">
+    <div id="welcome-block">
+        <h3>Welcome to Let`s Eat Bee!</h3>
+        <h5>Make a group to order meals or sign up first.</h5>
+        <br />
+        @Html.ActionLink("Learn More", "About", "Home", new { }, new {@class= "waves-effect waves-light btn #4a148c purple darken-3" })
+        @Html.ActionLink("Join us", "SignUp", "Account", new { }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
+        @Html.ActionLink("Sign In", "SignIn", "Account", new { }, new { @class = "waves-effect waves-light btn #4a148c purple darken-3" })
+    </div>
+</div>
+<!--КОНЕЦ ЦЕНТРАЛЬНОГО БЛОКА С ПРИВЕТСТВИЕМ-->
