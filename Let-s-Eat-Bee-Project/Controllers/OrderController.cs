@@ -52,6 +52,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 string id = User.Identity.GetUserId();
                 IEnumerable<AuthorizedUser> u = db.AllUsers.OfType<AuthorizedUser>();
                 user = u.FirstOrDefault(x => x.AppUserId == id);
+                if (model.IsPrivate)
+                {
+                    order.IsPrivate = true;
+                }
             }
             else
             {
@@ -108,7 +112,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(EditOrder model, int id)
+        public void Edit(EditOrder model, int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -121,9 +125,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Index", "Account");
+            Response.Write("<script>history.go(-1);</script>");
+            //return RedirectToAction("Index", "Account");
         }
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -134,7 +139,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Index", "Account");
+            Response.Write("<script>history.go(-1);</script>");
+            //return RedirectToAction("Index", "Account");
         }
         public ActionResult Detail(int id)
         {
@@ -197,7 +203,7 @@ namespace Let_s_Eat_Bee_Project.Controllers
             return RedirectToAction("Index","Order");   
         }
         [HttpPost]
-        public ActionResult JoiningDelete(int Id)
+        public void JoiningDelete(int Id)
         {
             Joining joining = db.Joinings.Find(Id);
             if (joining != null)
@@ -205,11 +211,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 db.Joinings.Remove(joining);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Account");
+            Response.Write("<script>history.go(-1);</script>");
+            //return RedirectToAction("Index", "Account");
 
         }
         [HttpPost]
-        public ActionResult JoiningEdit(Joining newJoining)
+        public void JoiningEdit(Joining newJoining)
         {
             Joining joining = db.Joinings.Find(newJoining.Id);
             if (joining != null)
@@ -217,9 +224,10 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 joining.Text = newJoining.Text;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Account");
+            Response.Write("<script>history.go(-1);</script>");
+            //return RedirectToAction("Index", "Account");
         }
-        public ActionResult MessageDelete(int Id)
+        public void MessageDelete(int Id)
         {
             Message message = db.Messages.Find(Id);
             if (message != null)
@@ -227,7 +235,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 db.Messages.Remove(message);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Account");
+            Response.Write("<script>history.go(-1);</script>");
+            //return RedirectToAction("Index", "Account");
         }
     }
 }

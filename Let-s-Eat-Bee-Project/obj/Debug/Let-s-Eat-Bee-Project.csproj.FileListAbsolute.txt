@@ -828,3 +828,7 @@ d:\666\ASP\be\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\ru\Microsoft.Owin.
 d:\666\ASP\be\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\obj\Debug\Let-s-Eat-Bee-Project.csprojResolveAssemblyReference.cache
 d:\666\ASP\be\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\obj\Debug\Let-s-Eat-Bee-Project.dll
 d:\666\ASP\be\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\obj\Debug\Let-s-Eat-Bee-Project.pdb
+D:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\ПРОЕКТЫ\Sigma\Let-s-Eat-Bee-Project\Let-s-Eat-Bee-Project\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

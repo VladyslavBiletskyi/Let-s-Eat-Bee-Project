@@ -37,11 +37,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
             return PartialView(user);
         }
         [HttpPost]
-        public ActionResult UserEdit(Let_s_Eat_Bee_Project.Models.AuthorizedUser user)
+        public void UserEdit(Let_s_Eat_Bee_Project.Models.AuthorizedUser user)
         {
             if (user == null)
             {
-                return HttpNotFound();
+                Response.Write("404 NOT FOUND");
+                //return HttpNotFound();
             }
             else
             {
@@ -50,7 +51,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 old.LastName = user.LastName;
                 old.Organization = user.Organization;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Response.Write("<script>history.go(-1);</script>");
+                //return RedirectToAction("Index");
             }
 
         }
@@ -66,11 +68,12 @@ namespace Let_s_Eat_Bee_Project.Controllers
             return PartialView(order);
         }
         [HttpPost]
-        public ActionResult OrderEdit(Let_s_Eat_Bee_Project.Models.Order order)
+        public void OrderEdit(Let_s_Eat_Bee_Project.Models.Order order)
         {
             if (order == null)
             {
-                return HttpNotFound();
+                //return HttpNotFound();
+                Response.Write("404 NOT FOUND");
             }
             else
             {
@@ -78,7 +81,8 @@ namespace Let_s_Eat_Bee_Project.Controllers
                 old.CompletionDateTime = order.CompletionDateTime;
                 old.Address = order.Address;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Response.Write("<script>history.go(-1);</script>");
+                //return RedirectToAction("Index");
             }
 
         }
