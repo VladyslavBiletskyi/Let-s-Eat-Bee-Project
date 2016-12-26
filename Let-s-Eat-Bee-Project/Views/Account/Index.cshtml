@@ -31,7 +31,14 @@
                     <div class="card-action">
                         <div class="row no-margins">
                             <div class="col m4 s12">
-                                @Html.ActionLink("Details", "Detail", "Order", new { myOrders[i].Id }, null)
+                                @if (myOrders[i].IsPrivate)
+                                {
+                                    @Html.ActionLink("Details", "Detail", "Order", new { id=myOrders[i].Id,oid=((Let_s_Eat_Bee_Project.Models.AuthorizedUser)myOrders[i].Creator).AppUserId+myOrders[i].Id }, null)
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Details", "Detail", "Order", new { myOrders[i].Id }, null)
+                                }
                             </div>
                             <div class="col m4 s12">
                                 @Html.ActionLink("Edit", "Edit", "Order", new { id = myOrders[i].Id }, null)
