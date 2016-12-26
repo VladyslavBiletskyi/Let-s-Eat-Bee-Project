@@ -17,7 +17,8 @@
                     @{
                         if (Model.IsPrivate)
                         {
-                            Write("Order is private. Link for order: " + Request.Path + "?oid" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
+                            <br />
+                            Write("Order is private. Link for order: " + Request.Path + "?oid=" + (((Let_s_Eat_Bee_Project.Models.AuthorizedUser)Model.Creator).AppUserId + Model.Id));
                         }
                     }
                 </h4>
